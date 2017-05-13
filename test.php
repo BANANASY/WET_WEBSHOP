@@ -14,5 +14,6 @@ and open the template in the editor.
         // put your code here
         lalalalalala
         ?>
+        Hier entsteht in kürze der BanYo Webshop
     </body>
 </html>
