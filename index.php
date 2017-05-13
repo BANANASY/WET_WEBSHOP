@@ -10,10 +10,6 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <?php
-            function easyGoin(){
-                
-            }
-        ?>
+        <h1>Hier entsteht in kürze der BanYo Webshop</h1>
     </body>
 </html>
