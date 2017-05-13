@@ -10,10 +10,6 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <?php
-        // put your code here
-        lalalalalala
-        ?>
         Hier entsteht in kürze der BanYo Webshop
     </body>
 </html>
