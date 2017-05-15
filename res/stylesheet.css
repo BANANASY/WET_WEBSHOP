@@ -1,0 +1,64 @@
+body  {
+    background-image: url('../pictures/background_bayo.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.container{
+    margin:80px;
+    margin-top:30px;
+    padding:20px;
+    background-color:white;
+    border:1px solid black;
+}
+.div_logo{
+    margin-top:55px;
+}
+
+.navbar{
+    border-radius:0px;
+}
+
+#login-msg{
+    border-right:1.5px solid gray;
+    padding-right:10px;
+}
+
+#signup{
+    margin:15px
+}
+
+#login{
+    margin:15px;
+    margin-right:30px;
+}
+
+.div_login{
+    background-color:#ffffcc;
+    padding:20px;
+}
+
+.div_login h2{
+    margin-bottom:50px;
+    text-align:center;
+}
+
+.div_login img{
+    border:1px solid black;
+}
+
+#div_login_right{
+    float:right;
+}
+
+#div_login_left{
+    padding-right:0px;
+    margin-right:0px;
+}
+
+#div_login_middle{
+    border-right:1px solid black;
+    padding-right:70px;
+    padding-top:300px;
+}
