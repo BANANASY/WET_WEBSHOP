@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+    <visitor>
+        <menuitem>
+            <name>Home</name>
+            <path>#</path>
+        </menuitem>
+        <menuitem>
+            <name>Produkte</name>
+            <path>#</path>
+            <submenuitem>
+                <name>Bananas</name>
+                <path>#</path>
+            </submenuitem>
+            <submenuitem>
+                <name>Yoghurt</name>
+                <path>#</path>
+            </submenuitem>
+            <submenuitem>
+                <name>Kostüme</name>
+                <path>#</path>
+            </submenuitem>
+        </menuitem>
+        <menuitem>
+            <name>Warenkorb</name>
+            <path>#</path>
+        </menuitem>
+    </visitor>
+    
+    <user>
+        <menuitem>
+            <name>Home</name>
+            <path>#</path>
+        </menuitem>
+        <menuitem>
+            <name>Produkte</name>
+            <path>#</path>
+            <submenuitem>
+                <name>Bananas</name>
+                <path>#</path>
+            </submenuitem>
+            <submenuitem>
+                <name>Yoghurt</name>
+                <path>#</path>
+            </submenuitem>
+            <submenuitem>
+                <name>Kostüme</name>
+                <path>#</path>
+            </submenuitem>
+        </menuitem>
+        <menuitem>
+            <name>Mein Konto</name>
+            <path>#</path>
+        </menuitem>      
+        <menuitem>
+            <name>Warenkorb</name>
+            <path>#</path>
+        </menuitem>
+    </user>
+    
+    <admin>
+        <menuitem>
+            <name>Home</name>
+            <path>#</path>
+        </menuitem>
+        <menuitem>
+            <name>Produkte bearbeiten</name>
+            <path>#</path>
+        </menuitem>
+        <menuitem>
+            <name>Kunden bearbeiten</name>
+            <path>#</path>
+        </menuitem>
+        <menuitem>
+            <name>Gutscheine verwalten</name>
+            <path>#</path>
+        </menuitem>
+    </admin>
+</root>
