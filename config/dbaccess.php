@@ -1,9 +1,9 @@
 <?php
 
 class DB {
-    private $host = "mysqlsvr71.world4you.com";
-    private $user = "sql2558943";
-    private $password = "uxevy+j";
+    private $host = "localhost";
+    private $user = "webshop_user";
+    private $password = "wet_123";
     private $dbname = "7048141db1";
     
     public function initConnect(){
@@ -14,5 +14,5 @@ class DB {
     private function connect2DB(){
         $conn = new mysqli($this->host, $this->user, $this->password, $this->dbname);       
         return $conn;
-    }  
-}
+    }
+    }
