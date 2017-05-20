@@ -15,4 +15,10 @@ class DB {
         $conn = new mysqli($this->host, $this->user, $this->password, $this->dbname);       
         return $conn;
     }
+    
+    private function generateTestdata(){
+        $testArr = [];
+        $tables = [];
+        $table_colNames = [];
     }
+}
