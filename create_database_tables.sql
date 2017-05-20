@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `7048141db1` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `7048141db1`;
+
 CREATE table wi15b189_Ort (
 	PLZ 		Integer,
 	Ort 		varchar(32),
