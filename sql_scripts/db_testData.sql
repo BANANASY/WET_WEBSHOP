@@ -1,7 +1,7 @@
 INSERT INTO `user` (`username`, `password`, `role`)
 VALUES ('bananalover69', 'yoghurt', 'user');
 
-INSERT INTO `person` (`anrede`, `vorname`, `nachname`, `email`, `aid`, `active`, `uid`)
+INSERT INTO `person` (`anrede`, `vorname`, `nachname`, `email`, `aid`, `activ`, `uid`)
 VALUES ('Frau', 'Gundelfide', 'Braun', 'gundelfide.braun@bananamail.com', 1, 1, 1);
 
 INSERT INTO `zahlungsinfo` (`zahlungsart`)
