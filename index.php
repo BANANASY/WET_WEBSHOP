@@ -18,6 +18,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="./res/stylesheet.css">
     </head>    
     <body>
+        <p>paragraph alex</p>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
