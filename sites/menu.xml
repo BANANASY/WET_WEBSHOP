@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <root>
-    <user_unknown>
-        
-    </user_unknown>
+    <visitor>
+        <home>Home</home>
+        <produkte>
+            <!--produkte aus db in xml dynamisch laden-->
+            <bananas>Banana</bananas>
+            <yoghurt>Yoghurt</yoghurt>
+            <kostueme>Kostüme</kostueme>
+        </produkte>
+        <warenkorb>Warenkorb</warenkorb>
+    </visitor>
     
     <user>
+        <home></home>
+        <produkte>
+            <!--produkte aus db in xml dynamisch laden-->
+            <bananas>Banana</bananas>
+            <yoghurt>Yoghurt</yoghurt>
+            <kostueme>Kostüme</kostueme>
+        </produkte>
+        <warenkorb>Warenkorb</warenkorb>
+        <warenkorb></warenkorb>
+        <mein_konto></mein_konto>
         
     </user>
     
     <admin>
+        <home></home>
+        <produkte_bearbeiten>Produkte bearbeiten</produkte_bearbeiten>
+        <kunden_bearbeiten>Kunden bearbeiten</kunden_bearbeiten>
+        <gutscheine_verwalten>Gutscheine verwalten</gutscheine_verwalten>
+       
         
     </admin>
 </root>
