@@ -11,19 +11,11 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        //INCLUDE "./config/dbaccess.php";
+        INCLUDE "./config/dbaccess.php";
 
-        $host = "mysqlsvr71.world4you.com";
-        $user = "sql2558943";
-        $password = "uxevy+j";
-        $dbname = "7048141db1";
+        $test = new DB();
 
-        $conn = new mysqli($host, $user, $password, $dbname);
-
-
-        //$test = new DB();
-
-        if ($conn) {
+        if ($test->initConnect()) {
             echo "<br />DB connected";
 
             $stmt = "SELECT * FROM adresse;";
