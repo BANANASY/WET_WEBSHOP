@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 20. Mai 2017 um 18:21
+-- Erstellungszeit: 21. Mai 2017 um 21:42
 -- Server-Version: 10.1.16-MariaDB
 -- PHP-Version: 5.6.24
 
@@ -38,7 +38,9 @@ CREATE TABLE `adresse` (
 --
 
 INSERT INTO `adresse` (`aid`, `strasse`, `plz`, `ort`) VALUES
-(1, 'Heinzgasse 2', '4200', 'Peppidorf');
+(1, 'Heinzgasse 2', '4200', 'Peppidorf'),
+(14, 'Schlumpfstrasse 1', '2301', 'Schlumpfhausen'),
+(13, 'Murderstreet 1', '9999', 'Killingtown');
 
 -- --------------------------------------------------------
 
@@ -189,7 +191,11 @@ CREATE TABLE `person` (
 --
 
 INSERT INTO `person` (`pid`, `anrede`, `vorname`, `nachname`, `email`, `aid`, `activ`, `uid`) VALUES
-(1, 'Frau', 'Gundelfide', 'Braun', 'gundelfide.braun@bananamail.com', 1, 1, 1);
+(1, 'Frau', 'Gundelfide', 'Braun', 'gundelfide.braun@bananamail.com', 1, 1, 1),
+(4, 'Mr', 'Alfred', 'Gans', 'mu@mo', 0, 1, 0),
+(5, 'Mr', 'Frank', 'Franko', 'frank@franko', 0, 1, 0),
+(10, 'Mr', 'Schlaubi', 'Schlumpf', 'schlaubi@schluempfe', 14, 1, 10),
+(9, 'Erwin', 'Jack', 'TheRipper', 'jack@killer', 13, 1, 9);
 
 -- --------------------------------------------------------
 
@@ -248,7 +254,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UID`, `username`, `password`, `role`) VALUES
-(1, 'bananalover69', 'yoghurt', 'user');
+(1, 'bananalover69', 'yoghurt', 'user'),
+(9, 'killerJack', '', 'user'),
+(10, 'schlaubi', '', 'user');
 
 -- --------------------------------------------------------
 
@@ -404,7 +412,7 @@ ALTER TABLE `zahlungsinfo_person`
 -- AUTO_INCREMENT für Tabelle `adresse`
 --
 ALTER TABLE `adresse`
-  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT für Tabelle `bestellungen`
 --
@@ -424,7 +432,7 @@ ALTER TABLE `kategorie`
 -- AUTO_INCREMENT für Tabelle `person`
 --
 ALTER TABLE `person`
-  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT für Tabelle `produkt`
 --
@@ -434,7 +442,7 @@ ALTER TABLE `produkt`
 -- AUTO_INCREMENT für Tabelle `user`
 --
 ALTER TABLE `user`
-  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `UID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT für Tabelle `zahlungsinfo`
 --
