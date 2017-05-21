@@ -1,4 +1,4 @@
-<h2>Mein Konto</h2>
+<h2>6. Mein Konto</h2>
 
 <ol>
     <li>Im Bereich „Mein Konto“ kann der User seine Daten einsehen und

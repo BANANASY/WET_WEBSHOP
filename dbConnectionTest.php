@@ -1,35 +1,26 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
+<a href="index.php">Back</a>
         <?php
-        INCLUDE "./config/dbaccess.php";
+        INCLUDE "./config/DB.php";
 
-        $test = new DB();
+        $conn = new DB();
 
-        if ($test->initConnect()) {
+        if ($conn->connect2DB()) {
             echo "<br />DB connected";
+            $db = $conn->connect2DB();
+            $stmt = "SELECT * FROM gesamt_rechnungen;";
+            $ergebnis = $db->prepare($stmt);
+            $ergebnis->execute();
+            $ergebnis->bind_result($anrede, $vorname, $nachname, $strasse, $plz, $ort, $zahlungsart, $total, $netto, $datum, $bid, $pid);
 
-            $stmt = "SELECT * FROM adresse;";
-            $query = $conn->query($stmt);
-            if ($query) {
-                while ($row = $query->fetch_object()) {
-                    echo $row->ort;
+            if ($ergebnis) {
+                while ($ergebnis->fetch()) {
+                    echo $anrede . $vorname . $nachname . $strasse . $plz . $ort . $zahlungsart . $total . $netto . $datum . $bid . $pid;
                 }
-            } else {
-                echo "Query failed";
             }
+            $ergebnis->close();
+            $db->close();
         } else {
             echo "DB connection failed.";
         }
         ?>
-    </body>
-</html>
+

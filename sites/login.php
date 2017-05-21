@@ -38,7 +38,7 @@ and open the template in the editor.
             <div id="div_login_right_inner">
                 <h4>New Customer ... ?</h4>
                 <p>Click this banana to register!</p>
-                <img id="goRegister" src="./pictures/banana_button.jpg">
+                <a href="?page=8"> <img id="goRegister" src="./pictures/banana_button.jpg"></a>
             </div>            
         </div>
         </div>

@@ -8,11 +8,8 @@
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">BaYo</a>
+                    <a class="navbar-brand" href="?page=0">BaYo</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,7 +17,7 @@
                     <ul class="nav navbar-nav">
                         <?php
                         //get user role from db ++toDo++
-                        $user_role = "visitor";
+                        $user_role = "user";
                         
                         //generate menu according to user
                         $menuItems = new menuItems();
@@ -40,3 +37,4 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+<script type="text/javascript" src="./scripts/navbar.js"></script>

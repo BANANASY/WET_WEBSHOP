@@ -26,12 +26,14 @@ body  {
 }
 
 #signup{
-    margin:15px
+    margin:15px;
+    cursor: pointer;
 }
 
 #login{
     margin:15px;
     margin-right:30px;
+    cursor: pointer;
 }
 
 .div_login{
@@ -62,3 +64,8 @@ body  {
     padding-right:70px;
     padding-top:300px;
 }
+
+#login {
+
+}
+

@@ -38,7 +38,7 @@ and open the template in the editor.
             
             ?>
         </div>
-        <script type="text/javascript" src="./scripts/navbar.js"></script>
+        
         <script type="text/javascript" src="./scripts/events.js"></script>
     </div> <!-- container -->
 </body>

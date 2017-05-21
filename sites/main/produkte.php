@@ -3,8 +3,8 @@
 include 'inc/nav_sec.php';
 ?>
 
-<h2>Welcome to the Banana Yoghurt Shopping experience</h2>
-<p>toDo:</p>
+<h2>We love Banana<br>We love Yoghurt</h2>
+<p>3) Produkte ansehen</p>
 <ol>
     <li>Im Bereich „Produkte“ werden Produkte angezeigt sowie Kategorien.
         Die erste Kategorie wird standardmäßig ausgewählt und es werden die
@@ -27,4 +27,12 @@ include 'inc/nav_sec.php';
         als Liste angezeigt, welche im Warenkorb abgelegt wurden sowie der
         Gesamtpreis aller Produkte. Jedes Produkt kann wieder aus dem
         Warenkorb entfernt oder mehrfach abgelegt (Anzahl erhöhen) werden</li>
+</ol>
+
+<p>4) Produktsuche (mit Continuous Search Filter)</p>
+<ol>
+    <li>Fügen Sie der Produktansicht ein Suchfeld hinzu. Tippt der User
+einen Buchstaben ein, beginnt bereits die Suche:</li>
+    <li>Basierend auf der Eingabe werden Produkte aus der Datenbank
+geholt und die Ergebnisse angezeigt, ohne einen Reload der Seite.</li>
 </ol>

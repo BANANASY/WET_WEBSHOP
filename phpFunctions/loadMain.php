@@ -26,6 +26,15 @@ function loadMain($page) {
         case 7:
             include 'sites/login.php';
             break;
+        case 8:
+            include 'sites/register.php';
+            break;
+        case 9:
+            include 'dbConnectiontest.php';
+            break;
+        case 10:
+            include 'sites/registered.php';
+            break;
         default:
             include 'sites/main/404.php';
     }
