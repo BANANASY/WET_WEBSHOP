@@ -3,7 +3,7 @@
 class menuItems {
 
     private $xmlPath = 'config/menu.xml';
-    private $current;
+//    private $current; ++extraToDo++ implement that current menu gets highlighted
 
     private function getXML($xmlPath) {
         if (simplexml_load_file($xmlPath)) {

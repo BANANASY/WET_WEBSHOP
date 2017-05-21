@@ -20,7 +20,7 @@
                     <ul class="nav navbar-nav">
                         <?php
                         //get user role from db ++toDo++
-                        $user_role = "user";
+                        $user_role = "visitor";
                         
                         //generate menu according to user
                         $menuItems = new menuItems();

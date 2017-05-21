@@ -18,15 +18,25 @@ and open the template in the editor.
         <link rel="stylesheet" href="./res/stylesheet.css">
     </head>    
     <body>
-        <?php 
+        <?php
         include 'inc/nav_main.php';
         ?>
         <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
-        <?php 
-        include 'inc/nav_sec.php';
-        ?>
-        <div class="container">
 
+        <div class="container">
+            <?php
+            include 'phpFunctions/loadMain.php';
+            if (isset($_GET["page"])) {
+                $page = $_GET['page'];
+                loadMain($page);
+            } else {
+                $page = 0;
+                loadMain($page);
+            }
+            
+            
+            
+            ?>
         </div>
         <script type="text/javascript" src="./scripts/navbar.js"></script>
         <script type="text/javascript" src="./scripts/events.js"></script>
