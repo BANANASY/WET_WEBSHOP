@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+    <visitor>
+        <menuitem>
+            <name>Home</name>
+            <path>?page=0</path>
+        </menuitem>
+        <menuitem>
+            <name>Produkte</name>
+            <path>?page=1</path>
+                <submenuitem>
+                    <name>Bananas</name>
+                    <path>?page=1?kat=0</path>
+                </submenuitem>
+                <submenuitem>
+                    <name>Yoghurt</name>
+                    <path>?page=1?kat=1</path>
+                </submenuitem>
+                <submenuitem>
+                    <name>Kostüme</name>
+                    <path>?page=1?kat=2</path>
+                </submenuitem>
+        </menuitem>
+        <menuitem>
+            <name>Warenkorb</name>
+            <path>?page=7</path>
+        </menuitem>
+    </visitor>
+    
+    <user>
+        <menuitem>
+            <name>Home</name>
+            <path>?page=0</path>
+        </menuitem>
+        <menuitem>
+            <name>Produkte</name>
+            <path>?page=1</path>
+                <submenuitem>
+                    <name>Bananas</name>
+                    <path>?page=1?kat=0</path>
+                </submenuitem>
+                <submenuitem>
+                    <name>Yoghurt</name>
+                    <path>?page=1?kat=1</path>
+                </submenuitem>
+                <submenuitem>
+                    <name>Kostüme</name>
+                    <path>?page=1?kat=2</path>
+                </submenuitem>
+        </menuitem>
+        <menuitem>
+            <name>Mein Konto</name>
+            <path>?page=2</path>
+        </menuitem>      
+        <menuitem>
+            <name>Warenkorb</name>
+            <path>?page=3</path>
+        </menuitem>
+    </user>
+    
+    <admin>
+        <menuitem>
+            <name>Home</name>
+            <path>?page=0</path>
+        </menuitem>
+        <menuitem>
+            <name>Produkte bearbeiten</name>
+            <path>?page=4</path>
+        </menuitem>
+        <menuitem>
+            <name>Kunden bearbeiten</name>
+            <path>?page=5</path>
+        </menuitem>
+        <menuitem>
+            <name>Gutscheine verwalten</name>
+            <path>?page=6</path>
+        </menuitem>
+    </admin>
+</root>
