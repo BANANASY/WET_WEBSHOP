@@ -1,8 +1,25 @@
 
 <?php
 include 'inc/nav_sec.php';
+include 'config/DB.php';
+
+$DB = new DB();
+
+// "kat" ist immer empty, warum? Ist im Pfad aus XML was nicht richtig?
+// Alex 22.05.2017
+
+if(empty($_GET['kat'])){
+    echo $_GET['kat'];
+    $DB->getProductsByCategory(1);
+}else{
+    $DB->getProductsByCategory($_GET['kat']);
+}
 ?>
 
+
+
+<hr>
+<hr>
 <h2>We love Banana<br>We love Yoghurt</h2>
 <p>3) Produkte ansehen</p>
 <ol>

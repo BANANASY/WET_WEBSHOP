@@ -103,6 +103,28 @@ class DB {
         }
     }
     
+    public function getProductsByCategory($cat){
+        $db = $this->connect2DB();
+        $statement = "SELECT * FROM produkt WHERE kid = " . $cat;
+        
+        $query = $db->query($statement);
+        
+        if(!$query){
+            echo "Holy Bananoes! There seems to be a problem with the DB!";
+        }else{
+            while($row = $query -> fetch_object()){
+                echo "<div class='productCage'>";
+                    echo "<img src='".$row->bild."'>";
+                    echo "<table>";
+                        echo "<tr><td>Bezeichnung</td><td>".$row->bezeichnung."</td></tr>";
+                        echo "<tr><td>Preis </td><td>€ ".$row->preis."</td></tr>";
+                        echo "<tr><td>Bewertung</td><td>".$row->bewertung."</td></tr>";
+                    echo "</table>";
+                echo "</div>";
+            }
+        }
+    }
+    
     
 
 }

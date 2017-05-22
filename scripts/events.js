@@ -18,5 +18,11 @@ $(document).ready(function() {
         window.location.replace("?page=8");
     });
     
+    // macht alle elemente der klasse ".draggable" draggable, sobald die Seite fertig geladen ist    
+    // in einer sicht selbstaufrufenden funktion:
+    $(function() {
+        $(".draggable").draggable();
+    });
+    
 });
 
