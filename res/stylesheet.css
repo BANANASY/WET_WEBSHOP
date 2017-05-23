@@ -1,8 +1,16 @@
+html{
+    max-width: 100%;
+}      
+
 body  {
     background-image: url('../pictures/background_bayo.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
+    position:absolute;
+    max-width:100%;
+    //overflow:hidden;
+    float:right;
 }
 
 .container{
@@ -19,6 +27,7 @@ body  {
 .content{
     position:relative;
     z-index:2;
+    max-width:100%;
 }
 
 #warenkorb_obj{
