@@ -103,6 +103,17 @@ class DB {
         }
     }
     
+            public function insertToZahlung($zid, $pid) {
+        $db = $this->connect2DB();
+        $query = "INSERT INTO zahlungsinfo_person (zid, pid) 
+                  VALUES ('$zid', '$pid')";
+        if ($db->query($query)) {
+            return true; 
+        } else {
+            return false;
+        }
+    }
+    
     public function getProductsByCategory($cat){
         $db = $this->connect2DB();
         $statement = "SELECT * FROM produkt WHERE kid = " . $cat;

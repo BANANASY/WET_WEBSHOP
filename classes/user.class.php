@@ -32,11 +32,9 @@ class user {
 //  in table zahlungsinfo_person
     private $zid; //als array
 
-    
-
     public function __construct($anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $username, $password1, $password2, $zid) {
         echo "im passwort const";
-        echo $password1." ".$password2;
+        echo $password1 . " " . $password2;
         $this->setAnrede($anrede);
         $this->setVorname($vorname);
         $this->setNachname($nachname);
@@ -93,9 +91,9 @@ class user {
 
     private function setPassword($password1, $password2) {
         echo "im passwort setter";
-        echo $password1." ".$password2;
+        echo $password1 . " " . $password2;
         echo "als nächstes kommt if";
-        if ($password1===$password2){
+        if ($password1 === $password2) {
             $this->password = $password1;
         }
         echo "als nächstes kommt this passwort";
@@ -105,9 +103,9 @@ class user {
     private function setZid($zid) {
         $this->zid = $zid;
     }
-    
+
     //++implement security++
-    public function addToDB(){
+    public function addToDB() {
         $db = new DB();
         $this->aid = $db->insertToAdress($this->strasse, $this->plz, $this->ort);
         echo "adresse added<br>";
@@ -115,9 +113,12 @@ class user {
         echo "user added<br>";
         $this->pid = $db->insertToPerson($this->anrede, $this->vorname, $this->nachname, $this->email, $this->aid, $this->UID);
         echo "person added<br>";
-        
-        return true;
+        $success = $db->insertToZahlung($this->zid, $this->pid);
+        if ($success) {
+            echo "zahlungsinfo added<br>";
         }
+
+        return true;
     }
 
-
+}

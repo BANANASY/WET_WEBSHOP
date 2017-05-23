@@ -20,7 +20,6 @@ if (!empty($_POST)) {
     $username = $_POST['username'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
-    $credit = $_POST['credit'];
     $zid = $_POST['credit'];
     
     $newUser = new user($anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $username, $password1, $password2, $zid);
