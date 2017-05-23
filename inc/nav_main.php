@@ -21,6 +21,7 @@
                         
                         //generate menu according to user
                         $menuItems = new menuItems();
+                        //toDo++ get get page prüfen und mit weitegben
                         $menuItems->mainMenuGenerator($user_role);
                         
                         ?>

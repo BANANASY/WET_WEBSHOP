@@ -12,13 +12,14 @@ class menuItems {
         }
     }
 
-    public function mainMenuGenerator($user_role) {
+    public function mainMenuGenerator($user_role) { //übergeben zusätzlich active menu
 
         $menuXML = $this->getXML($this->xmlPath);
         switch ($user_role) {
             case "user":
 //                echo "loading user";
                 foreach ($menuXML->user->menuitem as $user) {
+                    
                     echo "<li><a href=" . $user->path . ">" . $user->name . "</a></li>";
                 }
                 break;

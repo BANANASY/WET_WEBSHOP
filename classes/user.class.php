@@ -35,6 +35,8 @@ class user {
     
 
     public function __construct($anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $username, $password1, $password2, $zid) {
+        echo "im passwort const";
+        echo $password1." ".$password2;
         $this->setAnrede($anrede);
         $this->setVorname($vorname);
         $this->setNachname($nachname);
@@ -90,9 +92,14 @@ class user {
     }
 
     private function setPassword($password1, $password2) {
-        if ($password1==$password2){
+        echo "im passwort setter";
+        echo $password1." ".$password2;
+        echo "als nächstes kommt if";
+        if ($password1===$password2){
             $this->password = $password1;
         }
+        echo "als nächstes kommt this passwort";
+        echo $this->password;
     }
 
     private function setZid($zid) {

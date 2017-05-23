@@ -87,7 +87,7 @@ class DB {
         $query = "INSERT INTO person (anrede, vorname, nachname, email, aid, uid) 
                   VALUES ('$anrede', '$vorname', '$nachname', '$email', '$aid', '$uid')";
         if ($db->query($query)) {
-            $query = "select pid from person order by pid desc;";
+            $query = "select pid from person order by pid desc;"; //select pid from person order by pid desc limit 1 
             $ergebnis = $db->prepare($query);
             $ergebnis->execute();
             $ergebnis->bind_result($pid);
