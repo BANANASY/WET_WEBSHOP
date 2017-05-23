@@ -9,7 +9,7 @@ body  {
     background-position: center;
     position:absolute;
     max-width:100%;
-    //overflow:hidden;
+    /*overflow:hidden;*/
     float:right;
 }
 
