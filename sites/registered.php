@@ -1,4 +1,5 @@
 <?php
+
 require_once './classes/user.class.php';
 require_once './config/DB.php';
 
@@ -21,18 +22,13 @@ if (!empty($_POST)) {
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
     $zid = $_POST['credit'];
-    
+
     $newUser = new user($anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $username, $password1, $password2, $zid);
-    if($newUser->addToDB()){
+    if ($newUser->addToDB()) {
         echo "User registered successfully. Enjoy your banana shopping experience";
     } else {
         echo "Not registered. Something went wrong. Try again! Good luck next time.";
     }
-    
-    var_dump($_POST);
-    var_dump($newUser);
-    
-    
 } else {
     echo "What the hell are you doing here?";
 }
