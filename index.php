@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -13,9 +10,6 @@ and open the template in the editor.
         <title>BaYo</title>
         <!-- get JQuery -->
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <!-- get Bootstrap -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -30,21 +24,21 @@ and open the template in the editor.
         <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
 
         <div class="container">
-            <div class="content">
             <?php
-                include 'phpFunctions/loadMain.php';
-                if (isset($_GET["page"])) {
-                    $page = $_GET['page'];
-                    loadMain($page);
-                } else {
-                    $page = 0;
-                    loadMain($page);
-                }
+            include 'phpFunctions/loadMain.php';
+            if (isset($_GET["page"])) {
+                $page = $_GET['page'];
+                loadMain($page);
+            } else {
+                $page = 0;
+                loadMain($page);
+            }
+            
+            
+            
             ?>
-            </div>
-
         </div>
-
+        
         <script type="text/javascript" src="./scripts/events.js"></script>
     </div> <!-- container -->
 </body>
