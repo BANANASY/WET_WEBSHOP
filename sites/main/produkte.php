@@ -1,5 +1,6 @@
 
 <?php
+include 'sites/warenkorb_symbol.php';
 include 'inc/nav_sec.php';
 include 'config/DB.php';
 
@@ -8,10 +9,9 @@ $DB = new DB();
 // "kat" ist immer empty, warum? Ist im Pfad aus XML was nicht richtig?
 // Alex 22.05.2017
 
-if(empty($_GET['kat'])){
-    echo $_GET['kat'];
+if (empty($_GET['kat'])) {
     $DB->getProductsByCategory(1);
-}else{
+} else {
     $DB->getProductsByCategory($_GET['kat']);
 }
 ?>
@@ -49,7 +49,7 @@ if(empty($_GET['kat'])){
 <p>4) Produktsuche (mit Continuous Search Filter)</p>
 <ol>
     <li>Fügen Sie der Produktansicht ein Suchfeld hinzu. Tippt der User
-einen Buchstaben ein, beginnt bereits die Suche:</li>
+        einen Buchstaben ein, beginnt bereits die Suche:</li>
     <li>Basierend auf der Eingabe werden Produkte aus der Datenbank
-geholt und die Ergebnisse angezeigt, ohne einen Reload der Seite.</li>
+        geholt und die Ergebnisse angezeigt, ohne einen Reload der Seite.</li>
 </ol>

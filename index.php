@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 ?>
 <!DOCTYPE html>
@@ -31,12 +30,8 @@ and open the template in the editor.
         <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
 
         <div class="container">
-            <div id="warenkorb_obj" class="draggable">
-                <img src="../wet_webshop/pictures/warenkorb_menu.png">
-                <strong><p>0</p></strong>
-            </div>
             <div class="content">
-               <?php
+            <?php
                 include 'phpFunctions/loadMain.php';
                 if (isset($_GET["page"])) {
                     $page = $_GET['page'];
@@ -45,11 +40,11 @@ and open the template in the editor.
                     $page = 0;
                     loadMain($page);
                 }
-                ?>
+            ?>
             </div>
-            
+
         </div>
-        
+
         <script type="text/javascript" src="./scripts/events.js"></script>
     </div> <!-- container -->
 </body>
