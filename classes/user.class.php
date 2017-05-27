@@ -88,9 +88,12 @@ class user {
     }
 
     private function setStrasse($strasse) {
-                $sec = new Securitas();
-        if ($sec->checkEmail($email)) {
+        $sec = new Securitas();
+        if ($sec->checkString255($strasse)) {
         $this->strasse = $strasse;
+         } else {
+            echo "Invalid Strasse";
+        }
     }
 
     private function setPlz($plz) {
