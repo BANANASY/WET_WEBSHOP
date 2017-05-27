@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -21,24 +24,21 @@ and open the template in the editor.
         <?php
         include 'inc/nav_main.php';
         ?>
-        <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
-
-        <div class="container">
+            <div class="content">
             <?php
-            include 'phpFunctions/loadMain.php';
-            if (isset($_GET["page"])) {
-                $page = $_GET['page'];
-                loadMain($page);
-            } else {
-                $page = 0;
-                loadMain($page);
-            }
-            
-            
-            
+                include 'phpFunctions/loadMain.php';
+                if (isset($_GET["page"])) {
+                    $page = $_GET['page'];
+                    loadMain($page);
+                } else {
+                    $page = 0;
+                    loadMain($page);
+                }
             ?>
+            </div>
+
         </div>
-        
+
         <script type="text/javascript" src="./scripts/events.js"></script>
     </div> <!-- container -->
 </body>
