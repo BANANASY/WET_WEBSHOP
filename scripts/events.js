@@ -24,5 +24,15 @@ $(document).ready(function() {
         $(".draggable").draggable();
     });
     
+    $(".productCage").mouseover(function(){
+        $();
+    });
+    
+    // holt eine ProduktId von Image when ein Event abgehandelt wird
+    // für spätere Implementierung für Warenkorb
+    function getIdFromImg (){
+        //$(".productCage).event"
+        $(this).children("#product_id").html()
+    }
 });
 

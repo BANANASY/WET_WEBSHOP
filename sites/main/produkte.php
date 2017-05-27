@@ -9,7 +9,6 @@ $DB = new DB();
 // Alex 22.05.2017
 
 if(empty($_GET['kat'])){
-    echo $_GET['kat'];
     $DB->getProductsByCategory(1);
 }else{
     $DB->getProductsByCategory($_GET['kat']);

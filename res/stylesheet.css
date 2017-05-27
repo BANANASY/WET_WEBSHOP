@@ -40,6 +40,7 @@ body  {
     border-radius: 50%;
     top:-70px;
     right:-80px;
+    cursor: pointer;
 }
 
 #warenkorb_obj img{
@@ -126,6 +127,10 @@ body  {
 .productCage img{
     height:250px;
     width:250px;
+}
+
+.product_secret{
+    //display:none;
 }
 
 /*.productCage:nth-child(2):after{
