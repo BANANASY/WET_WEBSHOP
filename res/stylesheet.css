@@ -63,7 +63,13 @@ body  {
 }
 
 .div_logo{
-    margin-top:55px;
+    margin-top:60px;
+    width: auto;
+    margin-left: 25%;
+    margin-right: 25%;
+    align-content: center;
+    font-family: 'Gloria Hallelujah', cursive;
+
 }
 
 .navbar{

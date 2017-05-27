@@ -45,17 +45,15 @@ class DB {
         $query = "INSERT INTO adresse (strasse, plz, ort) 
                   VALUES ('$strasse', '$plz', '$ort')";
         if ($db->query($query)) {
-            $query = "select aid from adresse order by aid desc;";
+            $query = "select aid from adresse order by aid desc limit 1;";
             $ergebnis = $db->prepare($query);
             $ergebnis->execute();
             $ergebnis->bind_result($aid);
             if ($ergebnis) {
                 while ($ergebnis->fetch()) {
-                    echo $aid;
                     return $aid;
                 }
             }
-//            return true; //++toDo++ ändern in return pid erledigt aber nicht schön
         } else {
             return false;
         }
@@ -66,17 +64,15 @@ class DB {
         $query = "INSERT INTO user (username, password) 
                   VALUES ('$username', '$password')";
         if ($db->query($query)) {
-            $query = "select uid from user order by uid desc;";
+            $query = "select uid from user order by uid desc limit 1;";
             $ergebnis = $db->prepare($query);
             $ergebnis->execute();
             $ergebnis->bind_result($uid);
             if ($ergebnis) {
                 while ($ergebnis->fetch()) {
-                    echo $uid;
                     return $uid;
                 }
             }
-//            return true; //++toDo++ ändern in return pid erledigt aber nicht schön
         } else {
             return false;
         }
@@ -87,17 +83,15 @@ class DB {
         $query = "INSERT INTO person (anrede, vorname, nachname, email, aid, uid) 
                   VALUES ('$anrede', '$vorname', '$nachname', '$email', '$aid', '$uid')";
         if ($db->query($query)) {
-            $query = "select pid from person order by pid desc;"; //select pid from person order by pid desc limit 1 
+            $query = "select pid from person order by pid desc limit 1;";
             $ergebnis = $db->prepare($query);
             $ergebnis->execute();
             $ergebnis->bind_result($pid);
             if ($ergebnis) {
                 while ($ergebnis->fetch()) {
-                    echo $pid;
                     return $pid;
                 }
             }
-//            return true; //++toDo++ ändern in return pid erledigt aber nicht schön
         } else {
             return false;
         }
@@ -121,7 +115,7 @@ class DB {
         $query = $db->query($statement);
         
         if(!$query){
-            echo "Holy Bananoes! There seems to be a problem with the DB!";
+            oh_shit();
         }else{
             while($row = $query -> fetch_object()){
                 echo "<div class='productCage'>";
@@ -135,6 +129,10 @@ class DB {
                 echo "</div>";
             }
         }
+    }
+    
+    private function oh_shit(){
+        echo "Holy Bananoes! There seems to be a problem with the DB!";
     }
     
     

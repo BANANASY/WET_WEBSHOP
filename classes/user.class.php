@@ -1,5 +1,6 @@
 <?php
 
+include "classes/securitas.class.php";
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -33,8 +34,6 @@ class user {
     private $zid; //als array
 
     public function __construct($anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $username, $password1, $password2, $zid) {
-        echo "im passwort const";
-        echo $password1 . " " . $password2;
         $this->setAnrede($anrede);
         $this->setVorname($vorname);
         $this->setNachname($nachname);
@@ -48,7 +47,7 @@ class user {
     }
 
     private function setAnrede($anrede) {
-        if (is_numeric($anrede)) {
+        if (isset($anrede) && (is_numeric($anrede))) {
             switch ($anrede) {
                 case 1:
                     $this->anrede = "Mr";
@@ -62,19 +61,39 @@ class user {
     }
 
     private function setVorname($vorname) {
-        $this->vorname = $vorname;
+        $sec = new Securitas();
+        if ($sec->checkString50($vorname)) {
+            $this->vorname = $vorname;
+        } else {
+            echo "Invalid Vorname";
+        }
     }
 
     private function setNachname($nachname) {
-        $this->nachname = $nachname;
+        $sec = new Securitas();
+        if ($sec->checkString50($nachname)) {
+            $this->nachname = $nachname;
+        } else {
+            echo "Invalid Nachname";
+        }
     }
 
     private function setEmail($email) {
-        $this->email = $email;
+        $sec = new Securitas();
+        if ($sec->checkEmail($email)) {
+            $this->email = $email;
+        } else {
+            echo "Invalid email";
+        }
     }
 
     private function setStrasse($strasse) {
+        $sec = new Securitas();
+        if ($sec->checkString255($strasse)) {
         $this->strasse = $strasse;
+         } else {
+            echo "Invalid Strasse";
+        }
     }
 
     private function setPlz($plz) {
@@ -90,14 +109,9 @@ class user {
     }
 
     private function setPassword($password1, $password2) {
-        echo "im passwort setter";
-        echo $password1 . " " . $password2;
-        echo "als nächstes kommt if";
         if ($password1 === $password2) {
             $this->password = $password1;
         }
-        echo "als nächstes kommt this passwort";
-        echo $this->password;
     }
 
     private function setZid($zid) {
@@ -117,7 +131,6 @@ class user {
         if ($success) {
             echo "zahlungsinfo added<br>";
         }
-
         return true;
     }
 
