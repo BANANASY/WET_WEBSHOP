@@ -13,8 +13,16 @@
  */
 class securitas {
 
+    public function checkString16($toCheck) {
+        if (is_string($toCheck) && strlen($toCheck) > 0 && strlen($toCheck) <= 16 && ctype_alnum($toCheck)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function checkString50($toCheck) {
-        if (is_string($toCheck) && strlen($toCheck) > 0 && strlen($toCheck) <= 50) {
+        if (is_string($toCheck) && strlen($toCheck) > 0 && strlen($toCheck) <= 50 && ctype_alnum($toCheck)) {
             return true;
         } else {
             return false;
@@ -22,7 +30,7 @@ class securitas {
     }
 
     public function checkString255($toCheck) {
-        if (is_string($toCheck) && strlen($toCheck) > 0 && strlen($toCheck) <= 255) {
+        if (is_string($toCheck) && strlen($toCheck) > 0 && strlen($toCheck) <= 255 && ctype_alnum($toCheck)) {
             return true;
         } else {
             return false;
@@ -30,7 +38,23 @@ class securitas {
     }
 
     public function checkEmail($toCheck) {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($toCheck, FILTER_VALIDATE_EMAIL)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkNumeric($toCheck, $min, $max) {
+        if (isset($toCheck) && is_numeric($toCheck) && $toCheck >= $min && $toCheck <= $max) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkPassword($toCheck) {
+        if (!empty($toCheck) && ctype_alnum($toCheck) && 7 < strlen($toCheck) && 17 > strlen($toCheck)) {
             return true;
         } else {
             return false;
