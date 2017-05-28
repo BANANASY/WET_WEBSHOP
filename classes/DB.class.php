@@ -132,20 +132,19 @@ class DB {
     public function getProductsByCategory($cat) {
         $db = $this->connect2DB();
         $statement = "SELECT * FROM produkt WHERE kid = " . $cat;
-
         $query = $db->query($statement);
-
         if (!$query) {
             oh_shit();
         } else {
             while ($row = $query->fetch_object()) {
                 echo "<div class='productCage'>";
-                echo "<img src='" . $row->bild . "'>";
-                echo "<table>";
-                echo "<tr><td>Bezeichnung</td><td>" . $row->bezeichnung . "</td></tr>";
-                echo "<tr><td>Preis </td><td>€ " . $row->preis . "</td></tr>";
-                echo "<tr><td>Bewertung</td><td>" . $row->bewertung . "</td></tr>";
-                echo "</table>";
+                    echo "<img class='product_img' id='img_". $row->produktid ."' src='".$row->bild."'>";
+                    echo "<p class='product_secret' id='product_id'>".$row->produktid."</p>";
+                    echo "<table class='product_secret'>";
+                        echo "<tr><td id='desc_". $row->produktid ."'>".$row->bezeichnung."</td></tr>";
+                        echo "<tr><td id='price_". $row->produktid ."'>€ ".$row->preis."</td></tr>";
+                        echo "<tr><td id='rating_". $row->produktid ."'>".$row->bewertung."</td></tr>";
+                    echo "</table>";
                 echo "</div>";
             }
         }

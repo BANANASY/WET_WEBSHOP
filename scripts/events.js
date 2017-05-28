@@ -53,4 +53,3 @@ $(document).ready(function () {
         $(this).children("#product_id").html()
     }
 });
-
