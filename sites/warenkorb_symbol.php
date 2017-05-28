@@ -6,8 +6,10 @@
         <p id="minion_text"></p>
     </div>
     <div id="warenkorb_hangingSign_div">
-        <img id="warenkorb_hangingSign" src="">
-        <p id="warenkorb_hangingSign_price">Preis</p>
-        <p id="warenkorb_hangingSign_rating"></p>
+        <img id="warenkorb_hangingSign" src="../wet_webshop/pictures/haengendes-schild.png">
+        <div id="warenkorb_hangingSign_txtdiv">
+            <p id="warenkorb_hangingSign_price">Preis</p>
+            <p id="warenkorb_hangingSign_rating">Rating</p>
+        </div>
     </div>
 </div>

@@ -87,6 +87,38 @@ body  {
     //z-index:98;
 }
 
+#warenkorb_obj #warenkorb_hangingSign_div{
+    position:relative;
+    z-index:-1;
+    bottom:350px;
+    left:10px;
+}
+
+#warenkorb_obj #warenkorb_hangingSign{
+    height:90%;
+    width:90%;
+    position:relative;
+}
+
+#warenkorb_obj #warenkorb_hangingSign_txtdiv{
+    
+}
+
+#warenkorb_obj p{
+    position:relative;
+    //z-index:99;
+    font-size:14px;
+    color:black;
+    margin:0;
+}
+
+#warenkorb_obj #warenkorb_hangingSign_price{
+    
+}
+
+#warenkorb_obj #warenkorb_hangingSign_rating{
+    
+}
 #warenkorb_obj #warenkorb_count{
     position:relative;
     bottom:150px;
