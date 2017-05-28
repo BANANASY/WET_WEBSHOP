@@ -29,7 +29,10 @@ class securitas {
         }
     }
 
-    public function checkString255($toCheck) {
+    public function checkString255($toCheck, $useWhite) {
+        if ($useWhite) {
+            $toCheck = str_replace(' ', '', $toCheck);
+        }
         if (is_string($toCheck) && strlen($toCheck) > 0 && strlen($toCheck) <= 255 && ctype_alnum($toCheck)) {
             return true;
         } else {

@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <div class="col-md-12 div_login">
+<?php
+
+    include "class/db.class.php";
+    
+
+?>
+
+<div class="col-md-12 div_login">
         <div class="col-md-5 div_login" id="div_login_left">
             
             <form action="" method="post">
@@ -42,5 +37,5 @@ and open the template in the editor.
             </div>            
         </div>
         </div>
-    </body>
-</html>
+
+

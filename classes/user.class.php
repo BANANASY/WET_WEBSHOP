@@ -98,7 +98,7 @@ class user {
 
     private function setStrasse($strasse) {
         $sec = new Securitas();
-        if ($sec->checkString255($strasse)) {
+        if ($sec->checkString255($strasse, true)) {
             $this->strasse = $strasse;
         } else {
             $this->allgood = false;
@@ -118,7 +118,7 @@ class user {
 
     private function setOrt($ort) {
         $sec = new Securitas();
-        if ($sec->checkString255($ort)) {
+        if ($sec->checkString255($ort, false)) {
             $this->ort = $ort;
         } else {
             $this->allgood = false;
@@ -146,7 +146,8 @@ class user {
         $sec = new Securitas();
         if ($password1 === $password2) {
             if ($sec->checkPassword($password1)) {
-                $this->password = $password1;
+                $hash = hash("sha256", $password1);
+                $this->password = $hash;
             } else {
                 $this->allgood = false;
                 echo "Invalid Password. Didn't match criteria. Alphanumeric, min 8, max 16.<br>";
