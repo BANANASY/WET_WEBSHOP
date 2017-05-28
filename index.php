@@ -1,5 +1,11 @@
 <?php
 session_start();
+if (!empty($_COOKIE["bananaCremeChoclate"])) {
+    $role = $_COOKIE["bananaCremeChoclate"];
+    if ($role = "user") {
+        $_SESSION['role'] = $role;
+    }
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -32,7 +38,7 @@ and open the template in the editor.
 
         <div class="container" id="container_content">
             <div class="content">
-            <?php
+                <?php
                 include 'phpFunctions/loadMain.php';
                 if (isset($_GET["page"])) {
                     $page = $_GET['page'];
@@ -41,7 +47,7 @@ and open the template in the editor.
                     $page = 0;
                     loadMain($page);
                 }
-            ?>
+                ?>
             </div>
 
         </div>

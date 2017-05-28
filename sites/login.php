@@ -3,18 +3,27 @@ require_once "./classes/securitas.class.php";
 
 
 if (!empty($_POST["username"])) {
-    echo "<p class='bg-info'>I'm here.</p>";
     $sec = new securitas();
     if ($sec->checkString16($_POST["username"])) {
         $username = $_POST["username"];
         if ($sec->checkPassword($_POST["password"])) {
             $password = $_POST["password"];
             if ($sec->checkLogin($username, $password)) {
+                $role = $sec->getRole($username);
+                $_SESSION['role'] = $role;
+                if(!empty($_POST["cookie"])){
+                    setcookie("bananaCremeChoclate",$role,time()+3600);
+                }
+                if ($role == "user") {
+                    header('Location: ?page=1');
+                } elseif ($role == "admin") {                
+                    echo "<p class='bg-info'>I'm here, lad.</p>";
+                    header('Location: ?page=4');
+                }
                 echo "<p class='bg-success'>Welcome young Bananjero. You are logged in.</p>";
-                //write to session
-                //weiterleiten zu produkten
-//            if set $_POST["cookie"]
-//            cookie setzen
+            } else {
+                echo "<p class='bg-danger'>Nope Sir. No such user registered around here.<br>"
+                . "Try retyping your password or register with our fun register formula <a href='?page=8'?>here</a></p>";
             }
         } else {
             echo "<p class='bg-danger'>Password missmatch. Enter a valid password between 8 and 16 characters wide. Alphanumeric.</p>";
@@ -40,7 +49,7 @@ if (!empty($_POST["username"])) {
             </div>
             <div class="checkbox">
                 <label>
-                    <input name="cookie" type="checkbox" value="Remember me">
+                    <input name="cookie" type="checkbox" value="Remember me">Remember me
                 </label>
             </div>
             <button type="submit" class="btn btn-default">Login</button>

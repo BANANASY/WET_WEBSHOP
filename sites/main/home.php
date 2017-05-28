@@ -1,4 +1,16 @@
+<?php
+
+
+?>
+
 <h2>Welcome to Banana Yoghurt Land</h2>
+<p class='bg-success'>Admin user: admin<br>Password: bananaadmin<br>
+<?php
+include "classes/securitas.class.php";
+$password = "bananaadmin";
+$hash = hash("sha256", $password);
+echo "hashcode: ".$hash;
+?></p>
 <a href="dbConnectiontest.php?page=9">db tester</a>
 <p>1) Users-Registrierung</p>
 <ol>
@@ -62,12 +74,3 @@
         angezeigt.</li>
 </ol>
 
-<?php
-include "classes/securitas.class.php";
-$string = "Meine Strasse 1";
-$sec = new securitas();
-if ($sec->checkString255($string, false)){
-    echo "passt";
-}
-
-?>

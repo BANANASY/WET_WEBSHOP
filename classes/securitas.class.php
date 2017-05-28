@@ -69,11 +69,19 @@ class securitas {
         $db = new DB();
         if($db->checkIfUserExists($username)){
             $hash = hash("sha256", $password);
-            if($db->userLogin($userName, $hash)){
+            if($db->userLogin($username, $hash)){
                 return true;
             }
         }
         return false;
+    }
+    
+    public function getRole($username){
+        $db = new DB();
+        if($db->checkIfUserExists($username)){
+            return $role = $db->getRole($username);
+        }
+        return "visitor";
     }
 
 }
