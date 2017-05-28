@@ -13,7 +13,7 @@ body  {
     float:right;
 }
 
-.container{
+#container_content{
     margin:80px;
     margin-top:30px;
     margin-bottom:30px;
@@ -48,7 +48,7 @@ body  {
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    top:-70px;
+    top:60px;
     right:-80px;
     cursor: pointer;
 }
@@ -89,8 +89,8 @@ body  {
 
 #warenkorb_obj #warenkorb_hangingSign_div{
     position:relative;
-    z-index:-1;
-    bottom:350px;
+    z-index:-2;
+    bottom:470px;
     left:10px;
 }
 
@@ -101,10 +101,12 @@ body  {
 }
 
 #warenkorb_obj #warenkorb_hangingSign_txtdiv{
-    
+    position:relative;
+    bottom:65px;
+    left:40px;
 }
 
-#warenkorb_obj p{
+#warenkorb_obj #warenkorb_hangingSign_txtdiv td{
     position:relative;
     //z-index:99;
     font-size:14px;
@@ -127,6 +129,10 @@ body  {
     transform: rotate(25deg);
     font-size:100px;
     color:#ffffcc;
+}
+
+.table_data{
+    padding-left:50px;
 }
 
 .div_logo{
@@ -188,6 +194,9 @@ body  {
     padding-top:300px;
 }
 
+.productContent{
+    text-align:center;
+}
 .productCage{
     height:300px;
     width:280px;
@@ -201,11 +210,14 @@ body  {
     height:250px;
     width:250px;
     position:relative;
-    z-index:-2
+    z-index:-5;
+    border:5px solid black; /*  */
+    border-radius:25px;
+    cursor:pointer;
 }
 
 .product_secret{
-    //display:none;
+    display:none;
 }
 
 /*.productCage:nth-child(2):after{
@@ -218,7 +230,7 @@ img {
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
-    user-select: none;
+    -user-select: none;
 }
 
 #login {

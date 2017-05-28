@@ -136,6 +136,7 @@ class DB {
         if (!$query) {
             oh_shit();
         } else {
+            echo "<div class='productContent'>";
             while ($row = $query->fetch_object()) {
                 echo "<div class='productCage'>";
                     echo "<img class='product_img' id='img_". $row->produktid ."' src='".$row->bild."'>";
@@ -147,6 +148,7 @@ class DB {
                     echo "</table>";
                 echo "</div>";
             }
+            echo "</div>";
         }
     }
 

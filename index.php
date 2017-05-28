@@ -30,7 +30,7 @@ and open the template in the editor.
         ?>
         <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
 
-        <div class="container">
+        <div class="container" id="container_content">
             <div class="content">
             <?php
                 include 'phpFunctions/loadMain.php';

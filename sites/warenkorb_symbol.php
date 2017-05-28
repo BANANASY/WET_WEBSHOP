@@ -8,8 +8,10 @@
     <div id="warenkorb_hangingSign_div">
         <img id="warenkorb_hangingSign" src="../wet_webshop/pictures/haengendes-schild.png">
         <div id="warenkorb_hangingSign_txtdiv">
-            <p id="warenkorb_hangingSign_price">Preis</p>
-            <p id="warenkorb_hangingSign_rating">Rating</p>
+            <table>
+                <tr><td>Price:</td><td class="table_data" id="warenkorb_hangingSign_price"></td></tr>
+                <tr><td>Rating:</td><td class="table_data" id="warenkorb_hangingSign_rating"></td></tr>
+            </table>
         </div>
     </div>
 </div>
