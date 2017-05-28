@@ -21,44 +21,79 @@ body  {
     background-color:white;
     border:1px solid black;
     position:absolute;
-    z-index:1;
+    z-index:-999;
 }
 
 .content{
     position:relative;
-    z-index:2;
+    z-index:-6;
     max-width:100%;
+}
+
+#nav_sec{
+    z-index:-5;
+    position:relative;
+}
+
+.div_nav{
+    position:relative;
+    z-index:-10
 }
 
 #warenkorb_obj{
     position:absolute;
-    z-index:99;
+    //z-index:5;
     border:1px solid black;
     background:#ecec00;
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
     top:-70px;
     right:-80px;
     cursor: pointer;
 }
 
-#warenkorb_obj img{
+#warenkorb_obj #warenkorb_img_main{
     position:relative;
     top:30px;
     left:20px;
-    width:100px;
-    height:150px;
-    z-index:1;
+    width:150px;
+    height:200px;
+    z-index:105;
 }
 
-#warenkorb_obj p{
+#warenkorb_obj #warenkorb_minion_div{
     position:relative;
-    bottom:90px;
-    left:110px;
-    z-index:9999;
+    z-index:-1;
+    bottom:350px;
+    left:10px;
+}
+
+#warenkorb_obj #minion_text {
+    position:relative;
+    bottom:128px;
+    left:20px;
+    //z-index:99;
+    transform: rotate(-17deg);
+    font-size:20px;
+    color:#ffffcc;
+}
+
+#warenkorb_obj #warenkorb_minion{
+    //display:none;  
+    height:80%;
+    width:80%;
+    position:relative;
+    //z-index:98;
+}
+
+#warenkorb_obj #warenkorb_count{
+    position:relative;
+    bottom:150px;
+    left:140px;
+    z-index:104;
     transform: rotate(25deg);
-    font-size:60px;
+    font-size:100px;
     color:#ffffcc;
 }
 
@@ -133,6 +168,8 @@ body  {
 .productCage img{
     height:250px;
     width:250px;
+    position:relative;
+    z-index:-2
 }
 
 .product_secret{
@@ -143,6 +180,14 @@ body  {
     content: "\A"; 
     white-space: pre;
 }*/
+
+img {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
 
 #login {
 

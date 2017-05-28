@@ -24,8 +24,23 @@ $(document).ready(function() {
         $(".draggable").draggable();
     });
     
-    $(".productCage").mouseover(function(){
-        $();
+    $(".productCage").click(function(){
+        $("#warenkorb_minion_div").stop();
+        $("#warenkorb_minion_div").css({
+            bottom:"350px",
+            left:"10px"
+        });
+        
+        $("#minion_text").html("");
+        
+        var id = $(this).find("#product_id").html();
+        var desc = $(this).find("#desc_"+id).html();
+        $("#minion_text").html(desc);
+        
+        $("#warenkorb_minion_div").animate({
+            bottom: "490px",
+            left: "-110px"
+        }, 600);
     });
     
     // holt eine ProduktId von Image when ein Event abgehandelt wird
