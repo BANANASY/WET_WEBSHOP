@@ -17,8 +17,22 @@ class DB {
         return $conn;
     }
 
-    public function userLogin($userName, $userPasswort) {
-        //++implemennt++
+    public function userLogin($username, $hash) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("SELECT count(username) FROM user WHERE username= ? and password= ?")) {
+            $ergebnis->bind_param("ss", $username, $hash);
+            $ergebnis->execute();
+            $ergebnis->bind_result($matches);
+            $ergebnis->fetch();
+            if ($matches > 0) {
+                $match = true;
+            } else {
+                $match = false;
+            }
+            $ergebnis->close();
+        }
+        $db->close();
+        return $match;
     }
 
     public function checkIfUserExists($username) {
@@ -28,13 +42,10 @@ class DB {
             $ergebnis->execute();
             $ergebnis->bind_result($numUserNames);
             $ergebnis->fetch();
-            if($numUserNames>0){
+            if ($numUserNames > 0) {
                 $exists = true;
             } else {
                 $exists = false;
-                if (!$exists){
-                }
-
             }
             $ergebnis->close();
         }

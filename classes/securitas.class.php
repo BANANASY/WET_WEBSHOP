@@ -1,5 +1,6 @@
 <?php
 
+require_once './classes/DB.class.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -62,6 +63,17 @@ class securitas {
         } else {
             return false;
         }
+    }
+
+    public function checkLogin($username, $password) {
+        $db = new DB();
+        if($db->checkIfUserExists($username)){
+            $hash = hash("sha256", $password);
+            if($db->userLogin($userName, $hash)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
