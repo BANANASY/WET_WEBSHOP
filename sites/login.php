@@ -1,8 +1,9 @@
 <?php
 require_once "./classes/securitas.class.php";
 
-echo "<p class='bg-info'>I'm here.</p>";
+
 if (!empty($_POST["username"])) {
+    echo "<p class='bg-info'>I'm here.</p>";
     $sec = new securitas();
     if ($sec->checkString16($_POST["username"])) {
         $username = $_POST["username"];
@@ -15,12 +16,12 @@ if (!empty($_POST["username"])) {
 //            if set $_POST["cookie"]
 //            cookie setzen
             }
+        } else {
+            echo "<p class='bg-danger'>Password missmatch. Enter a valid password between 8 and 16 characters wide. Alphanumeric.</p>";
         }
     } else {
-        echo "<p class='bg-danger'>Password missmatch. Enter a valid password between 8 and 16 characters wide. Alphanumeric.</p>";
+        echo "<p class='bg-danger'>Username missmatch. Enter a valid username.</p>";
     }
-} else {
-    echo "<p class='bg-danger'>Username missmatch. Enter a valid username.</p>";
 }
 ?>
 
