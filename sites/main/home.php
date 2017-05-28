@@ -63,12 +63,11 @@
 </ol>
 
 <?php
+include "classes/securitas.class.php";
+$string = "Meine Strasse 1";
+$sec = new securitas();
+if ($sec->checkString255($string, false)){
+    echo "passt";
+}
 
-    include 'config/DB.php';
-    $DB = new DB();
-    $hans = "lalal";
-    if ($DB->checkIfUserExists($hans)){
-        echo true;
-    }
-    else echo "false";
 ?>

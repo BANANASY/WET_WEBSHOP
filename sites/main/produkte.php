@@ -2,7 +2,7 @@
 <?php
 include 'sites/warenkorb_symbol.php';
 include 'inc/nav_sec.php';
-include 'config/DB.php';
+include 'classes/DB.class.php';
 
 $DB = new DB();
 

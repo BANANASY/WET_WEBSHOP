@@ -1,6 +1,6 @@
 <a href="index.php">Back</a>
         <?php
-        INCLUDE "./config/DB.php";
+        INCLUDE "./classes/DB.class.php";
 
         $conn = new DB();
 

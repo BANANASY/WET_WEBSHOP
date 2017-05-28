@@ -1,7 +1,7 @@
 <?php
 
 require_once './classes/user.class.php';
-require_once './config/DB.php';
+require_once './classes/DB.class.php';
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,5 +30,5 @@ if (!empty($_POST)) {
         echo "Not registered. Something went wrong. Try again! Good luck next time.";
     }
 } else {
-    echo "What the hell are you doing here?";
+    echo "Holy Bananoes!? What the hell are you doing here?";
 }
