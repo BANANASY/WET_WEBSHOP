@@ -32,6 +32,8 @@ class user {
     private $role;
 //  in table zahlungsinfo_person
     private $zid; //als array
+//  allgood
+    private $allgood = true;
 
     public function __construct($anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $username, $password1, $password2, $zid) {
         $this->setAnrede($anrede);
@@ -40,14 +42,15 @@ class user {
         $this->setEmail($email);
         $this->setStrasse($strasse);
         $this->setPlz($plz);
-        $this->ort = $ort;
-        $this->username = $username;
+        $this->setOrt($ort);
+        $this->setUsername($username);
         $this->setPassword($password1, $password2);
         $this->setZid($zid);
     }
 
     private function setAnrede($anrede) {
-        if (isset($anrede) && (is_numeric($anrede))) {
+        $sec = new Securitas();
+        if ($sec->checkNumeric($anrede, 1, 3)) {
             switch ($anrede) {
                 case 1:
                     $this->anrede = "Mr";
@@ -57,6 +60,9 @@ class user {
                 case 3:
                     $this->anrede = "Erwin";
             }
+        } else {
+            $this->allgood = false;
+            echo "Invalid Anrede. Don't fuck around with our code plz.<br>";
         }
     }
 
@@ -65,7 +71,8 @@ class user {
         if ($sec->checkString50($vorname)) {
             $this->vorname = $vorname;
         } else {
-            echo "Invalid Vorname";
+            $this->allgood = false;
+            echo "Invalid Vorname. Vorname must be below 50 charcters.<br>";
         }
     }
 
@@ -74,7 +81,8 @@ class user {
         if ($sec->checkString50($nachname)) {
             $this->nachname = $nachname;
         } else {
-            echo "Invalid Nachname";
+            $this->allgood = false;
+            echo "Invalid Nachname. Nachname must be below 50 characters.<br>";
         }
     }
 
@@ -83,55 +91,100 @@ class user {
         if ($sec->checkEmail($email)) {
             $this->email = $email;
         } else {
-            echo "Invalid email";
+            $this->allgood = false;
+            echo "Invalid Email. Enter a valid Email.<br>";
         }
     }
 
     private function setStrasse($strasse) {
         $sec = new Securitas();
         if ($sec->checkString255($strasse)) {
-        $this->strasse = $strasse;
-         } else {
-            echo "Invalid Strasse";
+            $this->strasse = $strasse;
+        } else {
+            $this->allgood = false;
+            echo "Invalid Strasse. Strasse must be max 255 characters wide.<br>";
         }
     }
 
     private function setPlz($plz) {
-        $this->plz = $plz;
+        $sec = new Securitas();
+        if ($sec->checkNumeric($plz, 1000, 10000)) {
+            $this->plz = $plz;
+        } else {
+            $this->allgood = false;
+            echo "Invalid PLZ. PLZ must be between 1000 and 10000.<br>";
+        }
     }
 
     private function setOrt($ort) {
-        $this->ort = $ort;
+        $sec = new Securitas();
+        if ($sec->checkString255($ort)) {
+            $this->ort = $ort;
+        } else {
+            $this->allgood = false;
+            echo "Invalid Ort. Ort must be max 255 characters wide.<br>";
+        }
     }
 
     private function setUsername($username) {
-        $this->username = $username;
+        $sec = new Securitas();
+        if ($sec->checkString16($username)) {
+            $db = new DB();
+            if (!$db->checkIfUserExists($username)) {
+                $this->username = $username;
+            } else {
+                $this->allgood = false;
+                echo "Invalid Username. Username must be unique.<br>";
+            }
+        } else {
+            $this->allgood = false;
+            echo "Invalid Username. Username must be max 16 characters wide.<br>";
+        }
     }
 
     private function setPassword($password1, $password2) {
+        $sec = new Securitas();
         if ($password1 === $password2) {
-            $this->password = $password1;
+            if ($sec->checkPassword($password1)) {
+                $this->password = $password1;
+            } else {
+                $this->allgood = false;
+                echo "Invalid Password. Didn't match criteria. Alphanumeric, min 8, max 16.<br>";
+            }
+        } else {
+            $this->allgood = false;
+            echo "Invalid Password. No match.<br>";
         }
     }
 
     private function setZid($zid) {
-        $this->zid = $zid;
+        $sec = new Securitas();
+        if ($sec->checkNumeric($zid, 0, 2)) {
+            $this->zid = $zid;
+        } else {
+            $this->allgood = false;
+            echo "Invalid Zahlungsmethode. Don't fuck around with our code plz.<br>";
+        }
     }
 
     //++implement security++
     public function addToDB() {
-        $db = new DB();
-        $this->aid = $db->insertToAdress($this->strasse, $this->plz, $this->ort);
-        echo "adresse added<br>";
-        $this->UID = $db->insertToUser($this->username, $this->password);
-        echo "user added<br>";
-        $this->pid = $db->insertToPerson($this->anrede, $this->vorname, $this->nachname, $this->email, $this->aid, $this->UID);
-        echo "person added<br>";
-        $success = $db->insertToZahlung($this->zid, $this->pid);
-        if ($success) {
-            echo "zahlungsinfo added<br>";
+        if ($this->allgood) {
+            $db = new DB();
+            $this->aid = $db->insertToAdress($this->strasse, $this->plz, $this->ort);
+            echo "adresse added<br>";
+            $this->UID = $db->insertToUser($this->username, $this->password);
+            echo "user added<br>";
+            $this->pid = $db->insertToPerson($this->anrede, $this->vorname, $this->nachname, $this->email, $this->aid, $this->UID);
+            echo "person added<br>";
+            $success = $db->insertToZahlung($this->zid, $this->pid);
+            if ($success) {
+                echo "zahlungsinfo added<br>";
+            }
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
 }

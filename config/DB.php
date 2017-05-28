@@ -21,6 +21,27 @@ class DB {
         //++implemennt++
     }
 
+    public function checkIfUserExists($username) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("SELECT count(uid) FROM user WHERE username = ? ")) {
+            $ergebnis->bind_param("s", $username);
+            $ergebnis->execute();
+            $ergebnis->bind_result($numUserNames);
+            $ergebnis->fetch();
+            if($numUserNames>0){
+                $exists = true;
+            } else {
+                $exists = false;
+                if (!$exists){
+                }
+
+            }
+            $ergebnis->close();
+        }
+        $db->close();
+        return $exists;
+    }
+
     public function getZahlungsinfo() {
         $zahlungsinfos = array();
         $db = $this->connect2DB();
@@ -39,7 +60,7 @@ class DB {
         $db->close();
         return $zahlungsinfos;
     }
-    
+
     public function insertToAdress($strasse, $plz, $ort) {
         $db = $this->connect2DB();
         $query = "INSERT INTO adresse (strasse, plz, ort) 
@@ -58,7 +79,7 @@ class DB {
             return false;
         }
     }
-    
+
     public function insertToUser($username, $password) {
         $db = $this->connect2DB();
         $query = "INSERT INTO user (username, password) 
@@ -77,8 +98,8 @@ class DB {
             return false;
         }
     }
-    
-        public function insertToPerson($anrede, $vorname, $nachname, $email, $aid, $uid) {
+
+    public function insertToPerson($anrede, $vorname, $nachname, $email, $aid, $uid) {
         $db = $this->connect2DB();
         $query = "INSERT INTO person (anrede, vorname, nachname, email, aid, uid) 
                   VALUES ('$anrede', '$vorname', '$nachname', '$email', '$aid', '$uid')";
@@ -96,28 +117,28 @@ class DB {
             return false;
         }
     }
-    
-            public function insertToZahlung($zid, $pid) {
+
+    public function insertToZahlung($zid, $pid) {
         $db = $this->connect2DB();
         $query = "INSERT INTO zahlungsinfo_person (zid, pid) 
                   VALUES ('$zid', '$pid')";
         if ($db->query($query)) {
-            return true; 
+            return true;
         } else {
             return false;
         }
     }
-    
-    public function getProductsByCategory($cat){
+
+    public function getProductsByCategory($cat) {
         $db = $this->connect2DB();
         $statement = "SELECT * FROM produkt WHERE kid = " . $cat;
-        
+
         $query = $db->query($statement);
-        
-        if(!$query){
+
+        if (!$query) {
             oh_shit();
-        }else{
-            while($row = $query -> fetch_object()){
+        } else {
+            while ($row = $query->fetch_object()) {
                 echo "<div class='productCage'>";
                     echo "<img class='product_img' id='img_". $row->produktid ."' src='".$row->bild."'>";
                     echo "<p class='product_secret' id='product_id'>".$row->produktid."</p>";
@@ -130,11 +151,9 @@ class DB {
             }
         }
     }
-    
-    private function oh_shit(){
+
+    private function oh_shit() {
         echo "Holy Bananoes! There seems to be a problem with the DB!";
     }
-    
-    
 
 }

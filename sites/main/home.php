@@ -61,3 +61,14 @@
         der User beim erneuten Öffnen der Web-Adresse als eingeloggt
         angezeigt.</li>
 </ol>
+
+<?php
+
+    include 'config/DB.php';
+    $DB = new DB();
+    $hans = "lalal";
+    if ($DB->checkIfUserExists($hans)){
+        echo true;
+    }
+    else echo "false";
+?>
