@@ -1,6 +1,6 @@
 <?php
 
-    include "class/db.class.php";
+    include "./classes/DB.class.php";
     
 
 ?>
