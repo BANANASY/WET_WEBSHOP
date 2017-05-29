@@ -35,6 +35,9 @@ function loadMain($page) {
         case 10:
             include 'sites/registered.php';
             break;
+        case 11:
+            include 'sites/main/goodbye.php';
+            break;
         default:
             include 'sites/main/404.php';
     }

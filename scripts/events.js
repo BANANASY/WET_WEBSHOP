@@ -5,6 +5,12 @@ $(document).ready(function () {
         $(".container").html("");
         window.location.replace("?page=7");
     });
+    
+
+    $("#logout").click(function () {
+        $(".container").html("");
+        window.location.replace("?page=11");
+    });
 
 
     $("#signup").click(function () {

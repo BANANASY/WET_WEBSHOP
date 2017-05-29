@@ -10,14 +10,16 @@ if (!empty($_POST["username"])) {
             $password = $_POST["password"];
             if ($sec->checkLogin($username, $password)) {
                 $role = $sec->getRole($username);
-                $_SESSION['role'] = $role;
+                $user = array();
+                $user[0] = $username;
+                $user[1] = $role;
+                $_SESSION['user'] = $user;
                 if(!empty($_POST["cookie"])){
-                    setcookie("bananaCremeChoclate",$role,time()+3600);
+                    setcookie("bananaCremeChoclate", serialize($user),time()+3600);
                 }
                 if ($role == "user") {
                     header('Location: ?page=1');
                 } elseif ($role == "admin") {                
-                    echo "<p class='bg-info'>I'm here, lad.</p>";
                     header('Location: ?page=4');
                 }
                 echo "<p class='bg-success'>Welcome young Bananjero. You are logged in.</p>";

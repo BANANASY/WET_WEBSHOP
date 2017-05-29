@@ -17,24 +17,39 @@ include "classes/menuItems.class.php";
             <ul class="nav navbar-nav">
                 <?php
                 //get user role from db ++toDo++
-                if (!empty($_SESSION['role'])) {
-                    $user_role = $_SESSION['role'];
+                if (!empty($_SESSION['user'])) {
+                    $user = $_SESSION['user'];
+                    $role = $user[1];
                 } else {
-                    $user_role = "visitor";
+                    $role = "visitor";
                 }
                 //generate menu according to user
                 $menuItems = new menuItems();
                 //toDo++ get get page prüfen und mit weitegben
-                $menuItems->mainMenuGenerator($user_role);
+                $menuItems->mainMenuGenerator($role);
                 ?>
                 <!--<li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>-->
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text" id="login-msg">You are not logged in.</p></li>
-                    <li id="signup"><span class="glyphicon glyphicon-user"></span> Sign Up</li>
-                    <li id="login"><span class="glyphicon glyphicon-log-in"></span> Login</li>
+                    <?php
+                    if (!empty($_SESSION['user'])) {
+                        $user = $_SESSION['user'];
+                        if ($user[1] == "user" || $user[1] == "admin") {
+                            
+                            echo "<li><p class = 'navbar-text' id = 'login-msg'>Welcome ".$user[0]."! Enjoy your Banana Shopping experience.</p></li>";
+                            echo "<li id= 'logout' class = 'login-out'><span class = 'glyphicon glyphicon-log-out'></span> Logout</li>";
+                        } else {
+                            echo "Fuck off. Don't mess with our session.";
+                        }
+                    } else {
+                        echo "<li><p class = 'navbar-text' id = 'login-msg'>You are not logged in.</p></li>";
+                        echo "<li id = 'signup'><span class = 'glyphicon glyphicon-user'></span> Sign Up</li>";
+                        echo "<li id = 'login' class = 'login-out'><span class = 'glyphicon glyphicon-log-in'></span> Login</li>";
+                    }
+                    ?>
+
                 </ul>
             </ul>
         </div><!-- /.navbar-collapse -->

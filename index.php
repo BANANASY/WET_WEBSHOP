@@ -1,9 +1,10 @@
 <?php
 session_start();
 if (!empty($_COOKIE["bananaCremeChoclate"])) {
-    $role = $_COOKIE["bananaCremeChoclate"];
-    if ($role = "user") {
-        $_SESSION['role'] = $role;
+    $cookie = $_COOKIE["bananaCremeChoclate"];
+    $user = unserialize($cookie);
+    if ($user[1] == "user") {
+        $_SESSION['user'] = $user;
     }
 }
 ?>

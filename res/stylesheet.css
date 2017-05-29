@@ -159,7 +159,7 @@ body  {
     cursor: pointer;
 }
 
-#login{
+.login-out{
     margin:15px;
     margin-right:30px;
     cursor: pointer;
