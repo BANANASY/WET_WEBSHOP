@@ -24,45 +24,56 @@ $(document).ready(function () {
     // macht alle elemente der klasse ".draggable" draggable, sobald die Seite fertig geladen ist    
     // in einer sicht selbstaufrufenden funktion:
     $(function () {
-        $(".draggable").draggable();
+        $("#warenkorb_obj").draggable({
+            containment: $("#content_main")
+        });
+        $(".content .product_img").draggable({ 
+            stack: ".content .product_img",
+            appendTo: ".content",
+            revert: "invalid",
+            refreshPositions: true,
+            containment: $("#content_main")           
+//            start: function() { $(".product_img").not(this).css("opacity", "0.5"); },
+//            stop: function() { $(".product_img").not(this).css("opacity", "1"); }        
+        });
     });
     
-    $(".productCage").click(function(){
+    $(".productCage img").click(function(){
         $(".productCage img").css("border-color", "black");
-        $(this).find(".product_img").css("border-color", "#999999");
+        $(this).css("border-color", "#999999");
         
         $("#warenkorb_minion_div").stop();
         $("#warenkorb_hangingSign_div").stop();
         
         $("#warenkorb_hangingSign_div").css({
-            bottom:"470px",
+            bottom:"730px",
             left:"10px"
         });
         
         $("#warenkorb_minion_div").css({
-            bottom:"350px",
+            bottom:"600px",
             left:"10px"
         });
         
         $("#warenkorb_hangingSign_textdiv p").html("");
-        $("#minion_text").html("");     
+        $("#minion_text").html("");  
         
-        var id = $(this).find("#product_id").html();
-        var desc = $(this).find("#desc_"+id).html();
-        var price = $(this).find("#price_"+id).html();
-        var rating = $(this).find("#rating_"+id).html();
+        var id = $(this).parent().find(".product_id").html();
+        var desc = $(this).parent().find("#desc_"+id).html();
+        var price = $(this).parent().find("#price_"+id).html();
+        var rating = $(this).parent().find("#rating_"+id).html();
         
         $("#minion_text").html(desc);
         $("#warenkorb_hangingSign_price").html(price);
         $("#warenkorb_hangingSign_rating").html(rating);
         
         $("#warenkorb_minion_div").animate({
-            bottom: "490px",
-            left: "-110px"
+            bottom: "715px",
+            left: "-145px"
         }, 600);
         
         $("#warenkorb_hangingSign_div").animate({
-            bottom: "360px",
+            bottom: "605px",
             left: "10px"
         }, 600);
     });

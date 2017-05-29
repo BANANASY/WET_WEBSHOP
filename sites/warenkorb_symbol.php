@@ -1,4 +1,5 @@
 <div id="warenkorb_obj" class="draggable">
+    <div id="warenkorb_disc"></div>
     <img id="warenkorb_img_main" src="../wet_webshop/pictures/warenkorb_menu.png">
     <strong><p id="warenkorb_count">0</p></strong>
     <div id="warenkorb_minion_div">

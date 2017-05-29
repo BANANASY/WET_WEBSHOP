@@ -150,8 +150,8 @@ class DB {
             echo "<div class='productContent'>";
             while ($row = $query->fetch_object()) {
                 echo "<div class='productCage'>";
-                    echo "<img class='product_img' id='img_". $row->produktid ."' src='".$row->bild."'>";
-                    echo "<p class='product_secret' id='product_id'>".$row->produktid."</p>";
+                    echo "<img class='product_img draggable' id='img_". $row->produktid ."' src='".$row->bild."'>";
+                    echo "<p class='product_secret product_id'>".$row->produktid."</p>";
                     echo "<table class='product_secret'>";
                         echo "<tr><td id='desc_". $row->produktid ."'>".$row->bezeichnung."</td></tr>";
                         echo "<tr><td id='price_". $row->produktid ."'>€ ".$row->preis."</td></tr>";

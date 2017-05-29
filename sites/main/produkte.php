@@ -1,4 +1,3 @@
-
 <?php
 include 'sites/warenkorb_symbol.php';
 include 'inc/nav_sec.php';
@@ -6,8 +5,6 @@ include 'classes/DB.class.php';
 
 $DB = new DB();
 
-// "kat" ist immer empty, warum? Ist im Pfad aus XML was nicht richtig?
-// Alex 22.05.2017
 
 if (empty($_GET['kat'])) {
     $DB->getProductsByCategory(1);
