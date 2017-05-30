@@ -1,14 +1,12 @@
 <?php
 
 function loadMain($page) {
-//    var_dump($_SESSION);
     if (!empty($_SESSION)) {
         $user = $_SESSION['user'];
         $role = $user[1];
     } else {
         $role = "visitor";
     }
-    echo $role;
     switch ($page) {
         case 0:
             include 'sites/main/home.php';
@@ -17,7 +15,6 @@ function loadMain($page) {
             include 'sites/main/produkte.php';
             break;
         case 2:
-            echo $role;
             if ($role === 'user') {
                 include 'sites/main/meinkonto.php';
             } else {
@@ -27,14 +24,23 @@ function loadMain($page) {
             include 'sites/main/warenkorb.php';
             break;
         case 4:
-            include 'sites/main/editProducts.php';
-            break;
+            if ($role === 'admin') {
+                include 'sites/main/editProducts.php';
+            } else {
+                include 'sites/main/notAuthorized.php';
+            }break;
         case 5:
-            include 'sites/main/editCustomers.php';
-            break;
+            if ($role === 'admin') {
+                include 'sites/main/editCustomers.php';
+            } else {
+                include 'sites/main/notAuthorized.php';
+            }break;
         case 6:
-            include 'sites/main/editGut.php';
-            break;
+            if ($role === 'admin') {
+                include 'sites/main/editGut.php';
+            } else {
+                include 'sites/main/notAuthorized.php';
+            }break;
         case 7:
             include 'sites/login.php';
             break;
