@@ -1,16 +1,18 @@
-html{
-    max-width: 100%;
-}      
-
+html, body {
+    margin:0;
+}
 body  {
     background-image: url('../pictures/background_bayo.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    position:absolute;
-    max-width:100%;
-    /*overflow:hidden;*/
-    float:right;
+    height:100%;
+}
+
+#content_main{
+    margin:0;
+    height:100%;
+    width:100%
 }
 
 #container_content{
@@ -20,8 +22,7 @@ body  {
     padding:20px;
     background-color:white;
     border:1px solid black;
-    position:absolute;
-    z-index:-999;
+    opacity:0.99;
 }
 
 .content{
@@ -31,7 +32,7 @@ body  {
 }
 
 #nav_sec{
-    z-index:-5;
+    z-index:-6;
     position:relative;
 }
 
@@ -41,45 +42,52 @@ body  {
 }
 
 #warenkorb_obj{
-    position:absolute;
-/*    //z-index:5;*/
+    position:fixed;
+/*    z-index:100;*/
+    width: 250px;
+    height: 250px;
+    top:225px;
+    right:10px;
+}
+
+#warenkorb_disc{
+    position:relative;
+    z-index:100;
     border:1px solid black;
     background:#ecec00;
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    top:60px;
-    right:-80px;
     cursor: pointer;
 }
 
-#warenkorb_obj #warenkorb_img_main{
+#warenkorb_img_main{
     position:relative;
-    top:30px;
-    left:20px;
+    bottom:220px;
+    left:10px;
     width:150px;
     height:200px;
-    z-index:105;
+    z-index:101;
 }
 
-#warenkorb_obj #warenkorb_minion_div{
+#warenkorb_minion_div{
     position:relative;
     z-index:-1;
-    bottom:350px;
+    bottom:600px;
     left:10px;
 }
 
-#warenkorb_obj #minion_text {
+#minion_text {
     position:relative;
     bottom:128px;
     left:20px;
 /*    //z-index:99;*/
     transform: rotate(-17deg);
-    font-size:20px;
+    font-size:18px;
     color:#ffffcc;
 }
 
-#warenkorb_obj #warenkorb_minion{
+#warenkorb_minion{
 /*    //display:none;  */
     height:80%;
     width:80%;
@@ -87,26 +95,26 @@ body  {
 /*    //z-index:98;*/
 }
 
-#warenkorb_obj #warenkorb_hangingSign_div{
+#warenkorb_hangingSign_div{
     position:relative;
     z-index:-2;
-    bottom:470px;
+    bottom:730px;
     left:10px;
 }
 
-#warenkorb_obj #warenkorb_hangingSign{
+#warenkorb_hangingSign{
     height:90%;
     width:90%;
     position:relative;
 }
 
-#warenkorb_obj #warenkorb_hangingSign_txtdiv{
+#warenkorb_hangingSign_txtdiv{
     position:relative;
     bottom:65px;
     left:40px;
 }
 
-#warenkorb_obj #warenkorb_hangingSign_txtdiv td{
+#warenkorb_hangingSign_txtdiv td{
     position:relative;
 /*    //z-index:99;*/
     font-size:14px;
@@ -114,18 +122,18 @@ body  {
     margin:0;
 }
 
-#warenkorb_obj #warenkorb_hangingSign_price{
+#warenkorb_hangingSign_price{
     
 }
 
-#warenkorb_obj #warenkorb_hangingSign_rating{
+#warenkorb_hangingSign_rating{
     
 }
-#warenkorb_obj #warenkorb_count{
+#warenkorb_count{
     position:relative;
-    bottom:150px;
+    bottom:400px;
     left:140px;
-    z-index:104;
+    z-index:101;
     transform: rotate(25deg);
     font-size:100px;
     color:#ffffcc;
@@ -136,11 +144,9 @@ body  {
 }
 
 .div_logo{
-    margin-top:70px;
+    margin-top:80px;
     width: auto;
-    margin-left: 25%;
-    margin-right: 25%;
-    align-content: center;
+    text-align: center;
     font-family: 'Gloria Hallelujah', cursive;
 
 }
@@ -180,7 +186,7 @@ body  {
 }
 
 #div_login_right{
-    float:right;
+/*    float:right;*/
 }
 
 #div_login_left{
@@ -196,24 +202,25 @@ body  {
 
 .productContent{
     text-align:center;
+    position:relative;
+    z-index:-9999;
 }
 .productCage{
     height:300px;
     width:280px;
     display:inline-block;
-     margin: 1em
-/*    //float:left;*/
-    
+    margin: 1em;
+    opacity:0.99;
+    clear:both;
 }
 
 .productCage img{
     height:250px;
     width:250px;
-    position:relative;
-    z-index:-5;
     border:5px solid black; /*  */
     border-radius:25px;
     cursor:pointer;
+    clear:both;
 }
 
 .product_secret{
@@ -225,7 +232,7 @@ body  {
     white-space: pre;
 }*/
 
-img {
+.productCage > img {
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
@@ -233,6 +240,3 @@ img {
     -user-select: none;
 }
 
-#login {
-
-}

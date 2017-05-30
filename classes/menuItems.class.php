@@ -20,19 +20,19 @@ class menuItems {
 //                echo "loading user";
                 foreach ($menuXML->user->menuitem as $user) {
                     
-                    echo "<li><a href=" . $user->path . ">" . $user->name . "</a></li>";
+                    echo "<li><a href='" . $user->path . "'>" . $user->name . "</a></li>";
                 }
                 break;
             case "admin":
 //                echo "loading admin";
                 foreach ($menuXML->admin->menuitem as $admin) {
-                    echo "<li><a href=" . $admin->path . ">" . $admin->name . "</a></li>";
+                    echo "<li><a href='" . $admin->path . "'>" . $admin->name . "</a></li>";
                 }
                 break;
             default:
 //                echo "loading visitor";
                 foreach ($menuXML->visitor->menuitem as $visitor) {
-                    echo "<li><a href=" . $visitor->path . ">" . $visitor->name . "</a></li>";
+                    echo "<li><a href='" . $visitor->path . "'>" . $visitor->name . "</a></li>";
                 }
         }
     }
@@ -45,20 +45,20 @@ class menuItems {
 //                echo "loading user";
                 foreach ($menuXML->user->menuitem as $user) {
                     foreach ($user->submenuitem as $sub) {
-                        echo "<li><a href=" . $sub->path . ">" . $sub->name . "</a></li>";
+                        echo "<li><a href='" . $sub->path . "'>" . $sub->name . "</a></li>";
                     }
                 }
                 break;
             case "admin":
 //                echo "loading admin";
                 foreach ($menuXML->admin->menuitem->submenuitem as $admin) {
-                    echo "<li><a href=" . $admin->path . ">" . $admin->name . "</a></li>";
+                    echo "<li><a href='" . $admin->path . "'>" . $admin->name . "</a></li>";
                 }
                 break;
             default:
 //                echo "loading visitor";
                 foreach ($menuXML->visitor->menuitem->submenuitem as $visitor) {
-                    echo "<li><a href=" . $visitor->path . ">" . $visitor->name . "</a></li>";
+                    echo "<li><a href='" . $visitor->path . "'>" . $visitor->name . "</a></li>";
                 }
         }
     }
