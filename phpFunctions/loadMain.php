@@ -1,6 +1,14 @@
 <?php
 
 function loadMain($page) {
+//    var_dump($_SESSION);
+    if (!empty($_SESSION)) {
+        $user = $_SESSION['user'];
+        $role = $user[1];
+    } else {
+        $role = "visitor";
+    }
+    echo $role;
     switch ($page) {
         case 0:
             include 'sites/main/home.php';
@@ -9,8 +17,12 @@ function loadMain($page) {
             include 'sites/main/produkte.php';
             break;
         case 2:
-            include 'sites/main/meinkonto.php';
-            break;
+            echo $role;
+            if ($role === 'user') {
+                include 'sites/main/meinkonto.php';
+            } else {
+                include 'sites/main/notAuthorized.php';
+            }break;
         case 3:
             include 'sites/main/warenkorb.php';
             break;

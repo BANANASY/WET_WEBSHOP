@@ -3,7 +3,7 @@ session_start();
 if (!empty($_COOKIE["bananaCremeChoclate"])) {
     $cookie = $_COOKIE["bananaCremeChoclate"];
     $user = unserialize($cookie);
-    if ($user[1] == "user") {
+    if ($user[1] == 'user') {
         $_SESSION['user'] = $user;
     }
 }
