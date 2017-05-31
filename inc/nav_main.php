@@ -16,7 +16,7 @@ include "classes/menuItems.class.php";
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <?php
-                //get user role from db ++toDo++
+                //get user role from db 
                 if (!empty($_SESSION['user'])) {
                     $user = $_SESSION['user'];
                     $role = $user[1];

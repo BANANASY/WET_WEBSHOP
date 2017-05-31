@@ -51,14 +51,17 @@ class menuItems {
                 break;
             case "admin":
 //                echo "loading admin";
-                foreach ($menuXML->admin->menuitem->submenuitem as $admin) {
-                    echo "<li><a href='" . $admin->path . "'>" . $admin->name . "</a></li>";
+                foreach ($menuXML->admin->menuitem as $admin) {
+                    foreach ($admin->submenuitem as $sub) {
+                        echo "<li><a href='" . $sub->path . "'>" . $sub->name . "</a></li>";
+                    }
                 }
                 break;
             default:
-//                echo "loading visitor";
-                foreach ($menuXML->visitor->menuitem->submenuitem as $visitor) {
-                    echo "<li><a href='" . $visitor->path . "'>" . $visitor->name . "</a></li>";
+                foreach ($menuXML->visitor->menuitem as $visitor) {
+                    foreach ($visitor->submenuitem as $sub) {
+                        echo "<li><a href='" . $sub->path . "'>" . $sub->name . "</a></li>";
+                    }
                 }
         }
     }

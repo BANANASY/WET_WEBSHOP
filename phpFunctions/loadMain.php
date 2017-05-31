@@ -56,6 +56,12 @@ function loadMain($page) {
         case 11:
             include 'sites/main/goodbye.php';
             break;
+        case 12:
+            if ($role === 'admin') {
+                include 'sites/main/addProduct.php';
+            } else {
+                include 'sites/main/notAuthorized.php';
+            }break;
         default:
             include 'sites/main/404.php';
     }

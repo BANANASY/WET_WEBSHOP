@@ -1,2 +1,3 @@
-<p class="bg bg-warning">You shall not pass!</p>
 
+
+<img src="pictures/You-shall-not-pass.gif" alt=""/>

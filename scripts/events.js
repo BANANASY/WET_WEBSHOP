@@ -79,6 +79,6 @@ $(document).ready(function () {
     // für spätere Implementierung für Warenkorb
     function getIdFromImg (){
         //$(".productCage).event"
-        $(this).children("#product_id").html()
+        $(this).children("#product_id").html();
     }
 });

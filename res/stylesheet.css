@@ -240,3 +240,6 @@ body  {
     -user-select: none;
 }
 
+.imgInTable {
+    height: 40px;
+}
