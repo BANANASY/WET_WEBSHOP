@@ -3,6 +3,7 @@
 $(document).ready(function () {
     var mouseStillDown = false;
     var feedbackObj;
+    var warenkorb_cnt = 0;
     
     $("#warenkorb_obj").appendTo(".content");
     
@@ -35,7 +36,7 @@ $(document).ready(function () {
         });
         $(".productCage").draggable({ 
             stack: ".productCage",
-            revert: "invalid",
+            revert: true,
             containment: $("#content_main"),           
             start: function() { 
                 $("#nav_sec").css("z-index",-1);
@@ -46,6 +47,14 @@ $(document).ready(function () {
                 $(".productCage").not(this).css("opacity", "1"); 
                 $("#warenkorb_obj").css("z-index","1000");
             }        
+        });
+        $("#warenkorb_obj").droppable({
+            accept: ".productCage",
+            drop: function(event, ui) {
+                $("#warenkorb_count").html(warenkorb_cnt++);
+                // call dragged object:
+                //$(ui.draggable).find(".product_id").html()
+            }
         });
     });
     
@@ -115,6 +124,16 @@ $(document).ready(function () {
                 "color" : "white"
             });
         }
+    }
+    
+    // schickt Daten zu einer PHP-File die das Objekt in der Session speichert.
+    // Gedacht für Warenkorb
+    function sendDataToSession(loveletter){
+        var array = [];
+        var id;
+        var description;
+        var price;
+ 
     }
     // holt eine ProduktId von Image when ein Event abgehandelt wird
     // für spätere Implementierung für Warenkorb
