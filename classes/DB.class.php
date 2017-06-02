@@ -221,17 +221,19 @@ class DB {
                 echo "<td><img class='imgInTable' src='$bild'></td>";
                 echo "<td>$kid</td>";
                 echo "<td>$k_bezeichnung</td>";
-                echo "<td><a href='$produktid'>Bearbeiten</td>";
-                echo "<td><a href='$produktid'>Löschen</td>";
+                echo "<td><a href='?page=4&kat=3&ed=$produktid'>Bearbeiten</td>";
+                echo "<td><a href='?page=4&kat=1&del=$produktid'>Löschen</td>";
                 echo "</tr>";
             }
             echo "</tbody>";
             echo "</table>";
         }
+        $ergebnis->close();
+        $db->close();
     }
 
     public function addProduct($bezeichnung, $bild, $preis, $bewertung, $kid) {
-        echo "<h2>Produkt hinzufügen</h2>";
+//        echo "<h2>Produkt hinzufügen</h2>";
         $db = $this->connect2DB();
         if ($ergebnis = $db->prepare("INSERT INTO produkt (bezeichnung, bild, preis, bewertung, kid) VALUES (?, ?, ?, ?, ?);")) {
             $ergebnis->bind_param("ssdii", $bezeichnung, $bild, $preis, $bewertung, $kid);
@@ -244,6 +246,38 @@ class DB {
             $db->close();
             return $success;
         }
+    }
+
+    public function deleteProductById($produktid) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("DELETE FROM produkt WHERE produktid = ?;")) {
+            $ergebnis->bind_param("i", $produktid);
+            if ($ergebnis->execute()) {
+                $success = true;
+            } else {
+                $success = false;
+            }
+            $ergebnis->close();
+            $db->close();
+            return $success;
+        }
+    }
+
+    public function getImagePathById($produktid) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("SELECT bild FROM produkt where produktid = ?;")) {
+            $ergebnis->bind_param("i", $produktid);
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($pfad);
+                if ($ergebnis) {
+                    while ($ergebnis->fetch()) {
+                        return $pfad;
+                    }
+                }
+                $ergebnis->close();
+            }
+        }
+        $db->close();
     }
 
 }

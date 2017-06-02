@@ -26,22 +26,39 @@ if (!empty($_POST)) {
     {
         if (isset($_FILES['bild'])) {
 //            var_dump($_FILES['bild']);
-            if ($sec->isImage($_FILES['bild']['name'])) {
-                $bild = "pictures/" . uniqid() . ".jpg";
-                if (move_uploaded_file($_FILES['bild']['tmp_name'], $bild)) {
+            if ($sec->isImage($_FILES['bild']['name']) !== null) {
+                $bild = $sec->isImage($_FILES['bild']['name']);
+                switch ($kid) {
+                    case 1:
+                        $path = "pictures/banana/" . $bild;
+                        break;
+                    case 2:
+                        $path = "pictures/yoghurt/" . $bild;
+                        break;
+                    case 3:
+                        $path = "pictures/egg/" . $bild;
+                        break;
+                    case 4:
+                        $path = "pictures/rice/" . $bild;
+                        break;
+                    case 5:
+                        $path = "pictures/costumes/" . $bild;
+                        break;
+                }
+                if (move_uploaded_file($_FILES['bild']['tmp_name'], $path)) {
                     $cnt++;
 //                    echo "<p class='bg-success'>Bild upgeloaded. Neuer name = " . $bild."</p>";
                 } else {
                     echo "<p class='bg-danger'>Couldn't move bild</p>";
                 }
             } else {
-                    echo "<p class='bg-danger'>Not an image. Only jpg, png and gifs allowed.</p>";
-                }
+                echo "<p class='bg-danger'>Not an image. Only jpg, png and gifs allowed.</p>";
+            }
         }
     }
     if ($cnt == 5) {
         $db = new DB();
-        if ($db->addProduct($bezeichnung, $bild, $preis, $bewertung, $kid)) {
+        if ($db->addProduct($bezeichnung, $path, $preis, $bewertung, $kid)) {
             echo "<p class='bg-success'>Produkt wurde hinzugefügt.</p>";
         } else {
             echo "<p class='bg-danger'>SQL Error.</p>";
@@ -50,6 +67,8 @@ if (!empty($_POST)) {
         echo "<p class='bg-danger'>POST error.</p>";
     }
 }
+
+
 ?>
 <h2 id="regform_title">Neues Produkt</h2>
 <form class="form-horizontal" action="?page=12" method="post" enctype="multipart/form-data">

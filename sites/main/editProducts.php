@@ -1,13 +1,36 @@
 <?php
 include 'inc/nav_sec.php';
 include 'classes/DB.class.php';
+include 'classes/securitas.class.php';
 
-$DB = new DB();
+$db = new DB();
+$sec = new securitas();
+
+if (!empty($_GET['del'])) {
+    $produktid = $_GET['del'];
+    if ($sec->checkNumeric($produktid, 0, PHP_INT_MAX)) {
+        $pfad = $db->getImagePathById($produktid);
+        if (!empty($pfad)) {
+            unlink($pfad);
+        }
+        if ($db->deleteProductById($produktid)) {
+            echo "<p class='bg-success'>Produkt wurde gelöscht.</p>";
+        }
+    } else {
+        echo "<p class='bg-danger'>Produkt wurde nicht gelöscht.</p>";
+    }
+}
 
 if (empty($_GET['kat']) || $_GET['kat'] == 1) {
-    $DB->getProductList();
+    $db->getProductList();
+} elseif ($_GET['kat'] == 3 && !empty($_GET['ed'])) {
+    if ($sec->checkNumeric($_GET['ed'], 0, PHP_INT_MAX)) {
+        $produktid = $_GET['ed'];
+        $db->editProduct($produktid);
+        echo $_GET['ed'];
+    }
 } else {
-    $DB->addProduct();
+    $db->addProduct();
 }
 ?>
 

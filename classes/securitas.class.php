@@ -84,12 +84,17 @@ class securitas {
         return "visitor";
     }
 
+    /**
+     * 
+     * @param type $filename
+     * @return returns img name + extension or null if check fails
+     */
     public function isImage($filename) {
         $ext = pathinfo($filename, PATHINFO_EXTENSION);
         if ($ext === 'gif' || $ext === 'png' || $ext === 'jpg') {
-            return true;
+            return uniqid() . "." . $ext;
         } else {
-            return false;
+            return null;
         }
     }
 
