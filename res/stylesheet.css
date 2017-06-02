@@ -243,3 +243,9 @@ body  {
 .imgInTable {
     height: 40px;
 }
+
+/*für bild upload*/
+#bild{
+    border:0px;
+    padding: 0px;
+}

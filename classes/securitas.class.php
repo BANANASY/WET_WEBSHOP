@@ -67,21 +67,30 @@ class securitas {
 
     public function checkLogin($username, $password) {
         $db = new DB();
-        if($db->checkIfUserExists($username)){
+        if ($db->checkIfUserExists($username)) {
             $hash = hash("sha256", $password);
-            if($db->userLogin($username, $hash)){
+            if ($db->userLogin($username, $hash)) {
                 return true;
             }
         }
         return false;
     }
-    
-    public function getRole($username){
+
+    public function getRole($username) {
         $db = new DB();
-        if($db->checkIfUserExists($username)){
+        if ($db->checkIfUserExists($username)) {
             return $role = $db->getRole($username);
         }
         return "visitor";
+    }
+
+    public function isImage($filename) {
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if ($ext === 'gif' || $ext === 'png' || $ext === 'jpg') {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
