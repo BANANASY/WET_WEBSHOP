@@ -163,15 +163,6 @@ class DB {
             echo "<div class='productContent'>";
             while ($row = $query->fetch_object()) {
                 echo "<div class='productCage'>";
-//<<<<<<< HEAD
-//                echo "<img class='product_img' id='img_" . $row->produktid . "' src='" . $row->bild . "'>";
-//                echo "<p class='product_secret' id='product_id'>" . $row->produktid . "</p>";
-//                echo "<table class='product_secret'>";
-//                echo "<tr><td id='desc_" . $row->produktid . "'>" . $row->bezeichnung . "</td></tr>";
-//                echo "<tr><td id='price_" . $row->produktid . "'>€ " . $row->preis . "</td></tr>";
-//                echo "<tr><td id='rating_" . $row->produktid . "'>" . $row->bewertung . "</td></tr>";
-//                echo "</table>";
-//=======
                 echo "<img class='product_img draggable' id='img_" . $row->produktid . "' src='" . $row->bild . "'>";
                 echo "<p class='product_secret product_id'>" . $row->produktid . "</p>";
                 echo "<table class='product_secret'>";
@@ -179,7 +170,6 @@ class DB {
                 echo "<tr><td id='price_" . $row->produktid . "'>€ " . $row->preis . "</td></tr>";
                 echo "<tr><td id='rating_" . $row->produktid . "'>" . $row->bewertung . "</td></tr>";
                 echo "</table>";
-//>>>>>>> origin/OaschlochNetbeans
                 echo "</div>";
             }
             echo "</div>";
@@ -214,11 +204,11 @@ class DB {
             echo "<tbody>";
             while ($ergebnis->fetch()) {
                 echo "<tr>";
+                echo "<td><img class='imgInTable' src='$bild'></td>";
                 echo "<td>$produktid</td>";
                 echo "<td>$p_bezeichnung</td>";
                 echo "<td>$preis</td>";
                 echo "<td>$bewertung</td>";
-                echo "<td><img class='imgInTable' src='$bild'></td>";
                 echo "<td>$kid</td>";
                 echo "<td>$k_bezeichnung</td>";
                 echo "<td><a href='?page=4&kat=3&ed=$produktid'>Bearbeiten</td>";
@@ -278,6 +268,33 @@ class DB {
             }
         }
         $db->close();
+    }
+
+    public function getProduktMeta($produktid) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("SELECT bezeichnung, bild, preis, bewertung, kid FROM produkt where produktid = ?;")) {
+            $ergebnis->bind_param("i", $produktid);
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($name, $pfad, $preis, $bewertung, $kid);
+                if ($ergebnis) {
+                    $produkt = array();
+                    while ($ergebnis->fetch()) {
+                        $produkt[0] = $name;
+                        $produkt[1] = $pfad;
+                        $produkt[2] = $preis;
+                        $produkt[3] = $bewertung;
+                        $produkt[4] = $kid;
+                    }
+                }
+                $ergebnis->close();
+            }
+        }
+        $db->close();
+        if (!empty($produkt)) {
+            return $produkt;
+        } else {
+            return null;
+        }
     }
 
 }

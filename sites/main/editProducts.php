@@ -6,6 +6,7 @@ include 'classes/securitas.class.php';
 $db = new DB();
 $sec = new securitas();
 
+//if delete go here
 if (!empty($_GET['del'])) {
     $produktid = $_GET['del'];
     if ($sec->checkNumeric($produktid, 0, PHP_INT_MAX)) {
@@ -23,14 +24,20 @@ if (!empty($_GET['del'])) {
 
 if (empty($_GET['kat']) || $_GET['kat'] == 1) {
     $db->getProductList();
-} elseif ($_GET['kat'] == 3 && !empty($_GET['ed'])) {
+} elseif ($_GET['kat'] == 3 && !empty($_GET['ed'])) { //if edit go here
     if ($sec->checkNumeric($_GET['ed'], 0, PHP_INT_MAX)) {
         $produktid = $_GET['ed'];
-        $db->editProduct($produktid);
-        echo $_GET['ed'];
+        include "sites/main/editExistingProd.php";
     }
+} elseif (!empty($_GET['kat']) || $_GET['kat'] == 3) {//go here to update
+    var_dump($_POST);
+    var_dump($_FILES);
+//        if($db->editProduct($produktid)){
+//            
+//            echo "<p class='bg-success'>Produkt wurde erfolgreich geändert.</p>";
+//        }
 } else {
-    $db->addProduct();
+    echo "<p class='bg-danger'>Holy Bananos, don't mess around with the URL!</p>";
 }
 ?>
 

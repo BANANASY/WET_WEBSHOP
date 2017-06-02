@@ -10,7 +10,7 @@ if (!empty($_POST)) {
         $kid = $_POST['kategorie'];
         $cnt++;
     }
-    if ($sec->checkString50($_POST['bezeichnung'])) {
+    if ($sec->checkString50W($_POST['bezeichnung'],true)) {
         $bezeichnung = $_POST['bezeichnung'];
         $cnt++;
     }

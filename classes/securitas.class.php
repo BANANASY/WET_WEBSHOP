@@ -30,6 +30,13 @@ class securitas {
         }
     }
 
+    public function checkString50W($toCheck, $useWhite) {
+        if ($useWhite) {
+            $toCheck = str_replace(' ', '', $toCheck);
+        }
+        return $this->checkString50($toCheck);
+    }
+
     public function checkString255($toCheck, $useWhite) {
         if ($useWhite) {
             $toCheck = str_replace(' ', '', $toCheck);
