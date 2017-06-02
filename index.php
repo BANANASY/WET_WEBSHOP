@@ -1,5 +1,12 @@
 <?php
 session_start();
+if (!empty($_COOKIE["bananaCremeChoclate"])) {
+    $cookie = $_COOKIE["bananaCremeChoclate"];
+    $user = unserialize($cookie);
+    if ($user[1] == 'user') {
+        $_SESSION['user'] = $user;
+    }
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -25,30 +32,28 @@ and open the template in the editor.
         <link rel="stylesheet" href="./res/stylesheet.css">
     </head>    
     <body>
-        <div class="container" id="content_main">
         <?php
         include 'inc/nav_main.php';
         ?>
-        
-            <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
+        <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
 
-            <div class="container" id="container_content">
-                <div class="content">
+        <div class="container" id="container_content">
+            <div class="content">
                 <?php
-                    include 'phpFunctions/loadMain.php';
-                    if (isset($_GET["page"])) {
-                        $page = $_GET['page'];
-                        loadMain($page);
-                    } else {
-                        $page = 0;
-                        loadMain($page);
-                    }
+                include 'phpFunctions/loadMain.php';
+                if (isset($_GET["page"])) {
+                    $page = $_GET['page'];
+                    loadMain($page);
+                } else {
+                    $page = 0;
+                    loadMain($page);
+                }
                 ?>
-                </div>
-
             </div>
 
-            <script type="text/javascript" src="./scripts/events.js"></script>
-        </div> <!-- container -->
+        </div>
+
+        <script type="text/javascript" src="./scripts/events.js"></script>
+    </div> <!-- container -->
 </body>
 </html>

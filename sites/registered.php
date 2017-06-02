@@ -3,14 +3,7 @@
 require_once './classes/user.class.php';
 require_once './classes/DB.class.php';
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-//DATEN PRÜFEN ++toDo
 if (!empty($_POST)) {
-//    echo "Info arrived";
     $anrede = $_POST['salutation'];
     $vorname = $_POST['firstName'];
     $nachname = $_POST['lastName'];

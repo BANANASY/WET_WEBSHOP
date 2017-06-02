@@ -53,6 +53,19 @@ class DB {
         return $exists;
     }
 
+    public function getRole($username) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("SELECT role FROM user WHERE username = ? ")) {
+            $ergebnis->bind_param("s", $username);
+            $ergebnis->execute();
+            $ergebnis->bind_result($role);
+            $ergebnis->fetch();
+            $ergebnis->close();
+        }
+        $db->close();
+        return $role;
+    }
+
     public function getZahlungsinfo() {
         $zahlungsinfos = array();
         $db = $this->connect2DB();
@@ -166,6 +179,62 @@ class DB {
 
     private function oh_shit() {
         echo "Holy Bananoes! There seems to be a problem with the DB!";
+    }
+
+    public function getProductList() {
+        echo "<h2>Produkte bearbeiten</h2>";
+        $db = $this->connect2DB();
+        $query = "SELECT * FROM produkt join kategorie using (kid)";
+        $ergebnis = $db->prepare($query);
+        $ergebnis->execute();
+        $ergebnis->bind_result($kid, $produktid, $p_bezeichnung, $bild, $preis, $bewertung, $k_bezeichnung);
+        if ($ergebnis) {
+            echo "<table class='table table-hover'>";
+            echo "<thead><tr>";
+            echo "<th>Produkt Id</th>";
+            echo "<th>Produkt</th>";
+            echo "<th>Preis</th>";
+            echo "<th>Bewertung</th>";
+            echo "<th>Bild</th>";
+            echo "<th>Kategorie Id</th>";
+            echo "<th>Kategorie</th>";
+            echo "<th>Bearbeiten</th>";
+            echo "<th>Löschen</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+            while ($ergebnis->fetch()) {
+                echo "<tr>";
+                echo "<td>$produktid</td>";
+                echo "<td>$p_bezeichnung</td>";
+                echo "<td>$preis</td>";
+                echo "<td>$bewertung</td>";
+                echo "<td><img class='imgInTable' src='$bild'></td>";
+                echo "<td>$kid</td>";
+                echo "<td>$k_bezeichnung</td>";
+                echo "<td><a href='$produktid'>Bearbeiten</td>";
+                echo "<td><a href='$produktid'>Löschen</td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+        }
+    }
+
+    public function addProduct($bezeichnung, $bild, $preis, $bewertung, $kid) {
+        echo "<h2>Produkt hinzufügen</h2>";
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("INSERT INTO produkt (bezeichnung, bild, preis, bewertung, kid) VALUES (?, ?, ?, ?, ?);")) {
+            $ergebnis->bind_param("ssdii", $bezeichnung, $bild, $preis, $bewertung, $kid);
+            if ($ergebnis->execute()) {
+                $success = true;
+            } else {
+                $success = false;
+            }
+            $ergebnis->close();
+            $db->close();
+            return $success;
+        }
     }
 
 }

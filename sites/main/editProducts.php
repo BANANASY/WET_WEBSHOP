@@ -1,6 +1,16 @@
 <?php
-//    ++toDo++ check if current user is admin else dont load the page
+include 'inc/nav_sec.php';
+include 'classes/DB.class.php';
+
+$DB = new DB();
+
+if (empty($_GET['kat']) || $_GET['kat'] == 1) {
+    $DB->getProductList();
+} else {
+    $DB->addProduct();
+}
 ?>
+
 <h2>Produkte Bearbeiten</h2>
 <ol>
     <li>Im Bereich „Produkte bearbeiten“ kann der Administrator sowohl
