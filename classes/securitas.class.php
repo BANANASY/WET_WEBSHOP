@@ -105,4 +105,76 @@ class securitas {
         }
     }
 
+    /**
+     * 
+     * @param type $complete enter 0 for complete check 1 for partial check
+     * @return string
+     */
+    public function checkNewProd($complete) {
+        $cnt = 0;
+        $produkt = array();
+        if ($complete == 1) {
+            $produkt['produktid'] = $_POST['produktid'];
+        }
+        if ($this->checkNumeric($_POST['kategorie'], 1, 5)) {
+            $produkt['kid'] = $_POST['kategorie'];
+            $cnt++;
+        }
+        if ($this->checkString50W($_POST['bezeichnung'], true)) {
+            $produkt['name'] = $_POST['bezeichnung'];
+            $cnt++;
+        }
+        if ($this->checkNumeric($_POST['preis'], 0, 5000)) {
+            $produkt['preis'] = $_POST['preis'];
+            $cnt++;
+        }
+        if ($this->checkNumeric($_POST['bewertung'], 0, 5)) {
+            $produkt['bewertung'] = $_POST['bewertung'];
+            $cnt++;
+        }
+        if (!empty($_FILES['bild']['name'])) {
+            if ($_FILES['bild']['error'] == 0) {
+                if ($this->isImage($_FILES['bild']['name']) !== null) {
+                    $bild = $this->isImage($_FILES['bild']['name']);
+                    switch ($produkt['kid']) {
+                        case 1:
+                            $produkt['path'] = "pictures/banana/" . $bild;
+                            break;
+                        case 2:
+                            $produkt['path'] = "pictures/yoghurt/" . $bild;
+                            break;
+                        case 3:
+                            $produkt['path'] = "pictures/egg/" . $bild;
+                            break;
+                        case 4:
+                            $produkt['path'] = "pictures/rice/" . $bild;
+                            break;
+                        case 5:
+                            $produkt['path'] = "pictures/costumes/" . $bild;
+                            break;
+                    }
+                    if (move_uploaded_file($_FILES['bild']['tmp_name'], $produkt['path'])) {
+                        $cnt++;
+//                    echo "<p class='bg-success'>Bild upgeloaded. Neuer name = " . $bild."</p>";
+                    } else {
+                        echo "<p class='bg-danger'>Couldn't move bild</p>";
+                    }
+                } else {
+                    echo "<p class='bg-danger'>Not an image. Only jpg, png and gifs allowed.</p>";
+                }
+            } else {
+                echo "<p class='bg-danger'>File error. Propably the uploaded image is too large.</p>";
+            }
+        } else { //altes bild verwenden
+            $produkt['path'] = $_POST['oldBild'];
+        }
+        if ($complete == 0) {
+            if ($cnt == 5) {
+                return $produkt;
+            } else
+                return null;
+        } else
+            return $produkt;
+    }
+
 }

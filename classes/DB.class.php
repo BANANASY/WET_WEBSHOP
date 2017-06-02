@@ -163,14 +163,14 @@ class DB {
             echo "<div class='productContent'>";
             while ($row = $query->fetch_object()) {
                 echo "<div class='productCage'>";
-                    echo "<img class='product_img draggable' id='img_". $row->produktid ."' src='".$row->bild."'><br/>";
-                    echo "<div class='toCart'>In den Warenkorb legen</div>";
-                    echo "<p class='product_secret product_id'>".$row->produktid."</p>";
-                    echo "<table class='product_secret'>";
-                        echo "<tr><td id='desc_". $row->produktid ."'>".$row->bezeichnung."</td></tr>";
-                        echo "<tr><td id='price_". $row->produktid ."'>€ ".$row->preis."</td></tr>";
-                        echo "<tr><td id='rating_". $row->produktid ."'>".$row->bewertung."</td></tr>";
-                    echo "</table>";
+                echo "<img class='product_img draggable' id='img_" . $row->produktid . "' src='" . $row->bild . "'><br/>";
+                echo "<div class='toCart'>In den Warenkorb legen</div>";
+                echo "<p class='product_secret product_id'>" . $row->produktid . "</p>";
+                echo "<table class='product_secret'>";
+                echo "<tr><td id='desc_" . $row->produktid . "'>" . $row->bezeichnung . "</td></tr>";
+                echo "<tr><td id='price_" . $row->produktid . "'>€ " . $row->preis . "</td></tr>";
+                echo "<tr><td id='rating_" . $row->produktid . "'>" . $row->bewertung . "</td></tr>";
+                echo "</table>";
                 echo "</div>";
             }
             echo "</div>";
@@ -191,11 +191,12 @@ class DB {
         if ($ergebnis) {
             echo "<table class='table table-hover'>";
             echo "<thead><tr>";
+                        echo "<th>Bild</th>";
             echo "<th>Produkt Id</th>";
             echo "<th>Produkt</th>";
             echo "<th>Preis</th>";
             echo "<th>Bewertung</th>";
-            echo "<th>Bild</th>";
+
             echo "<th>Kategorie Id</th>";
             echo "<th>Kategorie</th>";
             echo "<th>Bearbeiten</th>";
@@ -285,6 +286,7 @@ class DB {
                         $produkt[2] = $preis;
                         $produkt[3] = $bewertung;
                         $produkt[4] = $kid;
+                        $produkt[5] = $produktid;
                     }
                 }
                 $ergebnis->close();
@@ -295,6 +297,21 @@ class DB {
             return $produkt;
         } else {
             return null;
+        }
+    }
+
+    public function editProduct($produkt) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("UPDATE produkt SET bezeichnung = ?, bild = ?, preis = ?, bewertung = ?, kid = ? WHERE produktid = ?;")) {
+            $ergebnis->bind_param("ssdiii", $produkt['name'], $produkt['path'], $produkt['preis'], $produkt['bewertung'], $produkt['kid'], $produkt['produktid']);
+            if ($ergebnis->execute()) {
+                $success = true;
+            } else {
+                $success = false;
+            }
+            $ergebnis->close();
+            $db->close();
+            return $success;
         }
     }
 

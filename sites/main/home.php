@@ -8,8 +8,6 @@
 <ul type="circle">
     <li>destroy session when user closes browser</li>
     <li><a href="https://stackoverflow.com/questions/24402047/php-session-destroy-after-closing-browser" target="_blank">StackOverflow</a></li>
-    <li>phpFunctions/load/main.php</li>
-    <li>Aus der session checken wer eingeloggt ist, um zu garantieren dass er wirklich zugriff hat.</li>
 </ul>
 
 <p class='bg-success'>Admin user: admin<br>Password: bananaadmin<br>
