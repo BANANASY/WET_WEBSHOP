@@ -36,9 +36,10 @@ and open the template in the editor.
         include 'inc/nav_main.php';
         ?>
         <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
-
+        
         <div class="container" id="container_content">
             <div class="content">
+                <?php var_dump($_SESSION) ?>
                 <?php
                 include 'phpFunctions/loadMain.php';
                 if (isset($_GET["page"])) {

@@ -86,6 +86,7 @@ class securitas {
     public function getRole($username) {
         $db = new DB();
         if ($db->checkIfUserExists($username)) {
+            echo $role = $db->getRole($username);
             return $role = $db->getRole($username);
         }
         return "visitor";

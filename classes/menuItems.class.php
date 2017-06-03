@@ -19,8 +19,8 @@ class menuItems {
             case "user":
 //                echo "loading user";
                 foreach ($menuXML->user->menuitem as $user) {
-                    
-                    echo "<li><a href='" . $user->path . "'>" . $user->name . "</a></li>";
+
+                        echo "<li><a href='" . $user->path . "'>" . $user->name . "</a></li>";
                 }
                 break;
             case "admin":
@@ -45,7 +45,7 @@ class menuItems {
 //                echo "loading user";
                 foreach ($menuXML->user->menuitem as $user) {
                     foreach ($user->submenuitem as $sub) {
-                        echo "<li><a href='" . $sub->path . "'>" . $sub->name . "</a></li>";
+                        echo "<li class='nav_li' data-value='". $sub->path ."'>". $sub->name . "</li>";
                     }
                 }
                 break;
@@ -60,7 +60,7 @@ class menuItems {
             default:
                 foreach ($menuXML->visitor->menuitem as $visitor) {
                     foreach ($visitor->submenuitem as $sub) {
-                        echo "<li><a href='" . $sub->path . "'>" . $sub->name . "</a></li>";
+                        echo "<li class='nav_li' data-value='". $sub->path ."'>". $sub->name . "</li>";
                     }
                 }
         }

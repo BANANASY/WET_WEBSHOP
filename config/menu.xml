@@ -11,11 +11,11 @@
             <path>?page=1</path>
             <submenuitem>
                 <name>Banana</name>
-                <path>?page=1&amp;kat=1</path>
+                <path>1</path>
             </submenuitem>
             <submenuitem>
                 <name>Yoghurt</name>
-                <path>?page=1&amp;kat=2</path>
+                <path>2</path>
             </submenuitem>
 <!--            <submenuitem>
                 <name>Eggs</name>
@@ -46,23 +46,23 @@
             <path>?page=1</path>
             <submenuitem>
                 <name>Banana</name>
-                <path>?page=1&amp;kat=1</path>
+                <path>1</path>
             </submenuitem>
             <submenuitem>
                 <name>Yoghurt</name>
-                <path>?page=1&amp;kat=2</path>
+                <path>2</path>
             </submenuitem>
             <submenuitem>
                 <name>Eggs</name>
-                <path>?page=1&amp;kat=3</path>
+                <path>3</path>
             </submenuitem>
             <submenuitem>
                 <name>Rice</name>
-                <path>?page=1&amp;kat=4</path>
+                <path>4</path>
             </submenuitem>
             <submenuitem>
                 <name>Costumes</name>
-                <path>?page=1&amp;kat=5</path>
+                <path>5</path>
             </submenuitem>
         </menuitem>
         <menuitem>
