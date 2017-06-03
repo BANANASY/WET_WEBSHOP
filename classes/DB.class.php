@@ -191,7 +191,7 @@ class DB {
         if ($ergebnis) {
             echo "<table class='table table-hover'>";
             echo "<thead><tr>";
-                        echo "<th>Bild</th>";
+            echo "<th>Bild</th>";
             echo "<th>Produkt Id</th>";
             echo "<th>Produkt</th>";
             echo "<th>Preis</th>";
@@ -303,6 +303,7 @@ class DB {
     public function editProduct($produkt) {
         $db = $this->connect2DB();
         if ($ergebnis = $db->prepare("UPDATE produkt SET bezeichnung = ?, bild = ?, preis = ?, bewertung = ?, kid = ? WHERE produktid = ?;")) {
+
             $ergebnis->bind_param("ssdiii", $produkt['name'], $produkt['path'], $produkt['preis'], $produkt['bewertung'], $produkt['kid'], $produkt['produktid']);
             if ($ergebnis->execute()) {
                 $success = true;
@@ -313,6 +314,143 @@ class DB {
             $db->close();
             return $success;
         }
+    }
+
+    public function addGutschein($wert, $datum, $code) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("INSERT INTO gutschein (wert, ablauf_datum, code) VALUES (?, ?, ?);")) {
+
+            $ergebnis->bind_param("iss", $wert, $datum, $code);
+            if ($ergebnis->execute()) {
+                $success = true;
+            } else {
+                $success = false;
+            }
+            $ergebnis->close();
+            $db->close();
+            return $success;
+        }
+    }
+
+    public function getGutscheinList() {
+        $db = $this->connect2DB();
+        $query = "SELECT ablauf_datum, wert, code FROM gutschein order by gid desc";
+        $ergebnis = $db->prepare($query);
+        $ergebnis->execute();
+        $ergebnis->bind_result($datum, $wert, $code);
+        if ($ergebnis) {
+            echo "<table class='table table-striped'>";
+            echo "<thead><tr>";
+            echo "<th>Ablauf Datum</th>";
+            echo "<th>Wert</th>";
+            echo "<th>Code</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+            while ($ergebnis->fetch()) {
+                date_default_timezone_set("Europe/Vienna");
+                if ($wert == 0 || strtotime($datum) < time()) {
+                    echo "<tr class='danger'>";
+                } else {
+                    echo "<tr>";
+                }
+                echo "<td>$datum</td>";
+                echo "<td>$wert</td>";
+                echo "<td>$code</td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+        }
+        $ergebnis->close();
+        $db->close();
+    }
+
+    public function getCustList() {
+        $db = $this->connect2DB();
+        $query = "SELECT
+                        pid,
+                        anrede,
+                        vorname,
+                        nachname,
+                        email,
+                        strasse,
+                        plz,
+                        ort,
+                        username,
+                        activ
+                    FROM person left join adresse using(aid)
+                                left join user using (uid)
+                                left join zahlungsinfo_person using (pid)
+                    ORDER BY pid DESC;";
+        $ergebnis = $db->prepare($query);
+        $ergebnis->execute();
+        $ergebnis->bind_result($pid, $anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $username, $active);
+        if ($ergebnis) {
+            echo "<table class='table table-hover'>";
+            echo "<thead><tr>";
+            echo "<th>PID</th>";
+            echo "<th>Anrede</th>";
+            echo "<th>Vorname</th>";
+            echo "<th>Nachname</th>";
+            echo "<th>Email</th>";
+            echo "<th>Strasse</th>";
+            echo "<th>PLZ</th>";
+            echo "<th>Ort</th>";
+            echo "<th>Zahlungsarten</th>";
+            echo "<th>Username</th>";
+            echo "<th>Status</th>";
+            echo "</tr>";
+            echo "</thead>";
+            echo "<tbody>";
+            while ($ergebnis->fetch()) {
+                echo "<tr>";
+                echo "<td>$pid</td>";
+                echo "<td>$anrede</td>";
+                echo "<td>$vorname</td>";
+                echo "<td>$nachname</td>";
+                echo "<td>$email</td>";
+                echo "<td>$strasse</td>";
+                echo "<td>$plz</td>";
+                echo "<td>$ort</td>";
+                echo "<td>";
+                $this->getZahlungsarten($pid);
+                echo "</td>";
+                echo "<td>$username</td>";
+                echo "<td>$active</td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+        }
+        $ergebnis->close();
+        $db->close();
+    }
+
+    /**
+     * 
+     * @param type $pid person id
+     * @return string Liste der Zahlungsarten
+     */
+    public function getZahlungsarten($pid) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("SELECT zahlungsart FROM zahlungsinfo join zahlungsinfo_person using(zid) where pid = ? ;")) {
+            $ergebnis->bind_param("i", $pid);
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($zahlungsart);
+                if ($ergebnis) {
+                    echo "<ul>";
+                    while ($ergebnis->fetch()) {
+                        echo "<li>";
+                        echo $zahlungsart;
+                        echo "</li>";
+                    }
+                    echo"</ul>";
+                }
+                $ergebnis->close();
+            }
+        }
+        $db->close();
     }
 
 }

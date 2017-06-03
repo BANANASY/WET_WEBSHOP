@@ -55,7 +55,7 @@ if (!empty($_POST)) {
     <div class="form-group">
         <label for="bild" class="col-sm-2 control-label">Bild</label>
         <div class="col-sm-10">
-            <input type="file" class="form-control" required id="bild" name="bild">
+            <input type="file" accept="image" class="form-control" required id="bild" name="bild">
         </div>
     </div>
     <div class="form-group">

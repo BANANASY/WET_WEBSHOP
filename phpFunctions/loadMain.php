@@ -62,6 +62,12 @@ function loadMain($page) {
             } else {
                 include 'sites/main/notAuthorized.php';
             }break;
+        case 13:
+            if ($role === 'admin') {
+                include 'sites/main/addGut.php';
+            } else {
+                include 'sites/main/notAuthorized.php';
+            }break;
         default:
             include 'sites/main/404.php';
     }

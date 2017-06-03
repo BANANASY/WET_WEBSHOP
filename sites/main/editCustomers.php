@@ -1,7 +1,14 @@
 <?php
-//    ++toDo++ check if current user is admin else dont load the page
+
+include 'classes/DB.class.php';
+
+echo "<h2>Kunden Bearbeiten</h2>";
+
+$db = new DB();
+$db->getCustList();
+
 ?>
-<h2>Kunden Bearbeiten</h2>
+
 <p>2) Kunden verwalten</p>
 <ol>
 <li>Der Admin hat die Möglichkeit, alle existierenden Kunden

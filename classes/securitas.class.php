@@ -72,6 +72,14 @@ class securitas {
         }
     }
 
+    public function checkDate($toCheck) {
+        if (!empty($toCheck) && preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $toCheck)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function checkLogin($username, $password) {
         $db = new DB();
         if ($db->checkIfUserExists($username)) {
@@ -175,6 +183,28 @@ class securitas {
                 return null;
         } else
             return $produkt;
+    }
+
+    public function checkNewGut() {
+        $cnt = 0;
+        $gutschein = array();
+        if ($this->checkNumeric($_POST['wert'], 20, 500)) {
+            $gutschein['wert'] = $_POST['wert'];
+            $cnt++;
+        }
+        if ($this->checkDate($_POST['datum'])) {
+            $gutschein['datum'] = $_POST['datum'];
+            $cnt++;
+        }
+        if (ctype_alnum($_POST['code']) && 5 == strlen($_POST['code'])) {
+            $gutschein['code'] = $_POST['code'];
+            $cnt++;
+        }
+        if($cnt==3){
+            return $gutschein;
+        } else {
+            return null;
+        }
     }
 
 }

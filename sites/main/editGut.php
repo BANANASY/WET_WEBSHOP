@@ -1,6 +1,15 @@
 <?php
-//    ++toDo++ check if current user is admin else dont load the page
+include 'inc/nav_sec.php';
+include 'classes/DB.class.php';
+
+$db = new DB();
+echo "<h2>Produkte bearbeiten</h2>";
+$db->getGutscheinList();
 ?>
+
+
+
+
 <h2>Gutscheine Bearbeiten</h2>
 <p>3) Gutscheine verwalten</p>
 <ol>

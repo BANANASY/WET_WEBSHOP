@@ -18,13 +18,20 @@
                     $menuItems->secondMenuGenerator($role);
                     ?>
                 </ul>
+                <?php
+                
+                if($role == "user"||$role == "visitor" ){
+                
+                ?>
                 <form class="navbar-form navbar-right">
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
-
+                <?php
+                }
+                ?>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
