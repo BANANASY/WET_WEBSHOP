@@ -14,7 +14,7 @@ include "classes/menuItems.class.php";
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar_left">
                 <?php
                 //get user role from db 
                 if (!empty($_SESSION['user'])) {

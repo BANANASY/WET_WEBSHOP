@@ -163,14 +163,14 @@ class DB {
             echo "<div class='productContent'>";
             while ($row = $query->fetch_object()) {
                 echo "<div class='productCage'>";
-                echo "<img class='product_img draggable' id='img_" . $row->produktid . "' src='" . $row->bild . "'><br/>";
-                echo "<div class='toCart'>In den Warenkorb legen</div>";
-                echo "<p class='product_secret product_id'>" . $row->produktid . "</p>";
-                echo "<table class='product_secret'>";
-                echo "<tr><td id='desc_" . $row->produktid . "'>" . $row->bezeichnung . "</td></tr>";
-                echo "<tr><td id='price_" . $row->produktid . "'>€ " . $row->preis . "</td></tr>";
-                echo "<tr><td id='rating_" . $row->produktid . "'>" . $row->bewertung . "</td></tr>";
-                echo "</table>";
+                    echo "<img class='product_img draggable' id='img_". $row->produktid ."' src='".$row->bild."'><br/>";
+                    echo "<div class='toCart'>In den Warenkorb legen</div>";
+                    echo "<p class='product_secret product_id'>".$row->produktid."</p>";
+                    echo "<table class='product_secret'>";
+                        echo "<tr><td class='product_description' id='desc_". $row->produktid ."'>".$row->bezeichnung."</td></tr>";
+                        echo "<tr><td class='product_price' id='price_". $row->produktid ."'>€ ".$row->preis."</td></tr>";
+                        echo "<tr><td class='product_rating' id='rating_". $row->produktid ."'>".$row->bewertung."</td></tr>";
+                    echo "</table>";
                 echo "</div>";
             }
             echo "</div>";
