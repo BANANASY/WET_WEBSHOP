@@ -1,16 +1,19 @@
 <?php
 include 'inc/nav_sec.php';
+?>
+<h2 class = "page-header">Gutscheine</h2>
+<?php
 include 'classes/DB.class.php';
 
 $db = new DB();
-echo "<h2>Produkte bearbeiten</h2>";
+
 $db->getGutscheinList();
 ?>
 
 
 
 
-<h2>Gutscheine Bearbeiten</h2>
+
 <p>3) Gutscheine verwalten</p>
 <ol>
     <li>Weiters gibt es für den Admin die Option, Gutscheincodes zu

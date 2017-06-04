@@ -19,7 +19,7 @@ if (!empty($_POST)) {
     }
 }
 ?>
-<h2 id="regform_title">Neues Produkt</h2>
+<h2 id="regform_title" class="page-header">Neues Produkt</h2>
 <form class="form-horizontal" action="?page=12" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="kategorie" class="col-sm-2 control-label">Kategorie:</label>

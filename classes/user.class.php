@@ -160,7 +160,7 @@ class user {
 
     private function setZid($zid) {
         $sec = new Securitas();
-        if ($sec->checkNumeric($zid, 0, 2)) {
+        if ($sec->checkNumeric($zid, 1, 3)) {
             $this->zid = $zid;
         } else {
             $this->allgood = false;

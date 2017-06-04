@@ -83,11 +83,17 @@ class securitas {
     public function checkLogin($username, $password) {
         $db = new DB();
         if ($db->checkIfUserExists($username)) {
-            $hash = hash("sha256", $password);
-            if ($db->userLogin($username, $hash)) {
-                return true;
+            if ($db->checkIfUserActive($username)) {
+                $hash = hash("sha256", $password);
+                if ($db->userLogin($username, $hash)) {
+                    return true;
+                }
+            } else {
+                echo "<p class='bg-danger'>Your username has been deactivated.</p>";
             }
-        }
+        } else {
+                echo "<p class='bg-danger'>Wrong username.</p>";
+            }
         return false;
     }
 
@@ -201,7 +207,7 @@ class securitas {
             $gutschein['code'] = $_POST['code'];
             $cnt++;
         }
-        if($cnt==3){
+        if ($cnt == 3) {
             return $gutschein;
         } else {
             return null;

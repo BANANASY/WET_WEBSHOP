@@ -3,7 +3,7 @@
 
 ?>
 
-<h2>Welcome to Banana Yoghurt Land</h2>
+<h2 class="page-header">Welcome to Banana Yoghurt Land</h2>
 <h3>to Do</h3>
 <ul type="circle">
     <li>destroy session when user closes browser</li>

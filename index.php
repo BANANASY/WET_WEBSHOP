@@ -39,7 +39,7 @@ and open the template in the editor.
         
         <div class="container" id="container_content">
             <div class="content">
-                <?php var_dump($_SESSION) ?>
+                <?php // var_dump($_SESSION) ?>
                 <?php
                 include 'phpFunctions/loadMain.php';
                 if (isset($_GET["page"])) {

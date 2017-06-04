@@ -19,7 +19,7 @@ if (!empty($_POST)) {
 }
 ?>
 
-<h2 id="regform_title">Neuer Gutschein</h2>
+<h2 id="regform_title" class='page-header'>Neuer Gutschein</h2>
 <form class="form-horizontal" action="?page=13" method="post">
     <div class="form-group">
         <label for="wert" class="col-sm-2 control-label">Wert</label>
