@@ -23,6 +23,10 @@ and open the template in the editor.
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.js"></script>
+        <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet"> 
 
         <!-- get Bootstrap -->
@@ -36,7 +40,7 @@ and open the template in the editor.
         include 'inc/nav_main.php';
         ?>
         <div class="div_logo"><h1>The Banana and Yoghurt Shop</h1></div>               
-        
+
         <div class="container" id="container_content">
             <div class="content">
                 <?php // var_dump($_SESSION) ?>

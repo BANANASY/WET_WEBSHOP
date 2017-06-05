@@ -16,10 +16,17 @@ if (!empty($_SESSION)) {
             $pid = $db->getPid($username);
             if ($db->insertToZahlung($zid, $pid)) {
                 ?>
-<!--                <div class="alert alert-success alert-dismissible" role="alert">
+                <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <strong>Holly Bananas!</strong>Die Zahlungsart wurde hinzugefügt.
-                </div>-->
+                </div>
+                <?php
+            } else {
+                ?>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Holly Bananas!</strong>Die Zahlungsart gibt es schon.
+                </div>
                 <?php
             }
         }
@@ -34,6 +41,8 @@ if (!empty($_SESSION)) {
     }
 }
 ?>
+
+<div id='ajax'></div>
 <h2>6. Mein Konto</h2>
 
 <ol>

@@ -536,9 +536,9 @@ class DB {
             while ($ergebnis->fetch()) {
                 echo "<ul class = 'list-group col-md-12'>";
                 echo "<li class = 'list-group-item col-md-9'>";
-                echo "<span class = 'badge'>";
+                echo "<span class = 'badge username'>";
 
-                echo "Username: " . $username;
+                echo $username;
                 echo "</span>";
                 echo "<h3><small>" . $anrede . "</small> " . $vorname . " " . $nachname . "</h3>";
                 echo "<p>&emsp;" . $email . "<br>";
@@ -551,7 +551,7 @@ class DB {
                 echo "</li>";
                 echo "<li class = 'list-group-item col-md-3 '>";
                 echo "<h6>Zahlungsart hinzufügen</h6>";
-                echo "<form class = 'form-horizontal' action = '?page=2' method = 'post'>";
+                echo "<form class = 'form-horizontal check-password' action = '?page=2' method = 'post'>";
                 echo "<div class='form-group'>";
                 echo "<select class='form-control' name='credit' required id='credit'>";
                 $zahlungsarten = $this->getZahlungsinfo();
