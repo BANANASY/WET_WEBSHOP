@@ -1,3 +1,48 @@
+<h2 class="page-header">Mein Konto</h2>
+<?php
+include 'classes/DB.class.php';
+include 'classes/securitas.class.php';
+
+//Username aus Session hohlen
+if (!empty($_SESSION)) {
+    $user = $_SESSION['user'];
+    $username = $user[0];
+
+    if (!empty($_POST['credit'])) {
+        $sec = new securitas();
+        if ($sec->checkNumeric($_POST['credit'], 1, 3)) {
+            $zid = $_POST['credit'];
+            $db = new DB();
+            $pid = $db->getPid($username);
+            if ($db->insertToZahlung($zid, $pid)) {
+                ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Holly Bananas!</strong>Die Zahlungsart wurde hinzugefügt.
+                </div>
+                <?php
+            } else {
+                ?>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Holly Bananas!</strong>Die Zahlungsart gibt es schon.
+                </div>
+                <?php
+            }
+        }
+    }
+
+//User Details anzeigen
+    if (!empty($username)) {
+        $db = new DB();
+        if ($db->getCustDetails($username)) {
+            
+        }
+    }
+}
+?>
+
+<div id='ajax'></div>
 <h2>6. Mein Konto</h2>
 
 <ol>

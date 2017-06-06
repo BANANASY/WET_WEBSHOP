@@ -30,22 +30,28 @@ if (empty($_GET['kat']) || $_GET['kat'] == 1) {
         include "sites/main/editExistingProd.php";
     }
 } elseif (!empty($_GET['kat']) || $_GET['kat'] == 3) {//go here to update
-    var_dump($_POST);
-    var_dump($_FILES);
-//        if($db->editProduct($produktid)){
-//            
-//            echo "<p class='bg-success'>Produkt wurde erfolgreich geändert.</p>";
-//        }
+    $produkt = $sec->checkNewProd(1);
+    if ($db->editProduct($produkt)) {
+        //altes Bild löschen
+        if (!empty($_FILES['bild']['name']) && !empty($_POST['oldBild'])) {
+            unlink($_POST['oldBild']);
+            echo "<p class='bg-success'>Holy Bananos, the old picture was successfully removed forever!</p>";
+        } else {
+            echo "<p class='bg-danger'>Holy Bananos, There was no old picture to remove!</p>";
+        }
+        echo "<p class='bg-success'>Produkt wurde erfolgreich geändert.</p>";
+
+    }
 } else {
     echo "<p class='bg-danger'>Holy Bananos, don't mess around with the URL!</p>";
 }
 ?>
 
-<h2>Produkte Bearbeiten</h2>
+<!--<h2>Produkte Bearbeiten</h2>
 <ol>
     <li>Im Bereich „Produkte bearbeiten“ kann der Administrator sowohl
         neue Produkte anlegen (zumindest mit Name, Beschreibung,
         Bewertung, Preis, Foto) als auch Produkte bearbeiten und löschen.
     </li>
     <li>Für jedes Produkt kann ein Produktfoto hochgeladen werden.</li>
-</ol>
+</ol>-->

@@ -77,9 +77,12 @@ $produkt = $db->getProduktMeta($produktid);
             <input type="file" class="form-control" id="bild" name="bild">
         </div>
     </div>
+    <input type="text" class="hidden" name="oldBild" value="<?php echo $produkt[1]; ?>">
+    <input type="text" class="hidden" name="produktid" value="<?php echo $produkt[5]; ?>">
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button id="submit" type="submit" class="btn btn-default">Speichern</button>
+            <button id="submit" type="submit" class="btn btn-default">Änderungen übernehmen</button>
         </div>
     </div>
 </form>

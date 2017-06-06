@@ -5,60 +5,11 @@ include 'classes/securitas.class.php';
 
 if (!empty($_POST)) {
     $sec = new securitas();
-    $cnt = 0;
-    if ($sec->checkNumeric($_POST['kategorie'], 1, 5)) {
-        $kid = $_POST['kategorie'];
-        $cnt++;
-    }
-    if ($sec->checkString50W($_POST['bezeichnung'],true)) {
-        $bezeichnung = $_POST['bezeichnung'];
-        $cnt++;
-    }
-    if ($sec->checkNumeric($_POST['preis'], 0, 5000)) {
-        $preis = $_POST['preis'];
-        $cnt++;
-    }
-    if ($sec->checkNumeric($_POST['bewertung'], 0, 5)) {
-        $bewertung = $_POST['bewertung'];
-        $cnt++;
-    }
-    //++toDo++ Bild upload security etc
-    {
-        if (isset($_FILES['bild'])) {
-//            var_dump($_FILES['bild']);
-            if ($sec->isImage($_FILES['bild']['name']) !== null) {
-                $bild = $sec->isImage($_FILES['bild']['name']);
-                switch ($kid) {
-                    case 1:
-                        $path = "pictures/banana/" . $bild;
-                        break;
-                    case 2:
-                        $path = "pictures/yoghurt/" . $bild;
-                        break;
-                    case 3:
-                        $path = "pictures/egg/" . $bild;
-                        break;
-                    case 4:
-                        $path = "pictures/rice/" . $bild;
-                        break;
-                    case 5:
-                        $path = "pictures/costumes/" . $bild;
-                        break;
-                }
-                if (move_uploaded_file($_FILES['bild']['tmp_name'], $path)) {
-                    $cnt++;
-//                    echo "<p class='bg-success'>Bild upgeloaded. Neuer name = " . $bild."</p>";
-                } else {
-                    echo "<p class='bg-danger'>Couldn't move bild</p>";
-                }
-            } else {
-                echo "<p class='bg-danger'>Not an image. Only jpg, png and gifs allowed.</p>";
-            }
-        }
-    }
-    if ($cnt == 5) {
+    $produkt = $sec->checkNewProd(0);
+
+    if ($produkt !== null) {
         $db = new DB();
-        if ($db->addProduct($bezeichnung, $path, $preis, $bewertung, $kid)) {
+        if ($db->addProduct($produkt['name'], $produkt['path'], $produkt['preis'], $produkt['bewertung'], $produkt['kid'])) {
             echo "<p class='bg-success'>Produkt wurde hinzugefügt.</p>";
         } else {
             echo "<p class='bg-danger'>SQL Error.</p>";
@@ -67,10 +18,8 @@ if (!empty($_POST)) {
         echo "<p class='bg-danger'>POST error.</p>";
     }
 }
-
-
 ?>
-<h2 id="regform_title">Neues Produkt</h2>
+<h2 id="regform_title" class="page-header">Neues Produkt</h2>
 <form class="form-horizontal" action="?page=12" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label for="kategorie" class="col-sm-2 control-label">Kategorie:</label>
@@ -106,7 +55,7 @@ if (!empty($_POST)) {
     <div class="form-group">
         <label for="bild" class="col-sm-2 control-label">Bild</label>
         <div class="col-sm-10">
-            <input type="file" class="form-control" required id="bild" name="bild">
+            <input type="file" accept="image" class="form-control" required id="bild" name="bild">
         </div>
     </div>
     <div class="form-group">

@@ -1,7 +1,19 @@
 <?php
-//    ++toDo++ check if current user is admin else dont load the page
+include 'inc/nav_sec.php';
 ?>
-<h2>Gutscheine Bearbeiten</h2>
+<h2 class = "page-header">Gutscheine</h2>
+<?php
+include 'classes/DB.class.php';
+
+$db = new DB();
+
+$db->getGutscheinList();
+?>
+
+
+
+
+
 <p>3) Gutscheine verwalten</p>
 <ol>
     <li>Weiters gibt es für den Admin die Option, Gutscheincodes zu

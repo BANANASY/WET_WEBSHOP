@@ -99,6 +99,14 @@
         <menuitem>
             <name>Gutscheine verwalten</name>
             <path>?page=6</path>
+            <submenuitem>
+                <name>Gutscheine verwalten</name>
+                <path>?page=6</path>
+            </submenuitem>
+            <submenuitem>
+                <name>Neuer Gutschein</name>
+                <path>?page=13</path>
+            </submenuitem>
         </menuitem>
     </admin>
 </root>

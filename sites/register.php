@@ -90,7 +90,7 @@ $db = new DB();
                     <option value="">Choose payment method ...</option>
                     <?php
                     $zahlungsarten = $db->getZahlungsinfo();
-                    $id=0;
+                    $id=1;
                     foreach($zahlungsarten as $zahlungsart){
                         echo "<option value=".$id.">".$zahlungsart."</option>";
                         $id++;
