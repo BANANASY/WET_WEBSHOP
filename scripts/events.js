@@ -62,6 +62,7 @@ $(document).ready(function () {
     $("#warenkorb_obj").draggable({
         containment: $("#content_main")
     });
+    
 }); // end of document.ready
 
 $(".content").on("mouseover mouseout", ".productCage", function () {
@@ -97,35 +98,57 @@ $(".content").on("mouseover mouseout", ".productCage", function () {
             feedbackObj = this;
             visualFeedback(feedbackObj);
         });
-
+        
+        $(document).mouseup(function () {
+        mouseStillDown = false;
+        visualFeedback(feedbackObj);
+        });
+        
         $("#warenkorb_minion_div").css({
             bottom: "600px",
             left: "10px"
         });
+        
+        $(".productCage img").click(function () {
+            $(".productCage").css("border-color", "black");
+            $(this).parent().css("border-color", "#999999");
 
-        $("#warenkorb_hangingSign_textdiv p").html("");
-        $("#minion_text").html("");
+            $("#warenkorb_minion_div").stop();
+            $("#warenkorb_hangingSign_div").stop();
 
-        var id = $(this).parent().find(".product_id").html();
-        var desc = $(this).parent().find("#desc_" + id).html();
-        var price = $(this).parent().find("#price_" + id).html();
-        var rating = $(this).parent().find("#rating_" + id).html();
+            $("#warenkorb_hangingSign_div").css({
+                bottom: "730px",
+                left: "10px"
+            });
 
-        $("#minion_text").html(desc);
-        $("#warenkorb_hangingSign_price").html(price);
-        $("#warenkorb_hangingSign_rating").html(rating);
+            $("#warenkorb_minion_div").css({
+                bottom: "600px",
+                left: "10px"
+            });
 
-        $("#warenkorb_minion_div").animate({
-            bottom: "715px",
-            left: "-145px"
-        }, 600);
+            $("#warenkorb_hangingSign_textdiv p").html("");
+            $("#minion_text").html("");
 
-        $("#warenkorb_hangingSign_div").animate({
-            bottom: "605px",
-            left: "10px"
-        }, 600);
-    });
+            var id = $(this).parent().find(".product_id").html();
+            var desc = $(this).parent().find("#desc_" + id).html();
+            var price = $(this).parent().find("#price_" + id).html();
+            var rating = $(this).parent().find("#rating_" + id).html();
 
+            $("#minion_text").html(desc);
+            $("#warenkorb_hangingSign_price").html(price);
+            $("#warenkorb_hangingSign_rating").html(rating);
+
+            $("#warenkorb_minion_div").animate({
+                bottom: "715px",
+                left: "-145px"
+            }, 600);
+
+            $("#warenkorb_hangingSign_div").animate({
+                bottom: "605px",
+                left: "10px"
+            }, 600);    
+        });
+   
 } // end of initializeDynamicEvents()
 
 // schickt Daten zu einer PHP-File die das Objekt in der Session speichert.
