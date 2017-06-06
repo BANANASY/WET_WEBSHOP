@@ -271,3 +271,24 @@ body  {
     list-style: none;
     cursor:pointer;
 }
+
+.form-group{
+/*    text-align:center;*/
+
+}
+
+.register_div{
+/*    margin:auto;*/
+}
+.register_error_div{
+    height:35px;
+}
+
+.registerErrorTrue{
+    border-left: 5px solid red;
+    color:red;
+}
+
+.registerErrorFalse{
+    border-left: 5px solid #00cc33;
+}

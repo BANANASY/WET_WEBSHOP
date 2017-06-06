@@ -47,14 +47,22 @@ $(document).ready(function () {
                $(".productContent").html(data);
            });
    });
+   
+    $("#warenkorb_obj").droppable({
+        accept: ".productCage",
+        drop: function(event, ui) {
+            $("#warenkorb_count").html(++warenkorb_cnt);
+            // call dragged object:
+            //$(ui.draggable).find(".product_id").html()
+            //console.log($(ui.draggable).find(".product_id").html());
+            sendDataToSession($(ui.draggable));
+        }
+    });
     
-    // holt eine ProduktId von Image when ein Event abgehandelt wird
-    // für spätere Implementierung für Warenkorb
-    function getIdFromImg (){
-        //$(".productCage).event"
-        $(this).children("#product_id").html();
-    }
-});
+    $("#warenkorb_obj").draggable({
+        containment: $("#content_main")
+    });
+}); // end of document.ready
 
 $(".content").on("mouseover mouseout", ".productCage", function(){
     initializeDynamicEvents();
@@ -65,9 +73,7 @@ $(".content").on("mouseover mouseout", ".productCage", function(){
         // macht alle ausgewählten elemente draggable, sobald die Seite fertig geladen ist    
         // in einer sicht selbstaufrufenden funktion:    
     
-        $("#warenkorb_obj").draggable({
-            containment: $("#content_main")
-        });
+
         $(".productCage").draggable({ 
             stack: ".productCage",
             revert: true,
@@ -83,16 +89,7 @@ $(".content").on("mouseover mouseout", ".productCage", function(){
                 $("#warenkorb_obj").css("z-index","1000");
             }        
         });
-        $("#warenkorb_obj").droppable({
-            accept: ".productCage",
-            drop: function(event, ui) {
-                $("#warenkorb_count").html(++warenkorb_cnt);
-                // call dragged object:
-                //$(ui.draggable).find(".product_id").html()
-//                console.log($(ui.draggable).find(".product_id").html());
-                sendDataToSession($(ui.draggable));
-            }
-        });   
+   
         
         //visuelles Feedback für toCart-div bei mousedown:
         $(".toCart").mousedown(function(){
