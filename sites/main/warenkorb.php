@@ -1,9 +1,32 @@
 
 <div class='cartContent'>
 <?php
-    
+//    var_dump($_SESSION);
     if(isset($_GET['ordered'])){
+        $dbs = new DB();
+        $username = $_SESSION['user'][0];
+        $pid = $dbs->getPid($username);
         
+        echo "<form class='form-inline'>";
+            echo "<div class='form-group'>";
+                echo "<label class='sr-only' for='zahlungsart'>Zahlungsart</label>";
+                echo "call function";
+                echo "<select class='form-control' name='zahlungsart' id='zahlungsart'>";
+                    echo "<option value=''>Zahlungsart wählen ...</option>";
+                    
+                    echo $dbs->getZahlungsdatenAsOptions($pid);
+                echo "</select>";
+            echo "</div>";
+            echo "<button type='submit' class='btn btn-default'>Senden</button>";
+        echo "</form>";
+        echo "<div><br/>------------------- ODER -------------------</div><br/>";
+        echo "<form class='form-inline'>";           
+            echo "<div class='form-group'>";
+                echo "<label class='sr-only' for='gutschein'>Gutschein</label>";
+                echo "<input type='text' class='form-control' id='gutschein' placeholder='z. B.: X5GA7'>";
+            echo "</div>";           
+            echo "<button type='submit' class='btn btn-default'>Senden</button>";
+        echo "</form>";
     }else{
         if(!isset($_SESSION['shoppingcart'])){
             echo "Keine Produkte im Warenkorb vorhanden.";
