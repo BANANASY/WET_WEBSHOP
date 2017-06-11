@@ -1,5 +1,5 @@
 <?php
-include 'classes/DB.class.php';
+//include 'classes/DB.class.php';
 include 'classes/securitas.class.php';
 ?>
 

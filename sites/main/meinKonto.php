@@ -1,6 +1,6 @@
 <h2 class="page-header">Mein Konto</h2>
 <?php
-include 'classes/DB.class.php';
+//include 'classes/DB.class.php';
 include 'classes/securitas.class.php';
 
 //Username aus Session hohlen

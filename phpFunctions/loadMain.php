@@ -1,7 +1,7 @@
 <?php
 
 function loadMain($page) {
-    if (!empty($_SESSION)) {
+    if (isset($_SESSION['user'])) {
         $user = $_SESSION['user'];
         $role = $user[1];
     } else {

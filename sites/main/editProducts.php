@@ -1,6 +1,6 @@
 <?php
 include 'inc/nav_sec.php';
-include 'classes/DB.class.php';
+//include 'classes/DB.class.php';
 include 'classes/securitas.class.php';
 
 $db = new DB();
