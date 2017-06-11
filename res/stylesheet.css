@@ -292,3 +292,7 @@ body  {
 .registerErrorFalse{
     border-left: 5px solid #00cc33;
 }
+
+#passwordField{
+    margin-top: 15px;
+}

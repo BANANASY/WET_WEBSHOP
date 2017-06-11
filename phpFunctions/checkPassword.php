@@ -1,16 +1,14 @@
 <?php
-        echo "bin hier";
-        var_dump($_SESSION);
-        var_dump($_SERVER);
-        include_once " ./classes/securitas.class.php";
+session_start();
+require_once '../classes/securitas.class.php';
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-    if($_POST['incoming_userAut']){
-        $password = json_decode(stripslashes($_POST['incoming_userAut']));
-//        $sec = new securitas();
-
-        $username = $_SESSION['user'];
-//        if($sec->checkLogin($username, $password){
-//            echo "Passwort stimmt";
-//        }
-
-    }
+if(!empty($_POST['pw'])){
+    echo "passed";
+} else {
+    echo "bullshit";
+}

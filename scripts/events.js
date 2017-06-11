@@ -188,7 +188,7 @@ function visualFeedback(obj) {
 $(".check-password").validate({
     submitHandler: function (form) {
 
-        var password = prompt("Gib mal passwort", "");
+        var password = alert("<input type='password'><button>nice</button>");
 
         var jsonString = JSON.stringify(password);
 
