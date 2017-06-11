@@ -3,7 +3,7 @@ include 'inc/nav_sec.php';
 ?>
 <h2 class = "page-header">Gutscheine</h2>
 <?php
-include 'classes/DB.class.php';
+//include 'classes/DB.class.php';
 
 $db = new DB();
 

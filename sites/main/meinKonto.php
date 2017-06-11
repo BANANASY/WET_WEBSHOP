@@ -3,7 +3,7 @@
         <li class="previous"><a href="?page=15">Stammtdaten bearbeiten <span aria-hidden="true">&rarr;</span></a></li>
     </ul>
 <?php
-include 'classes/DB.class.php';
+//include 'classes/DB.class.php';
 include 'classes/securitas.class.php';
 
 //Username aus Session hohlen

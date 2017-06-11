@@ -615,6 +615,32 @@ class DB {
         }
         $db->close();
     }
+    
+    public function getZahlungsdatenAsOptions($pid){
+        $db = $this->connect2DB();
+        echo "I was in the function";
+        $zart;
+        $zid;
+        $val_assigner = 0;
+        if ($ergebnis = $db->prepare("SELECT zahlungsart, zid FROM zahlungsinfo join zahlungsinfo_person using(zid) where pid = ?;
+")) {
+            $ergebnis->bind_param("i", $pid);
+            echo "for if execute";
+            if ($ergebnis->execute()) {
+                echo "in if execute";
+                $ergebnis->bind_result($zart, $zid);
+                if ($ergebnis) {
+                    while ($ergebnis->fetch()) {
+                        echo "<option value='".++$val_assigner."'>";
+                        echo $zart;
+                        echo "</option>";
+                    }
+                }
+                $ergebnis->close();
+            }
+        }
+        $db->close();
+    }
 
     public function setUserStatus($act, $pid) {
         if ($act == 1) {
