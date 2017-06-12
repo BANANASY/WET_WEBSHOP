@@ -262,7 +262,7 @@ $currentUser = $db->getCustDetailsAsArray($username);
 </div>
 <div class="col-md-4">
     <h4>Zahlungsart hinzufügen</h4>
-    <form class = 'form-horizontal changeButtons' action = '?page=15' method = 'post'>
+    <form class = 'form-horizontal changeButtons' id='payment_methodChange' action = '?page=15' method = 'post'>
         <div class='form-group'>
             <select class='form-control' name='credit' required id='credit'>
                 <?php
@@ -274,6 +274,7 @@ $currentUser = $db->getCustDetailsAsArray($username);
                 }
                 ?>
             </select>
+            <div class="register_error_div col-sm-3" id="credit_error"></div>
         </div>
         <div class="form-group">
             <div class="col-sm-10">
@@ -284,7 +285,7 @@ $currentUser = $db->getCustDetailsAsArray($username);
 </div>
 <div class="col-md-4">
     <h4>Passwort ändern</h4>
-    <form class = 'form-horizontal changeButtons' action = '?page=15' method = 'post'>
+    <form class = 'form-horizontal changeButtons' id='password_change' action = '?page=15' method = 'post'>
         <div class="form-group">
             <label for="password1" class="col-md-4 control-label">Passwort</label>
             <div class="col-md-7 register_div">
