@@ -101,7 +101,7 @@ class product {
              "<div class='decreaseProductCount countManipulator'><p>-</p></div></td>";
         echo "<td class='productPriceSingle'><div class='displayInline'>€ <div class='productPriceSingleValue displayInline'>".$this->getPriceSingle()."</div></div></td>";
         echo "<td class='productPriceAll'><div class='displayInline'>€ <div class='productPriceAllValue displayInline'>".$this->getPriceAll()."</div></div></td>";
-        echo "<td class='cartTdCenter'><button class='btn btn-default cartDeleteProduct'>Löschen</button></td>";
+        echo "<td class='cartTdCenter cartDeleteProduct'><button class='btn btn-default cartDeleteProduct'>Löschen</button></td>";
         echo "<td class='product_id'>".$this->getId()."</td>";
         echo "</tr>";
     }
