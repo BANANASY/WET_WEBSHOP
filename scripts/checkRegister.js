@@ -149,7 +149,7 @@ $(document).ready(function () {
         }
         
         //check credit
-        if(checkNumeric(credit,0,2)){
+        if(checkNumeric(credit,1,3)){
             $(this).find("#credit_error").addClass("registerErrorFalse");
             $(this).find("#credit_error").html("");
         }else{
@@ -231,8 +231,7 @@ function isNumber(n) {
 
 //checks if a string is alphanumeric, allows ö, Ö, ä, Ä, ü, Ü and ß
 function isAlphaNumeric(s){
-    var regexAlphaNumeric = /^[a-z0-9\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df]+$/i;
-    return regexAlphaNumeric.test(s);
+    return /[a-zA-Z\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df]/.test(s) && /\d/.test(s);
 }
 
 //checks if a string has numbers in them

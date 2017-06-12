@@ -14,6 +14,14 @@ require_once 'DB.class.php';
  * @author pc7227
  */
 class securitas {
+    
+    public function checkString5($toCheck) {
+        if (is_string($toCheck) && strlen($toCheck) === 5 && ctype_alnum($toCheck)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public function checkString16($toCheck) {
         if (is_string($toCheck) && strlen($toCheck) > 0 && strlen($toCheck) <= 16 && ctype_alnum($toCheck)) {
@@ -214,5 +222,34 @@ class securitas {
             return null;
         }
     }
-
+    
+    // checks if coupon number is available in database
+    public function checkCoupon($code) {
+        $db = new DB();
+        return $db ->checkCoupon($code);
+    }
+    
+    // return value of coupon by code
+    public function getCouponValue($code) {
+        $db = new DB();
+        return $db->getCouponValue($code);
+    }
+    
+    // return id of coupon by code
+    
+    public function getCouponId ($code){
+        $db = new DB();
+        return $db->getCouponId();
+    }
+    
+    // decreases value of coupon by code
+    public function decreaseCouponValue($code, $newCoupon_value){
+        $db = new DB();
+        return $db->decreaseCouponValue($code, $newCoupon_value);
+    }
+    
+    public function getLatestBid(){
+        $db = new DB();
+        return $db->getLatestBid(); 
+    }
 }

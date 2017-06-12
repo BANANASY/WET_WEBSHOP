@@ -176,10 +176,6 @@ $(document).ready(function () {
         sendDataToSession(current_row);
     });
     
-//    $("#orderButton").click(function(){
-//        loadOrderForm();
-//    });
-//    
 }); // end of document.ready
 
 $("#nav_sec").on("mouseout", function () {
@@ -195,6 +191,19 @@ $("#nav_sec").on("mouseout", function () {
         // macht alle ausgewählten elemente draggable, sobald die Seite fertig geladen ist    
         // in einer sicht selbstaufrufenden funktion:    
         getCartCounter();
+        
+        //implement search function
+        $("#search-input").on("keyup", function(){
+            var g = $(this).val().toLowerCase();
+            $(".productCage").find(".product_description").each(function(){
+                 var s = $(this).html().toLowerCase();
+                 if (s.indexOf(g)!== -1) {
+                     $(this).parent().parent().parent().parent().show();
+                 }else {
+                     $(this).parent().parent().parent().parent().hide();
+                 }
+            });
+        });
         
         $(".productCage").draggable({ 
             stack: ".productCage",
@@ -338,10 +347,6 @@ function getCartCounter() {
             $("#warenkorb_count").html(warenkorb_cnt);
         }       
     });
-}
-
-function loadOrderForm(){
-    
 }
 
 function visualFeedback(obj, number) {

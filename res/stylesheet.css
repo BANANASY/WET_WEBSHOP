@@ -202,6 +202,7 @@ body  {
     border-radius:25px;
     overflow:hidden;
     background-color:white;
+    display:hidden;
 }
 
 .productCage .toCart{
@@ -363,6 +364,27 @@ body  {
     display:inline-block;
 }
 
+#orderTable{
+    width:400px;
+    margin:auto;
+}
+
+.orderDesc{
+    background-color:#ffff99;
+    color:#666600;
+    width:50%;
+    text-align:right;
+    padding-right:10px;
+}
+
+.orderVal{
+    background-color:#ffffcc;
+    color:#999900;
+    text-align:right;
+    width:50%;
+    padding-right:10px;
+}
+
 #orderButton{
     float:right;
     font: bold 16px Arial;
@@ -381,7 +403,35 @@ body  {
 #bud {
     margin: 0 auto;
     display: block;
+.cartContent{
+    text-align:center;
 }
+
+.cartContent .orderInput{
+    width:200px;
+    margin-right:15px;
+}
+
+.cartContent .order_error_div{
+
+}
+
+.orderErrorTrue{
+    border-top: 5px solid red;
+    color:red;
+}
+
+.orderErrorFalse{
+    border-top: 5px solid #00cc33;
+}
+
+.cartContent .orderLabel{
+    width:100px;
+    margin-right:15px;
+    text-align:right;
+}
+
 /*.td_foot{
     border:10px solid black;
 }*/
+ 
