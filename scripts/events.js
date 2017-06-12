@@ -4,6 +4,7 @@ var mouseStillDown = false;
 var feedbackObj_product;
 var feedbackObj_cart;
 var eventsBinded = false;
+var dragCheck = false;
 
 $(document).ready(function () {
     if(!eventsBinded){
@@ -12,11 +13,6 @@ $(document).ready(function () {
     }    
 
     $("#warenkorb_obj").appendTo(".content");
-    
-    $("#warenkorb_obj").click(function(){
-        $(".container").html("");
-        window.location.replace("?page=3");
-    });
     
     $("#login").click(function () {
         $(".container").html("");
@@ -67,7 +63,20 @@ $(document).ready(function () {
     });
     
     $("#warenkorb_obj").draggable({
-        containment: $("#container_content")
+        containment: $("#container_content"),
+        drag: function(){
+            dragCheck = true;
+        },
+        stop: function(){
+            dragCheck = false;
+        }
+    });
+    
+    $("#warenkorb_obj").click(function(){
+        if (!dragCheck) {
+            $(".container").html("");
+            window.location.replace("?page=3");
+        }
     });
     
     // from here until end of document.ready there are only 
@@ -224,7 +233,7 @@ $("#nav_sec").on("mouseout", function () {
         //sends one product to session
         $(".toCart").click(function(){
             sendDataToSession($(this).parent());           
-            getCartCounter();      
+   
         });
         
         //visuelles Feedback für toCart-div bei mousedown:
@@ -285,7 +294,8 @@ $("#nav_sec").on("mouseout", function () {
 } // end of initializeDynamicEvents()
 
 // schickt Daten zu einer PHP-File die das Objekt in der Session speichert.
-// Gedacht für Warenkorb
+// Gedacht für Warenkorb, wenn AJAX-Call fertig ist, holt er die aktuelle
+// Anzahl an Produkten aus der Session
 function sendDataToSession(loveletter) {
 
     var id = $(loveletter).find('.product_id').html();
@@ -295,13 +305,10 @@ function sendDataToSession(loveletter) {
     $.ajax({
         type: "POST",
         url: "../wet_webshop/phpFunctions/productIntoSession.php",
-        data: {incoming_product: jsonString},
-        success: function () {
-            console.log("sending to productIntoSession.php");
-        }
-    });/*.done(function (data) {
-        $(".productContent").append(data);
-    });*/
+        data: {incoming_product: jsonString}
+    }).done(function(){
+        getCartCounter();
+    });
 }
 
 // decreases a products count by exactly 1
@@ -344,7 +351,14 @@ function getCartCounter() {
         if(isNaN(warenkorb_cnt)){
             $("#warenkorb_count").html("0");
         }else{
-            $("#warenkorb_count").html(warenkorb_cnt);
+            if(warenkorb_cnt >= 10){
+                $("#warenkorb_count").css("left","110px");
+                $("#warenkorb_count").html(warenkorb_cnt);
+            }else{
+                $("#warenkorb_count").css("left","140px");
+                $("#warenkorb_count").html(warenkorb_cnt);
+            }
+            
         }       
     });
 }

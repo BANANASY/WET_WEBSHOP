@@ -2,7 +2,11 @@
 <div class='cartContent'>
 <?php
     // check if order has been placed
-    if(isset($_GET['ordertype'])){
+
+    if(!isset($_SESSION['user'])){
+        include 'sites/login.php';
+    }else{
+        if(isset($_GET['ordertype'])){
         require_once './classes/securitas.class.php';
         
         //determine how payment was delivered
@@ -36,20 +40,20 @@
                 echo "Invalid payment method. Please sit the fuck down and don't screw with our code";
             }
                
-        }       
-    }else{
-        //check if user wants to place order after confirming shoppingcart
-        if(isset($_GET['ordered'])){
-            printFormOrder();  
+            }       
         }else{
-            // check if products in shopping cart are available
-            if(!isset($_SESSION['shoppingcart'])){
-                echo "Keine Produkte im Warenkorb vorhanden.";
+            //check if user wants to place order after confirming shoppingcart
+            if(isset($_GET['ordered'])){
+                printFormOrder();  
             }else{
-                printTableOrder();
+                // check if products in shopping cart are available
+                if(!isset($_SESSION['shoppingcart'])){
+                    echo "Keine Produkte im Warenkorb vorhanden.";
+                }else{
+                    printTableOrder();
+                }
             }
         }
-    }
 ?>
 </div>
 <hr>
@@ -75,7 +79,11 @@
 
 <script src="./scripts/checkOrder.js"></script>
 
+    
+
+    
 <?php
+}
 function printTableOrder(){
             $cartSize = count($_SESSION['shoppingcart']);
             //get table of products in shopping cart
