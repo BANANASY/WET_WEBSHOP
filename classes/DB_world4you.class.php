@@ -2,9 +2,9 @@
 
 class DB {
 
-    private $host = "localhost";
-    private $user = "webshop_user";
-    private $password = "wet_123";
+    private $host = "mysqlsvr37.world4you.com";
+    private $user = "sql3337416";
+    private $password = "a@zbwhf";
     private $dbname = "7048141db1";
 
     /**

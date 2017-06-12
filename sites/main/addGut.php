@@ -42,7 +42,7 @@ if (!empty($_POST)) {
     <div class="form-group">
         <label for="preis" class="col-sm-2 control-label">Code</label>
         <div class="col-sm-10">
-            <input type="text"  class="form-control" required id="code" name="code" value="<?php echo substr(bin2hex(openssl_random_pseudo_bytes(3)), 0, 5); ?>" readonly="readonly">
+            <input type="text"  class="form-control" required id="code" name="code" value="<?php echo "g".bin2hex(openssl_random_pseudo_bytes(2)); ?>" readonly="readonly">
         </div>
     </div>
     <div class="form-group">

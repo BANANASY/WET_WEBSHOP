@@ -98,7 +98,7 @@ class user {
 
     private function setStrasse($strasse) {
         $sec = new Securitas();
-        if ($sec->checkString255($strasse, true)) {
+        if ($sec->checkString255($strasse, true)) { //true heisst leer zeichen sind erlaubt
             $this->strasse = $strasse;
         } else {
             $this->allgood = false;
@@ -118,7 +118,7 @@ class user {
 
     private function setOrt($ort) {
         $sec = new Securitas();
-        if ($sec->checkString255($ort, false)) {
+        if ($sec->checkString255($ort, false)) { //false heisst keine leerzeichen
             $this->ort = $ort;
         } else {
             $this->allgood = false;

@@ -1,6 +1,6 @@
 <h2 class="page-header">Stammdaten ändern</h2>
 <ul class="pager">
-    <li class="previous"><a href="?page=2"><span aria-hidden="true">&larr;</span>Zurück</a></li>
+    <li class="previous"><a href="?page=2"><span aria-hidden="true">&larr;</span> Zurück</a></li>
 </ul>
 <?php
 INCLUDE_once './classes/securitas.class.php';
