@@ -9,7 +9,8 @@ include "classes/menuItems.class.php";
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
             </button>
-            <a class="navbar-brand" href="?page=0">BaYo</a>
+            <a class="navbar-brand" href="?page=0"><img src="pictures/logo.png" style="height:50px" alt="BaYo"/></a>
+
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -37,8 +38,8 @@ include "classes/menuItems.class.php";
                     if (!empty($_SESSION['user'])) {
                         $user = $_SESSION['user'];
                         if ($user[1] == "user" || $user[1] == "admin") {
-                            
-                            echo "<li><p class = 'navbar-text' id = 'login-msg'>Welcome ".$user[0]."! Enjoy your Banana Shopping experience.</p></li>";
+
+                            echo "<li><p class = 'navbar-text' id = 'login-msg'>Welcome " . $user[0] . "! Enjoy your Banana Shopping experience.</p></li>";
                             echo "<li id= 'logout' class = 'login-out'><span class = 'glyphicon glyphicon-log-out'></span> Logout</li>";
                         } else {
                             echo "Fuck off. Don't mess with our session.";

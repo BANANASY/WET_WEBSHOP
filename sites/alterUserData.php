@@ -177,7 +177,7 @@ $currentUser = $db->getCustDetailsAsArray($username);
 
 <div class="col-md-8">
     <h4>Core bearbeiten</h4>
-    <form class="form-horizontal changeButtons" action="?page=15" method="post" id="register_form">
+    <form class="changeButtons form-horizontal" action="?page=15" method="post" id="core_form">
         <div class="form-group">
             <label for="salutation" class="col-sm-3 control-label">Salutation:</label>
             <div class="col-sm-6 register_div">
@@ -325,50 +325,30 @@ $currentUser = $db->getCustDetailsAsArray($username);
 <script>
     $(document).ready(function () {
 
-        function checkPass() {
+        $('.changeButtons').submit(function () {
             var pw_input = $('#pw_input').val();
             var passVaild = false;
+
             $.ajax({
                 type: "POST",
                 url: 'phpFunctions/checkPassword.php',
                 data: {pw: pw_input},
-                success: function () {
-                    console.log("I'm back");
+                async: false,
+                success: function (data) {
+                    remote = data;
                 }
-            })
-
-                    .ajaxSuccess()
-                    .done(function (data) {
-                        alert("inside done");
-                        console.log("data type:" + jQuery.type(data) + "\ndata value: " + data);
-                        console.log(data);
-                        if (data === 'passed') {
-                            passValid = true;
-                            console.log('passValid gesetzt auf: ' + passValid);
-                        }
-                    });
-
-            console.log('passValid wird geprüft.');
-            console.log('passValid ist: ' + passValid);
-            alert("ajax received: " + data);
-            if (passValid) {
-                console.log('Formular wird weitergeleitet...');
-                return false;
+            });
+            if (remote === "passed") {
+                return true;
             } else {
-                console.log('Formular wird nicht weitergeleitet...');
+                alert("GUCK MAL UNTEN RECHTS");
                 $("#wrongPassword").css("border-left", "5px solid red");
                 $("#wrongPassword").css("padding-left", "10px");
-                $("#wrongPassword").html("<p class='bg-danger'>Geben Sie hier ihr aktuelles Passwort ein.</p>");
+                $("#wrongPassword").html("<p class='bg-danger'>Du Pfeife! Gib mal hier dein aktuelles Passwort ein, dann kannst du's nochmal probiern.</p>");
                 return false;
             }
-        }
-
-
-        $('.changeButtons').submit(function () {
-            var passValid = checkPass();
-            console.log("got: " + passValid);
-            return false;
         });
-    });// end submit event
+    });
+
 
 </script>

@@ -1,5 +1,5 @@
 <?php
-include 'inc/nav_sec.php';
+include 'inc/nav_sec_adminG.php';
 ?>
 <h2 class = "page-header">Gutscheine</h2>
 <?php

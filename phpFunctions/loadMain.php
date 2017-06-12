@@ -80,6 +80,12 @@ function loadMain($page) {
             } else {
                 include 'sites/main/notAuthorized.php';
             }break;
+        case 16:
+            if ($role === 'user') {
+                include 'sites/main/rechnung.php';
+            } else {
+                include 'sites/main/notAuthorized.php';
+            }break;
         default:
             include 'sites/main/404.php';
     }

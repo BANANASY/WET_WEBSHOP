@@ -378,6 +378,10 @@ body  {
     border-radius:10px;
 }
 
+#bud {
+    margin: 0 auto;
+    display: block;
+}
 /*.td_foot{
     border:10px solid black;
 }*/

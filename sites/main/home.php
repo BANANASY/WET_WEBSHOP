@@ -3,23 +3,25 @@
 
 ?>
 
-<h2 class="page-header">Welcome to Banana Yoghurt Land</h2>
+<h2 class="page-header text-center">We have lot's of love and lot's of passion for Bananas and Yoghurt</h2>
+<img class="img-responsive img-thumbnail" id='bud' src="pictures/Banana-Joe.jpg" alt=""/>
+<hr>
+<h3>FAQs</h3>
+<p class='bg'>Q: "Do you have a lot of passion for bananas and yoghurt?"</p>
+<p>A: "Yes, yes we have lots and lots of bananas and yoghurt."</p>
 <h3>to Do</h3>
 <ul type="circle">
     <li>Produktsuche</li>
-    <li>Kunden verwalten -> Zuerst nach bestellungen gruppieren</li>
     <li>DB alle funktionen auf bind param umschreiben</li>
-    <li>Admin sub menüs aufräumen</li>
 </ul>
 
-<p class='bg-success'>Admin user: admin<br>Password: bananaadmin<br>
+<p class='bg-success'>Admin user: admin<br>
 <?php
 //include "classes/securitas.class.php";
 $password = "bananaadmin";
 $hash = hash("sha256", $password);
 echo "hashcode: ".$hash;
 ?></p>
-<a href="dbConnectiontest.php?page=9">db tester</a>
 <p>1) Users-Registrierung</p>
 <ol>
     <li>Jeder User kann ein neues Benutzerkonto für den Webshop anlegen</li>
