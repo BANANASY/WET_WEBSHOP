@@ -2,10 +2,180 @@
 // server
 
 $(document).ready(function () {
-    $("#register_form").submit(function(event){
+    $("#password_change").submit(function(){
+        $(this).find(".register_error_div").removeClass("orderErrorFalse").removeClass("orderErrorTrue");
         
+        var password1 = $(this).find("#password1").val();
+        var password2 = $(this).find("#password2").val();
+        
+        if(checkPassword(password1, password2)){
+            $(this).find("#password1_error").addClass("orderErrorFalse");
+            $(this).find("#password2_error").addClass("orderErrorFalse");
+            $(this).find("#password1_error").html("");
+            $(this).find("#password2_error").html("");
+            return true;
+        }else{
+            $(this).find("#password1_error").addClass("orderErrorTrue gimmeWidth");
+            $(this).find("#password2_error").addClass("orderErrorTrue gimmeWidth");
+            $(this).find("#password1_error").html("WHAT IN THE BANANAS IS THAT?!");
+            $(this).find("#password2_error").html("GO DOWN! GIMME 10! CONCENTRATE!");
+            return false;
+        }
+    });
+        
+    // validate form when user wants to add payment methods
+    $("#payment_methodChange" ).submit(function(){
         $(this).find(".register_error_div").removeClass("registerErrorFalse").removeClass("registerErrorTrue");
         
+        var credit = $(this).find("#credit").val();
+        
+        if(checkNumeric(credit,1,3)){
+            $(this).find("#credit_error").addClass("registerErrorFalse");
+            $(this).find("#credit_error").html("");
+            return true;
+        }else{          
+            $(this).find("#credit_error").addClass("registerErrorTrue");
+            $(this).find("#credit_error").html("Invalid salutation. \n\
+                                                Please sit the fuck down and don't screw with our code");
+            return false;
+        }
+    });   
+    
+    // validate form with which the user can change his core data
+    $("#core_form").submit(function(){
+        $(this).find(".register_error_div").removeClass("registerErrorFalse").removeClass("registerErrorTrue");
+
+        //get all values to test
+        var salutation = $(this).find("#salutation").val();
+        var firstName = $(this).find("#firstName").val();
+        var lastName = $(this).find("#lastName").val();
+        var adress = $(this).find("#adress").val();
+        var zip = $(this).find("#zip").val();
+        var place = $(this).find("#place").val();
+        var email = $(this).find("#email").val();
+        
+        var testsPassed = true;
+        
+        //check salutation
+        console.log("salutation value: "+salutation);
+        if(checkNumeric(salutation, 1, 3)){
+            $(this).find("#salutation_error").addClass("registerErrorFalse");
+            $(this).find("#salutation_error").html("");
+        }else{
+            testsPassed = false;
+            $(this).find("#salutation_error").addClass("registerErrorTrue");
+            $(this).find("#salutation_error").html("Invalid salutation. \n\
+                                                    Please sit the fuck down and don't screw with our code");
+        }
+        
+        //check firstName
+        if(checkString50(firstName)){
+            $(this).find("#firstName_error").addClass("registerErrorFalse");
+            $(this).find("#firstName_error").html("");
+        }else{
+            testsPassed = false;
+            $(this).find("#firstName_error").addClass("registerErrorTrue");
+            $(this).find("#firstName_error").html("Invalid first name. First name has to be \n\
+                                                   below 50 characters and not contain numbers.");
+        }
+        
+        //check lastName
+        if(checkString50(lastName)){
+            $(this).find("#lastName_error").addClass("registerErrorFalse");
+            $(this).find("#lastName_error").html("");
+        }else{
+            testsPassed = false;
+            $(this).find("#lastName_error").addClass("registerErrorTrue");
+            $(this).find("#lastName_error").html("Invalid last name. Last name has to be \n\
+                                                   below 50 characters.");
+        }
+        
+        /////////////////////////////////////////////////////////////////////
+        // DEBUGGING, PLEASE REMOVE                                        //
+        /////////////////////////////////////////////////////////////////////
+        console.log("--- ADRESS DEBUGGING ---");
+        if(isAlphaNumeric(adress)){
+            console.log("alphanumeric test passed");
+        }else{
+            console.log("alphanumeric test not passed");
+        }
+        if(typeof adress === 'string'){
+            console.log("string test passed");
+        }else{
+            console.log("string test not passed");
+        }
+        if(adress.length >= 0 && adress.length <= 255){
+            console.log("length test passed ("+adress.length+")");
+        }else{
+            console.log("length test not passed ("+adress.length+")");
+        }
+        if(containsNumber(adress)){
+            console.log("containsNumber test passed");
+        }else{
+            console.log("containsNumber test not passed");
+        }
+        /////////////////////////////////////////////////////////////////////
+        //check adress
+        if(checkString255(adress, true) && containsNumber(adress)){
+            $(this).find("#adress_error").addClass("registerErrorFalse");
+            $(this).find("#adress_error").html("");
+        }else{
+            testsPassed = false;
+            $(this).find("#adress_error").addClass("registerErrorTrue");
+            $(this).find("#adress_error").html("Invalid adress. Adress must be \n\
+                                                   max 255 characters.");
+        }
+        
+        //check zip
+        if(checkNumeric(zip,1000,10000)){
+            $(this).find("#zip_error").addClass("registerErrorFalse");
+            $(this).find("#zip_error").html("");
+        }else{
+            testsPassed = false;
+            $(this).find("#zip_error").addClass("registerErrorTrue");
+            $(this).find("#zip_error").html("Invalid zip. Zip must be \n\
+                                             between 1000 and 10000.");
+        }
+        
+        //check place
+        if(checkString50(place, false)){
+            $(this).find("#place_error").addClass("registerErrorFalse");
+            $(this).find("#place_error").html("");
+        }else{
+            testsPassed = false;
+            $(this).find("#place_error").addClass("registerErrorTrue");
+            $(this).find("#place_error").html("Invalid place. Place must be\n\
+                                               max 255 characters.");
+        }
+        
+        //check email
+        if(checkEmail(email)){
+            $(this).find("#email_error").addClass("registerErrorFalse");
+            $(this).find("#email_error").html("");
+        }else{
+            testsPassed = false;
+            $(this).find("#email_error").addClass("registerErrorTrue");
+            $(this).find("#email_error").html("Invalid email. I don't know what this is, pal.\n\
+                                              but it sure ain't an email-adress!");
+        }
+        
+        // if all tests have been passed, the variable 'testsPassed' is still true
+        // and we send it to the server, otherwise it has been set to false and
+        // prevent it.
+        
+        if(testsPassed){
+            console.log("form okay");
+            return true;
+        }else{
+            console.log("form not okay");
+            return false;
+        }
+    });    
+    
+    $("#register_form").submit(function(){
+        $(this).find(".register_error_div").removeClass("registerErrorFalse").removeClass("registerErrorTrue");
+        
+        // get all values to test
         var salutation = $(this).find("#salutation").val();
         var firstName = $(this).find("#firstName").val();
         var lastName = $(this).find("#lastName").val();
@@ -102,7 +272,7 @@ $(document).ready(function () {
         }
         
         //check place
-        if(checkString255(place, false)){
+        if(checkString50(place, false)){
             $(this).find("#place_error").addClass("registerErrorFalse");
             $(this).find("#place_error").html("");
         }else{
