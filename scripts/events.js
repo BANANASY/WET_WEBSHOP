@@ -11,32 +11,41 @@ $(document).ready(function () {
         initializeDynamicEvents();
         eventsBinded = true;
     }    
-
+    
+    // append to content for correct ordering
     $("#warenkorb_obj").appendTo(".content");
     
+    // load login page when clicked on login div
     $("#login").click(function () {
         $(".container").html("");
         window.location.replace("?page=7");
     });
 
+    // prompt user to home when clicking on logout div
     $("#logout").click(function () {
         $(".container").html("");
         window.location.replace("?page=11");
     });
-
+    
+    // load register form when clicking on signup div
     $("#signup").click(function () {
         $(".container").html("");
         window.location.replace("?page=8");
     });
     
+    // visual feedback on all list items in both navbars when user moves mouse
+    // over
     $(".nav_li").mouseover(function () {
         $(this).css("color", "black");
     });
-
+    
+    // visual feedback on all list items in both navbars when user moves mouse
+    // out
     $(".nav_li").mouseout(function () {
         $(this).css("color", "#777");
     });
     
+    // load products for each category respectively in nav_sec
     $(".nav_li").click(function(){
        $(".productContent").html("Loading...");
        
@@ -54,14 +63,16 @@ $(document).ready(function () {
            });
    });
    
+   // give orb the ability to accept draggable products and trigger a drop
+   // event that sends dropped object to shopping cart in session
     $("#warenkorb_obj").droppable({
         accept: ".productCage",
         drop: function(event, ui) {      
             sendDataToSession($(ui.draggable));            
-            getCartCounter();
         }
     });
     
+    // make orb draggable and contain in '#container_content' div
     $("#warenkorb_obj").draggable({
         containment: $("#container_content"),
         drag: function(){
@@ -72,6 +83,7 @@ $(document).ready(function () {
         }
     });
     
+    // if not dragged, click on orb will send user to shopping cart page
     $("#warenkorb_obj").click(function(){
         if (!dragCheck) {
             $(".container").html("");
@@ -82,19 +94,22 @@ $(document).ready(function () {
     // from here until end of document.ready there are only 
     // events for shopping cart page 
     
-    // visual feedback for .countManipulator divs
-    
+    // visual feedback for .countManipulator divs    
     $(".countManipulator").mousedown(function(){
         mouseStillDown = true;
         feedbackObj_cart = this;
         visualFeedback(feedbackObj_cart, 1);
     });
     
+    // as above
     $("#cartTable").mouseup(function(){
         mouseStillDown = false;
         visualFeedback(feedbackObj_cart, 1);
     });
     
+    // when delete button is clicked, adjust values on client side accordingly
+    // then call a function that deletes product and all its values out of
+    // shopping cart in session
     $(".cartDeleteProduct").click(function(){
         $(this).parent().parent().remove();
         
@@ -122,6 +137,9 @@ $(document).ready(function () {
         removeProductFromSession($(this).parent().parent());
     });
     
+    // when decrease button is clicked, adjust values on client side accordingly
+    // then call a function that decreases product amount by one and only one
+    // from shopping cart in session 
     $(".decreaseProductCount").click(function(){
         var current_cntObj = $(this).parent().find(".productCntSingle");
         var current_cnt = parseInt(current_cntObj.html());
@@ -158,6 +176,9 @@ $(document).ready(function () {
         decreaseProductFromSession(current_row);
     });
     
+    // when increase button is clicked, adjust values on client side accordingly
+    // then call a function that increases product amount by one and only one
+    // from shopping cart in session
     $(".increaseProductCount").click(function(){
         var current_cntObj = $(this).parent().find(".productCntSingle");
         var current_cnt = parseInt(current_cntObj.html());
@@ -187,6 +208,8 @@ $(document).ready(function () {
     
 }); // end of document.ready
 
+//makes sure all dynamically loaded elements have necessary events bound to them
+//at all times and only does so once per dynamical load.
 $("#nav_sec").on("mouseout", function () {
     if(!eventsBinded){
         initializeDynamicEvents();
@@ -195,13 +218,12 @@ $("#nav_sec").on("mouseout", function () {
     }   
 });
 
-    //initialisiert alle Events die für dynamisch erstellte Elemente relevant sind.
+    //initializes all events for dynamically loaded elements
     function initializeDynamicEvents (){
-        // macht alle ausgewählten elemente draggable, sobald die Seite fertig geladen ist    
-        // in einer sicht selbstaufrufenden funktion:    
+        //load current amount of products in shopping cart into orb
         getCartCounter();
         
-        //implement search function
+        //implement search function for products
         $("#search-input").on("keyup", function(){
             var g = $(this).val().toLowerCase();
             $(".productCage").find(".product_description").each(function(){
@@ -214,10 +236,13 @@ $("#nav_sec").on("mouseout", function () {
             });
         });
         
+        //makes all product cages draggable, gives visual feedback, and handles
+        //order (z-index)
         $(".productCage").draggable({ 
             stack: ".productCage",
             revert: true,
-            containment: $("#content_main"),           
+            // not sure if this would be useful
+//            containment: $("#container_content"),           
             start: function() { 
                 $("#nav_sec").css("z-index",-1);
                 $("#warenkorb_obj").css("z-index","0");
@@ -236,13 +261,14 @@ $("#nav_sec").on("mouseout", function () {
    
         });
         
-        //visuelles Feedback für toCart-div bei mousedown:
+        //visual feedback for toCart-divs on mousedown
         $(".toCart").mousedown(function(){
             mouseStillDown = true;
             feedbackObj_product = this;
             visualFeedback(feedbackObj_product,0);
         });
         
+        //visual feedback for toCart-divs on mouseup
         $(".productCage").mouseup(function () {
             mouseStillDown = false;
             visualFeedback(feedbackObj_product,0);
@@ -293,9 +319,9 @@ $("#nav_sec").on("mouseout", function () {
    
 } // end of initializeDynamicEvents()
 
-// schickt Daten zu einer PHP-File die das Objekt in der Session speichert.
-// Gedacht für Warenkorb, wenn AJAX-Call fertig ist, holt er die aktuelle
-// Anzahl an Produkten aus der Session
+// sends data to productIntoSession.php which adds entirely new product.class.php
+// objects into the session or increases their counter if they are already 
+// existant
 function sendDataToSession(loveletter) {
 
     var id = $(loveletter).find('.product_id').html();
@@ -363,6 +389,7 @@ function getCartCounter() {
     });
 }
 
+// handles visual feedback for .toCart-divs and .countManipulator-divs
 function visualFeedback(obj, number) {
     
     // 0 = visual feedback for produkte.php
@@ -396,6 +423,7 @@ function visualFeedback(obj, number) {
     // 1 = visual feedback for warenkorb.php
 }
 
+//validates passwords
 $(".check-password").validate({
     submitHandler: function (form) {
 

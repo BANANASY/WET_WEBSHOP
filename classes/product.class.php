@@ -70,18 +70,23 @@ class product {
     
     // only works for product objects that represents all products within
     // a list of products
+    // increases price_all value
     function priceIncreaseAll ($amount, $price){
         if($this->id === -1){
             $this->price_all = $this->price_all + ($price * $amount);
         }       
     }
-    
+    // only works for product objects that represents all products within
+    // a list of products
+    // decreases price_all value
     function priceDecreaseAll ($price){
         if($this->id === -1){
             $this->price_all = $this->price_all - $price;
         }
     }
     
+    //gets meta information for products from database and sets them instance
+    //variables. Only called in constructor
     private function setRest() {
         $DB = new DB();
         $product_meta = $DB->getProduktMeta($this->id);
