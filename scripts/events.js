@@ -176,10 +176,6 @@ $(document).ready(function () {
         sendDataToSession(current_row);
     });
     
-//    $("#orderButton").click(function(){
-//        loadOrderForm();
-//    });
-//    
 }); // end of document.ready
 
 $("#nav_sec").on("mouseout", function () {
@@ -338,10 +334,6 @@ function getCartCounter() {
             $("#warenkorb_count").html(warenkorb_cnt);
         }       
     });
-}
-
-function loadOrderForm(){
-    
 }
 
 function visualFeedback(obj, number) {
