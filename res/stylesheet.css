@@ -202,6 +202,7 @@ body  {
     border-radius:25px;
     overflow:hidden;
     background-color:white;
+    display:hidden;
 }
 
 .productCage .toCart{

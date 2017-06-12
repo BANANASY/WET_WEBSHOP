@@ -178,7 +178,8 @@ class DB {
             return false;
         }
     }
-
+    
+    // CHANGE TO WORK WITH PREPARE, BIND_PARAM, EXECUTE, ETC.
     public function getProductsByCategory($cat) {
         $db = $this->connect2DB();
         $statement = "SELECT * FROM produkt WHERE kid = " . $cat;

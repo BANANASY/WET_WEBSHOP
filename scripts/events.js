@@ -192,6 +192,19 @@ $("#nav_sec").on("mouseout", function () {
         // in einer sicht selbstaufrufenden funktion:    
         getCartCounter();
         
+        //implement search function
+        $("#search-input").on("keyup", function(){
+            var g = $(this).val().toLowerCase();
+            $(".productCage").find(".product_description").each(function(){
+                 var s = $(this).html().toLowerCase();
+                 if (s.indexOf(g)!== -1) {
+                     $(this).parent().parent().parent().parent().show();
+                 }else {
+                     $(this).parent().parent().parent().parent().hide();
+                 }
+            });
+        });
+        
         $(".productCage").draggable({ 
             stack: ".productCage",
             revert: true,
