@@ -3,6 +3,7 @@
 class menuItems {
 
     private $xmlPath = 'config/menu.xml';
+
 //    private $current; ++extraToDo++ implement that current menu gets highlighted
 
     private function getXML($xmlPath) {
@@ -13,14 +14,13 @@ class menuItems {
     }
 
     public function mainMenuGenerator($user_role) { //übergeben zusätzlich active menu
-
         $menuXML = $this->getXML($this->xmlPath);
         switch ($user_role) {
             case "user":
 //                echo "loading user";
                 foreach ($menuXML->user->menuitem as $user) {
 
-                        echo "<li><a href='" . $user->path . "'>" . $user->name . "</a></li>";
+                    echo "<li><a href='" . $user->path . "'>" . $user->name . "</a></li>";
                 }
                 break;
             case "admin":
@@ -45,7 +45,7 @@ class menuItems {
 //                echo "loading user";
                 foreach ($menuXML->user->menuitem as $user) {
                     foreach ($user->submenuitem as $sub) {
-                        echo "<li class='nav_li' data-value='". $sub->path ."'>". $sub->name . "</li>";
+                        echo "<li class='nav_li' data-value='" . $sub->path . "'>" . $sub->name . "</li>";
                     }
                 }
                 break;
@@ -60,7 +60,52 @@ class menuItems {
             default:
                 foreach ($menuXML->visitor->menuitem as $visitor) {
                     foreach ($visitor->submenuitem as $sub) {
-                        echo "<li class='nav_li' data-value='". $sub->path ."'>". $sub->name . "</li>";
+                        echo "<li class='nav_li' data-value='" . $sub->path . "'>" . $sub->name . "</li>";
+                    }
+                }
+        }
+    }
+
+    /**
+     * Only for the admin pages
+     * @param type $user_role
+     * @param type $cat p for produkte and g for gutscheine verwalten
+     */
+    public function secondMenuGeneratorAdmin($user_role, $cat) {
+
+        $menuXML = $this->getXML($this->xmlPath);
+        switch ($user_role) {
+            case "admin":
+//                echo "loading admin";
+                $cnt = 0;
+                if ($cat === "p") {
+                    foreach ($menuXML->admin->menuitem as $admin) {
+                        foreach ($admin->submenuitem as $sub) {
+                            if ($cnt >= 2) {
+                                break;
+                            }
+                            echo "<li><a href='" . $sub->path . "'>" . $sub->name . "</a></li>";
+                            $cnt++;
+                        }
+                    }
+                } else if ($cat === "g") {
+                    foreach ($menuXML->admin->menuitem as $admin) {
+                        foreach ($admin->submenuitem as $sub) {
+                            $cnt++;
+                            if ($cnt <= 2) {
+                                continue;
+                            }
+                            echo "<li><a href='" . $sub->path . "'>" . $sub->name . "</a></li>";
+                            
+                        }
+                    }
+                }
+
+                break;
+            default:
+                foreach ($menuXML->visitor->menuitem as $visitor) {
+                    foreach ($visitor->submenuitem as $sub) {
+                        echo "<li class='nav_li' data-value='" . $sub->path . "'>" . $sub->name . "</li>";
                     }
                 }
         }

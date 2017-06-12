@@ -1,5 +1,5 @@
 <?php
-include 'inc/nav_sec.php';
+include 'inc/nav_sec_adminG.php';
 //include 'classes/DB.class.php';
 include 'classes/securitas.class.php';
 

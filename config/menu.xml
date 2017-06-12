@@ -17,7 +17,7 @@
                 <name>Yoghurt</name>
                 <path>2</path>
             </submenuitem>
-<!--            <submenuitem>
+<!--            <submenuitem> //diese Luxus Produkte gibt es nur für eingeloggte User!!!
                 <name>Eggs</name>
                 <path>?page=1&amp;kat=3</path>
             </submenuitem>

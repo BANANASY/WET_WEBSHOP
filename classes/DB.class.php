@@ -7,11 +7,18 @@ class DB {
     private $password = "wet_123";
     private $dbname = "7048141db1";
 
+    /**
+     * establishes connection to the databas and returns the mysqli object
+     * @return \mysqli
+     */
     public function connect2DB() {
         $conn = new mysqli($this->host, $this->user, $this->password, $this->dbname);
         return $conn;
     }
-
+    
+    /*
+     * checks wether a user password pair matches in the db
+     */
     public function userLogin($username, $hash) {
         $db = $this->connect2DB();
         if ($ergebnis = $db->prepare("SELECT count(username) FROM user WHERE username= ? and password= ?")) {
@@ -30,6 +37,11 @@ class DB {
         return $match;
     }
 
+    /**
+     * checks if a username exists returns true for yes and false for no
+     * @param type $username string
+     * @return boolean
+     */
     public function checkIfUserExists($username) {
         $db = $this->connect2DB();
         if ($ergebnis = $db->prepare("SELECT count(uid) FROM user WHERE username = ? ")) {
@@ -48,6 +60,9 @@ class DB {
         return $exists;
     }
 
+    /*
+     * checks wether a certain username has an active status, return true for active and false for inactive
+     */
     public function checkIfUserActive($username) {
         $db = $this->connect2DB();
         if ($ergebnis = $db->prepare("select activ from person join user using(uid) where username= ? ")) {
@@ -66,6 +81,9 @@ class DB {
         return $letPass;
     }
 
+    /*
+     * returns the role of a user by username
+     */
     public function getRole($username) {
         $db = $this->connect2DB();
         if ($ergebnis = $db->prepare("SELECT role FROM user WHERE username = ? ")) {
@@ -79,6 +97,11 @@ class DB {
         return $role;
     }
 
+    /**
+     * returns the pid of a person
+     * @param type $username string
+     * @return type int
+     */
     public function getPid($username) {
         $db = $this->connect2DB();
         if ($ergebnis = $db->prepare("select pid from person join user using (uid) where username = ? ")) {
@@ -92,6 +115,10 @@ class DB {
         return $pid;
     }
 
+    /**
+     * get's the current Zahlungsinfos in the db and returns them as array
+     * @return array
+     */
     public function getZahlungsinfo() {
         $zahlungsinfos = array();
         $db = $this->connect2DB();
@@ -111,6 +138,13 @@ class DB {
         return $zahlungsinfos;
     }
 
+    /**
+     * insert to table adresse and returns the aid of the newly added adress, false in case of error
+     * @param type $strasse string
+     * @param type $plz int
+     * @param type $ort string
+     * @return returns the aid of the new adress
+     */
     public function insertToAdress($strasse, $plz, $ort) {
         $db = $this->connect2DB();
         $query = "INSERT INTO adresse (strasse, plz, ort) 
@@ -178,8 +212,7 @@ class DB {
             return false;
         }
     }
-    
-    // CHANGE TO WORK WITH PREPARE, BIND_PARAM, EXECUTE, ETC.
+
     public function getProductsByCategory($cat) {
         $db = $this->connect2DB();
         $statement = "SELECT * FROM produkt WHERE kid = " . $cat;
@@ -611,23 +644,26 @@ class DB {
         }
         $db->close();
     }
-    
-    public function getZahlungsdatenAsOptions($pid){
-        $db = $this->connect2DB();
 
+    public function getZahlungsdatenAsOptions($pid) {
+        $db = $this->connect2DB();
+        echo "I was in the function";
+        $zart;
+        $zid;
+        $val_assigner = 0;
         if ($ergebnis = $db->prepare("SELECT zahlungsart, zid FROM zahlungsinfo join zahlungsinfo_person using(zid) where pid = ?;
 ")) {
             $ergebnis->bind_param("i", $pid);
+            echo "for if execute";
             if ($ergebnis->execute()) {
+                echo "in if execute";
                 $ergebnis->bind_result($zart, $zid);
                 if ($ergebnis) {
-                    
                     while ($ergebnis->fetch()) {
-                        echo "<option value='".$zid."'>";
+                        echo "<option value='" . ++$val_assigner . "'>";
                         echo $zart;
                         echo "</option>";
                     }
-                  
                 }
                 $ergebnis->close();
             }
@@ -656,19 +692,24 @@ class DB {
         return $success;
     }
 
+    /**
+     * Gets the Bestellist including delete button for every ordered article-> admin
+     * @param type $pid
+     */
     public function getBestellList($pid) {
         $db = $this->connect2DB();
         if ($ergebnis = $db->prepare("SELECT produktid, bezeichnung,anzahl,preis, datum, zahlungsart, gid, bid
                                                 FROM bestellungen
                                                 join produkt using (produktid)
                                                 join zahlungsinfo using(zid)
-                                                WHERE pid = ?")) {
+                                                WHERE pid = ? order by datum desc")) {
             $ergebnis->bind_param("i", $pid);
             if ($ergebnis->execute()) {
                 $ergebnis->bind_result($produktid, $bezeichnung, $anzahl, $preis, $datum, $zahlungsart, $gid, $bid);
                 if ($ergebnis) {
                     echo "<table class='table table-hover'>";
                     echo "<thead><tr>";
+                    echo "<th>Bestellung</th>";
                     echo "<th>Produkt</th>";
                     echo "<th>Anzahl</th>";
                     echo "<th>Einzelpreis</th>";
@@ -682,6 +723,7 @@ class DB {
                     echo "<tbody>";
                     while ($ergebnis->fetch()) {
                         echo "<tr>";
+                        echo "<td>$bid</td>";
                         echo "<td>$bezeichnung</td>";
                         echo "<td>$anzahl</td>";
                         echo "<td>€ " . $preis . "</td>";
@@ -694,6 +736,182 @@ class DB {
                         }
                         echo "</td>";
                         echo "<td><a href=?page=14&pid=$pid&bid=$bid&produktid=$produktid>Löschen</td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody>";
+                    echo "</table>";
+                }
+                $ergebnis->close();
+            }
+        }
+        $db->close();
+    }
+
+    /**
+     * Gets the Rechnungs Auflistung-> Mein Konto
+     * @param type $pid
+     */
+    public function getRechnungList($pid, $bid) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("SELECT bezeichnung, anzahl, preis, (anzahl*preis)"
+                . "FROM bestellungen "
+                . "join produkt using (produktid) "
+                . "join zahlungsinfo using(zid) "
+                . "WHERE pid = ? and bid = ?")) {
+
+            $ergebnis->bind_param("ii", $pid, $bid);
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($bezeichnung, $anzahl, $preis, $summe);
+                if ($ergebnis) {
+                    echo "<table class='table table-striped'>";
+                    echo "<thead><tr>";
+                    echo "<th>Produkt</th>";
+                    echo "<th>Anzahl</th>";
+                    echo "<th>Einzelpreis</th>";
+                    echo "<th>Gesamtpreis</th>";
+                    echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                    while ($ergebnis->fetch()) {
+                        echo "<tr>";
+                        echo "<td>$bezeichnung</td>";
+                        echo "<td>$anzahl</td>";
+                        echo "<td>€ " . $preis . "</td>";
+                        echo "<td>€ " . $summe . "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody>";
+
+                    echo "</table>";
+                    echo "<hr>";
+                }
+                $ergebnis->close();
+            }
+        }
+        $db->close();
+    }
+
+    /**
+     * get's the sum and date of one specific Rechnung 
+     * @param type $pid
+     * @param type $bid
+     * @return type assoc array
+     */
+    public function getRechnungDetails($pid, $bid) {
+        $db = $this->connect2DB();
+        $rechnungDetails = [];
+        $query = "SELECT distinct sum(anzahl*preis), datum "
+                . "FROM bestellungen join produkt using (produktid) "
+                . "join zahlungsinfo using(zid) "
+                . "WHERE pid = ? and bid = ? "
+                . "group by datum;";
+        $ergebnis = $db->prepare($query);
+        $ergebnis->bind_param("ii", $pid, $bid);
+        $ergebnis->execute();
+        $ergebnis->bind_result($sum, $datum);
+        if ($ergebnis) {
+            while ($ergebnis->fetch()) {
+                $rechnungDetails['sum'] = $sum;
+                $rechnungDetails['datum'] = $datum;
+            }
+        }
+        $ergebnis->close();
+        $db->close();
+        return $rechnungDetails;
+    }
+
+    public function deleteBestellung($bid, $pid, $produktid) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("DELETE FROM bestellungen WHERE produktid = ? and pid = ? and bid = ?;")) {
+            $ergebnis->bind_param("iii", $produktid, $pid, $bid);
+            if ($ergebnis->execute()) {
+                $success = true;
+            } else {
+                $success = false;
+            }
+            $ergebnis->close();
+            $db->close();
+            return $success;
+        }
+    }
+
+    public function alterCore($anrede, $vorname, $nachname, $strasse, $plz, $ort, $email, $pid) {
+        $db = $this->connect2DB();
+        // 1. get aid to insert int adress
+        if ($ergebnis = $db->prepare("SELECT aid FROM person where pid = ?")) {
+            $ergebnis->bind_param("i", $pid);
+            $ergebnis->execute();
+            $ergebnis->bind_result($aid);
+            $ergebnis->fetch();
+            $ergebnis->close();
+        }
+        //update adress table
+        if ($ergebnis = $db->prepare("UPDATE adresse SET strasse = ?, plz = ?, ort = ? WHERE aid = ?;")) {
+            $ergebnis->bind_param("sisi", $strasse, $plz, $ort, $aid);
+            $ergebnis->execute();
+            $ergebnis->close();
+        }
+        //update person table
+        if ($ergebnis = $db->prepare("UPDATE person SET anrede = ?, vorname = ?, nachname = ?, email = ? WHERE pid = ?;")) {
+            $ergebnis->bind_param("ssssi", $anrede, $vorname, $nachname, $email, $pid);
+            $ergebnis->execute();
+            $ergebnis->close();
+        }
+        $db->close();
+        return true;
+    }
+
+    public function alterPassword($usrname, $password) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("UPDATE user SET password = ? WHERE username = ? ;")) {
+            $ergebnis->bind_param("ss", $password, $usrname);
+            $ergebnis->execute();
+            $ergebnis->close();
+        }
+        $db->close();
+        return true;
+    }
+
+    /**
+     * Builds the summerized Bestellungen table for Mein Konto 
+     * @param type $pid
+     */
+    public function getSummerizedBestellList($pid) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("SELECT datum, (count(produktid)*anzahl), sum(preis*anzahl),  zahlungsart, gid, bid
+                                                FROM bestellungen
+                                                join produkt using (produktid)
+                                                join zahlungsinfo using(zid)
+                                                WHERE pid = ?
+                                                group by datum, zahlungsart, gid, bid
+                                                order by datum desc;")) {
+            $ergebnis->bind_param("i", $pid);
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($datum, $anzahl, $preis, $zahlungsart, $gid, $bid);
+                if ($ergebnis) {
+                    echo "<table class='table table-hover'>";
+                    echo "<thead><tr>";
+                    echo "<th>Datum</th>";
+                    echo "<th>Anzahl</th>";
+                    echo "<th>Gesamtpreis</th>";
+                    echo "<th>Zahlungsart</th>";
+                    echo "<th>Gutschein</th>";
+                    echo "<th>Rechnung</th>";
+                    echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                    while ($ergebnis->fetch()) {
+                        echo "<tr>";
+                        echo "<td>$datum</td>";
+                        echo "<td>$anzahl</td>";
+                        echo "<td>€ " . $preis . "</td>";
+                        echo "<td>$zahlungsart</td>";
+                        echo "<td>";
+                        if (!empty($gid) && $gid > 0) {
+                            echo "eingelöst";
+                        }
+                        echo "</td>";
+                        echo "<td><a href=?page=16&pid=$pid&bid=$bid>Rechnung</td>";
                         echo "</tr>";
                     }
                     echo "</tbody>";
@@ -770,23 +988,8 @@ class DB {
             }
         } 
     }
-
-    public function deleteBestellung($bid, $pid, $produktid) {
-        $db = $this->connect2DB();
-        if ($ergebnis = $db->prepare("DELETE FROM bestellungen WHERE produktid = ? and pid = ? and bid = ?;")) {
-            $ergebnis->bind_param("iii", $produktid, $pid, $bid);
-            if ($ergebnis->execute()) {
-                $success = true;
-            } else {
-                $success = false;
-            }
-            $ergebnis->close();
-            $db->close();
-            return $success;
-        }
-    }
-    
-    public function checkCoupon ($code) {
+	
+	public function checkCoupon ($code) {
         $db = $this->connect2DB();
         $stmt = "SELECT COUNT(*) FROM gutschein WHERE code = ?;";
         if ($ergebnis = $db->prepare($stmt)) {
@@ -885,41 +1088,5 @@ class DB {
         }
     }
 
-    public function alterCore($anrede, $vorname, $nachname, $strasse, $plz, $ort, $email, $pid) {
-        $db = $this->connect2DB();
-        // 1. get aid to insert int adress
-        if ($ergebnis = $db->prepare("SELECT aid FROM person where pid = ?")) {
-            $ergebnis->bind_param("i", $pid);
-            $ergebnis->execute();
-            $ergebnis->bind_result($aid);
-            $ergebnis->fetch();
-            $ergebnis->close();
-        }
-        //update adress table
-        if ($ergebnis = $db->prepare("UPDATE adresse SET strasse = ?, plz = ?, ort = ? WHERE aid = ?;")) {
-            $ergebnis->bind_param("sisi", $strasse, $plz, $ort, $aid);
-            $ergebnis->execute();
-            $ergebnis->close();
-        }
-        //update person table
-        if ($ergebnis = $db->prepare("UPDATE person SET anrede = ?, vorname = ?, nachname = ?, email = ? WHERE pid = ?;")) {
-            $ergebnis->bind_param("ssssi", $anrede, $vorname, $nachname, $email, $pid);
-            $ergebnis->execute();
-            $ergebnis->close();
-        }
-        $db->close();
-        return true;
-    }
-
-    public function alterPassword($usrname, $password) {
-        $db = $this->connect2DB();
-        if ($ergebnis = $db->prepare("UPDATE user SET password = ? WHERE username = ? ;")) {
-            $ergebnis->bind_param("ss", $password, $usrname);
-            $ergebnis->execute();
-            $ergebnis->close();
-        }
-        $db->close();
-        return true;
-    }
 
 }

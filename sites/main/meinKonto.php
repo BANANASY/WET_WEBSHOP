@@ -26,7 +26,7 @@ if (!empty($_SESSION)) {
 
 <?php
 
-    $db->getBestellList($db->getPid($username));
+    $db->getSummerizedBestellList($db->getPid($username));
 
 ?>
 

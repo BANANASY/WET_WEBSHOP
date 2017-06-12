@@ -400,6 +400,9 @@ body  {
     border-radius:10px;
 }
 
+#bud {
+    margin: 0 auto;
+    display: block;
 .cartContent{
     text-align:center;
 }
@@ -427,6 +430,8 @@ body  {
     margin-right:15px;
     text-align:right;
 }
+
 /*.td_foot{
     border:10px solid black;
 }*/
+ 
