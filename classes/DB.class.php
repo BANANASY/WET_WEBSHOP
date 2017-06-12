@@ -814,6 +814,7 @@ class DB {
        
     }
     
+    //returns the value of a coupon 
     public function getCouponValue ($code) {
         $db = $this->connect2DB();
         $stmt = "SELECT wert, ablauf_datum FROM gutschein WHERE code = ?;";
