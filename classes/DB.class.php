@@ -887,7 +887,7 @@ class DB {
                                                 order by datum desc;")) {
             $ergebnis->bind_param("i", $pid);
             if ($ergebnis->execute()) {
-                $ergebnis->bind_result($datum, $anzahl, $preis, $zahlungsart, $gutschein, $bid);
+                $ergebnis->bind_result($datum, $anzahl, $preis, $zahlungsart, $gid, $bid);
                 if ($ergebnis) {
                     echo "<table class='table table-hover'>";
                     echo "<thead><tr>";
@@ -922,5 +922,171 @@ class DB {
         }
         $db->close();
     }
+    
+    // this function inserts a new order with either zid or gid, not both
+    public function insertBestellung($withZid, $bid, $produktid, $pid, $id, $amount){
+        if($withZid){
+            $zid = $id;
+            //  bid 	produktid 	pid 	datum 	zid 	anzahl 	gid
+            $db = $this->connect2DB();
+            $stmt = "INSERT INTO bestellungen (bid, produktid, pid, zid, anzahl) VALUES (?, ?, ?, ?, ?);";
+            
+            if ($ergebnis = $db->prepare($stmt)) {
+
+                $ergebnis->bind_param("iiiii", $bid, $produktid, $pid, $zid, $amount);
+                if ($ergebnis->execute()) {
+                    $success = true;
+                } else {
+                    $success = false;
+                }
+                $ergebnis->close();
+                $db->close();
+                return $success;
+            }
+        }else{
+            $gid = $id;
+            
+            $db = $this->connect2DB();
+            $stmt = "INSERT INTO bestellungen (bid, produktid, pid, anzahl, gid) VALUES (?, ?, ?, ?, ?);";
+            
+            if ($ergebnis = $db->prepare($stmt)) {
+
+                $ergebnis->bind_param("iiiii", $bid, $produktid, $pid, $amount, $gid);
+                if ($ergebnis->execute()) {
+                    $success = true;
+                } else {
+                    $success = false;
+                }
+                $ergebnis->close();
+                $db->close();
+                return $success;
+            }
+        }
+        
+    }
+    
+    // this function returns the latest (highest) order id
+    public function getLatestBid () {
+        $db = $this->connect2DB();
+        $stmt = "SELECT MAX(bid) FROM bestellungen";
+        if ($ergebnis = $db->prepare($stmt)) {
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($bid_max);
+                if ($ergebnis) {
+                    while ($ergebnis->fetch()) {
+                        if($bid_max > 0){
+                            $ergebnis->close();
+                            $db->close();
+                            return $bid_max;
+                        }else{
+                            $ergebnis->close();
+                            $db->close();
+                            return -1;
+                        }
+                    }                      
+                }
+            }
+        } 
+    }
+	
+	public function checkCoupon ($code) {
+        $db = $this->connect2DB();
+        $stmt = "SELECT COUNT(*) FROM gutschein WHERE code = ?;";
+        if ($ergebnis = $db->prepare($stmt)) {
+            $ergebnis->bind_param("s", $code);
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($test);
+                if ($ergebnis) {
+                    
+                    while ($ergebnis->fetch()) {
+                        if($test > 0){
+                            $ergebnis->close();
+                            $db->close();
+                            return true;
+                        }else{
+                            $ergebnis->close();
+                            $db->close();
+                            return false;
+                        }
+                    }
+                  
+                }
+                
+            }
+        }
+       
+    }
+    
+    //returns the value of a coupon 
+    public function getCouponValue ($code) {
+        $db = $this->connect2DB();
+        $stmt = "SELECT wert, ablauf_datum FROM gutschein WHERE code = ?;";
+        if ($ergebnis = $db->prepare($stmt)) {
+            $ergebnis->bind_param("s", $code);
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($value, $exp_date);
+                if ($ergebnis) {
+                    
+                    while ($ergebnis->fetch()) {
+                        $exp_date = strtotime($exp_date);
+                        if($value > 0 && time() < $exp_date ){
+                            $ergebnis->close();
+                            $db->close();
+                            return $value;
+                        }else{
+                            $ergebnis->close();
+                            $db->close();
+                            return -1;
+                        }
+                    }         
+                }  
+            }
+        }     
+    }
+    
+    //gets coupon id
+    public function getCouponId ($code) {
+        $db = $this->connect2DB();
+        $stmt = "SELECT gid FROM gutschein WHERE code = ?;";
+        if ($ergebnis = $db->prepare($stmt)) {
+            $ergebnis->bind_param("s", $code);
+            if ($ergebnis->execute()) {
+                $ergebnis->bind_result($gid);
+                if ($ergebnis) {
+                    
+                    while ($ergebnis->fetch()) {
+                        if($gid > 0){
+                            $ergebnis->close();
+                            $db->close();
+                            return $gid;
+                        }else{
+                            $ergebnis->close();
+                            $db->close();
+                            return -1;
+                        }
+                    }         
+                }  
+            }
+        }     
+    }
+    
+    //updates new value of a coupon
+    public function decreaseCouponValue($code, $newCoupon_value){
+        $db = $this->connect2DB();
+        $stmt = "UPDATE gutschein SET wert = ? WHERE gutschein.code = ?;";
+        if ($ergebnis = $db->prepare($stmt)) {
+            $ergebnis->bind_param("ds", $newCoupon_value,$code);
+            if ($ergebnis->execute()) {
+                $ergebnis->close();
+                $db->close();
+                return true;
+            }else{
+                $ergebnis->close();
+                $db->close();
+                return false;
+            }
+        }
+    }
+
 
 }
