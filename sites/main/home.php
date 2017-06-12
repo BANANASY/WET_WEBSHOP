@@ -6,8 +6,10 @@
 <h2 class="page-header">Welcome to Banana Yoghurt Land</h2>
 <h3>to Do</h3>
 <ul type="circle">
-    <li>destroy session when user closes browser</li>
-    <li><a href="https://stackoverflow.com/questions/24402047/php-session-destroy-after-closing-browser" target="_blank">StackOverflow</a></li>
+    <li>Produktsuche</li>
+    <li>Kunden verwalten -> Zuerst nach bestellungen gruppieren</li>
+    <li>DB alle funktionen auf bind param umschreiben</li>
+    <li>Admin sub menüs aufräumen</li>
 </ul>
 
 <p class='bg-success'>Admin user: admin<br>Password: bananaadmin<br>

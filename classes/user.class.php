@@ -168,7 +168,6 @@ class user {
         }
     }
 
-    //++implement security++
     public function addToDB() {
         if ($this->allgood) {
             $db = new DB();

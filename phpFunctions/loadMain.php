@@ -74,6 +74,12 @@ function loadMain($page) {
             } else {
                 include 'sites/main/notAuthorized.php';
             }break;
+        case 15:
+            if ($role === 'user') {
+                include 'sites/alterUserData.php';
+            } else {
+                include 'sites/main/notAuthorized.php';
+            }break;
         default:
             include 'sites/main/404.php';
     }

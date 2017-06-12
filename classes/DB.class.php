@@ -530,6 +530,7 @@ class DB {
         $ergebnis->bind_result($anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $pid);
         if ($ergebnis) {
             while ($ergebnis->fetch()) {
+                echo "<div class='container'>";
                 echo "<ul class = 'list-group col-md-12'>";
                 echo "<li class = 'list-group-item col-md-9'>";
                 echo "<span class = 'badge username'>";
@@ -545,26 +546,43 @@ class DB {
                 echo "<h4>Zahlungsarten</h4>";
                 $this->getZahlungsarten($pid);
                 echo "</li>";
-                echo "<li class = 'list-group-item col-md-3 '>";
-                echo "<h6>Zahlungsart hinzufügen</h6>";
-                echo "<form class = 'form-horizontal check-password' action = '?page=2' method = 'post'>";
-                echo "<div class='form-group'>";
-                echo "<select class='form-control' name='credit' required id='credit'>";
-                $zahlungsarten = $this->getZahlungsinfo();
-                $id = 1;
-                foreach ($zahlungsarten as $zahlungsart) {
-                    echo "<option value=" . $id . ">" . $zahlungsart . "</option>";
-                    $id++;
-                }
-                echo "</select>";
-                echo "<button id='submit' value='zahlungsart' type='submit' class='btn btn-default'>Zahlungsart hinzufügen</button></div></div></form>";
-                echo "</li>";
                 echo "</ul>";
+                echo "</div>";
             }
         }
         $ergebnis->close();
         $db->close();
         return true;
+    }
+
+    public function getCustDetailsAsArray($username) {
+        $db = $this->connect2DB();
+        $currentUser = [];
+        $query = "SELECT distinct anrede, vorname, nachname, email, strasse, plz, ort, pid "
+                . "FROM person "
+                . "join adresse using(aid) "
+                . "join user using (uid) "
+                . "join zahlungsinfo_person using (pid) "
+                . "where username = ?;";
+        $ergebnis = $db->prepare($query);
+        $ergebnis->bind_param("s", $username);
+        $ergebnis->execute();
+        $ergebnis->bind_result($anrede, $vorname, $nachname, $email, $strasse, $plz, $ort, $pid);
+        if ($ergebnis) {
+            while ($ergebnis->fetch()) {
+                $currentUser['anrede'] = $anrede;
+                $currentUser['vorname'] = $vorname;
+                $currentUser['nachname'] = $nachname;
+                $currentUser['email'] = $email;
+                $currentUser['strasse'] = $strasse;
+                $currentUser['plz'] = $plz;
+                $currentUser['ort'] = $ort;
+                $currentUser['pid'] = $pid;
+            }
+        }
+        $ergebnis->close();
+        $db->close();
+        return $currentUser;
     }
 
     /**
@@ -574,8 +592,7 @@ class DB {
      */
     public function getZahlungsarten($pid) {
         $db = $this->connect2DB();
-        if ($ergebnis = $db->prepare("SELECT zahlungsart FROM zahlungsinfo join zahlungsinfo_person using(zid) where pid = ?;
-")) {
+        if ($ergebnis = $db->prepare("SELECT zahlungsart FROM zahlungsinfo join zahlungsinfo_person using(zid) where pid = ?;")) {
             $ergebnis->bind_param("i", $pid);
             if ($ergebnis->execute()) {
                 $ergebnis->bind_result($zahlungsart);
@@ -620,11 +637,9 @@ class DB {
 
     public function setUserStatus($act, $pid) {
         if ($act == 1) {
-            $query = "update person set activ = 1 where pid = ?;
-";
+            $query = "update person set activ = 1 where pid = ?;";
         } elseif ($act == 2) {
-            $query = "update person set activ = 0 where pid = ?;
-";
+            $query = "update person set activ = 0 where pid = ?;";
         } else {
             return false;
         }
@@ -868,4 +883,42 @@ class DB {
             }
         }
     }
+
+    public function alterCore($anrede, $vorname, $nachname, $strasse, $plz, $ort, $email, $pid) {
+        $db = $this->connect2DB();
+        // 1. get aid to insert int adress
+        if ($ergebnis = $db->prepare("SELECT aid FROM person where pid = ?")) {
+            $ergebnis->bind_param("i", $pid);
+            $ergebnis->execute();
+            $ergebnis->bind_result($aid);
+            $ergebnis->fetch();
+            $ergebnis->close();
+        }
+        //update adress table
+        if ($ergebnis = $db->prepare("UPDATE adresse SET strasse = ?, plz = ?, ort = ? WHERE aid = ?;")) {
+            $ergebnis->bind_param("sisi", $strasse, $plz, $ort, $aid);
+            $ergebnis->execute();
+            $ergebnis->close();
+        }
+        //update person table
+        if ($ergebnis = $db->prepare("UPDATE person SET anrede = ?, vorname = ?, nachname = ?, email = ? WHERE pid = ?;")) {
+            $ergebnis->bind_param("ssssi", $anrede, $vorname, $nachname, $email, $pid);
+            $ergebnis->execute();
+            $ergebnis->close();
+        }
+        $db->close();
+        return true;
+    }
+
+    public function alterPassword($usrname, $password) {
+        $db = $this->connect2DB();
+        if ($ergebnis = $db->prepare("UPDATE user SET password = ? WHERE username = ? ;")) {
+            $ergebnis->bind_param("ss", $password, $usrname);
+            $ergebnis->execute();
+            $ergebnis->close();
+        }
+        $db->close();
+        return true;
+    }
+
 }
